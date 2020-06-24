@@ -1,0 +1,243 @@
+[
+  
+    {
+      "title"    : "P&amp;N Bank Information Breach",
+      "url"      : "/blog/p-and-n-bank-information-data-breach/"
+    } ,
+  
+    {
+      "title"    : "DNSAdmin to Domain Controller Compromise",
+      "url"      : "/blog/dnsadmin-to-domain-controller-compromise/"
+    } ,
+  
+    {
+      "title"    : "The Path To Becoming An Ethical Hacker",
+      "url"      : "/blog/the-path-to-becoming-an-ethical-hacker/"
+    } 
+  
+  ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+        "title"    : "Active Information Gathering",
+        "url"      : "/writeups/pentesting-cheatsheets/reconnaissance/active-information-gathering/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "AI",
+        "url"      : "/writeups/hackthebox/machines/ai/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Basic Setup",
+        "url"      : "/writeups/hackthebox/getting-started/basic-setup/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Bitlab",
+        "url"      : "/writeups/hackthebox/machines/bitlab/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Craft",
+        "url"      : "/writeups/hackthebox/machines/craft/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Forest",
+        "url"      : "/writeups/hackthebox/machines/forest/"
+     
+   } ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+        "title"    : "Introduction",
+        "url"      : "/writeups/pentesting-cheatsheets/getting-started/introduction/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Introduction",
+        "url"      : "/writeups/hackthebox/getting-started/introduction/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Json",
+        "url"      : "/writeups/hackthebox/machines/json/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Linux Privilege Escalation",
+        "url"      : "/writeups/pentesting-cheatsheets/privilege-escalation/linux/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Mango",
+        "url"      : "/writeups/hackthebox/machines/mango/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Nest",
+        "url"      : "/writeups/hackthebox/machines/nest/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Networked",
+        "url"      : "/writeups/hackthebox/machines/networked/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Obscurity",
+        "url"      : "/writeups/hackthebox/machines/obscurity/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "OpenAdmin",
+        "url"      : "/writeups/hackthebox/machines/openadmin/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Postman",
+        "url"      : "/writeups/hackthebox/machines/postman/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Resolute",
+        "url"      : "/writeups/hackthebox/machines/resolute/"
+     
+   } ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+        "title"    : "Scavenger",
+        "url"      : "/writeups/hackthebox/machines/scavenger/"
+     
+   } ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+        "title"    : "Tools",
+        "url"      : "/tools/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Traverxec",
+        "url"      : "/writeups/hackthebox/machines/traverxec/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "VPN Setup",
+        "url"      : "/writeups/hackthebox/getting-started/vpn-setup/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Web Shells",
+        "url"      : "/writeups/pentesting-cheatsheets/shells/web/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Windows Privilege Escalation",
+        "url"      : "/writeups/pentesting-cheatsheets/privilege-escalation/windows/"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Writeups",
+        "url"      : "/writeups/"
+     
+   } ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+   } ,
+  
+   {
+     
+        "title"    : "Blog",
+        "url"      : "/blog/"
+     
+   } 
+  
+]
